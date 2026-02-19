@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🌍 كنوز الحكمة الأفريقية — African Proverbs Collection</title>
-<meta name="description" content="مجموعة شاملة من الأمثال الشعبية الأفريقية من 54 دولة — حكمة القارة السمراء">
+<title>🌍 كنوز الحكمة الأفريقية — 54 دولة</title>
+<meta name="description" content="مجموعة شاملة من الأمثال الشعبية الأفريقية من 54 دولة — تحديث دوري أسبوعي">
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
 
@@ -18,9 +18,6 @@
     --accent: #ff8c00;
     --accent2: #ffa500;
     --gold: #ffd700;
-    --africa-green: #2a7f3e;
-    --africa-red: #d32f2f;
-    --africa-yellow: #ffc107;
     --shadow: 0 4px 24px rgba(0,0,0,.5);
     --radius: 16px;
   }
@@ -34,7 +31,6 @@
     min-height: 100vh;
   }
 
-  /* النمط الأفريقي في الخلفية */
   body::before {
     content: '';
     position: fixed;
@@ -54,21 +50,11 @@
     z-index: 1;
   }
 
-  /* ═══════════════ الترويسة ═══════════════ */
+  /* الترويسة */
   .hero {
     text-align: center;
     padding: 60px 20px 40px;
     position: relative;
-  }
-  .hero::before {
-    content: '◆◆◆';
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 2em;
-    color: var(--accent);
-    opacity: .3;
   }
   .hero-icon {
     font-size: 4em;
@@ -95,22 +81,19 @@
     margin-bottom: 12px;
     font-weight: 500;
   }
-  .hero .tagline {
-    font-size: 1em;
-    color: var(--text3);
-    font-style: italic;
-    max-width: 700px;
-    margin: 0 auto;
-  }
-  .african-pattern {
-    margin: 24px auto;
-    text-align: center;
-    font-size: 1.5em;
-    color: var(--accent);
-    letter-spacing: 8px;
+  .update-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(255,140,0,.2);
+    border: 2px solid var(--accent);
+    border-radius: 50px;
+    font-size: .9em;
+    font-weight: 700;
+    color: var(--gold);
+    margin-top: 12px;
   }
 
-  /* ═══════════════ الإحصائيات ═══════════════ */
+  /* الإحصائيات */
   .stats-bar {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -129,27 +112,12 @@
   .stat-card:hover {
     transform: translateY(-4px);
     border-color: var(--accent);
-    box-shadow: 0 8px 32px rgba(255,140,0,.3);
   }
-  .stat-icon {
-    font-size: 2.5em;
-    margin-bottom: 8px;
-    display: block;
-  }
-  .stat-value {
-    font-size: 2.2em;
-    font-weight: 900;
-    color: var(--gold);
-    display: block;
-    margin-bottom: 4px;
-  }
-  .stat-label {
-    font-size: .9em;
-    color: var(--text3);
-    font-weight: 600;
-  }
+  .stat-icon { font-size: 2.5em; margin-bottom: 8px; display: block; }
+  .stat-value { font-size: 2.2em; font-weight: 900; color: var(--gold); display: block; margin-bottom: 4px; }
+  .stat-label { font-size: .9em; color: var(--text3); font-weight: 600; }
 
-  /* ═══════════════ الفلاتر ═══════════════ */
+  /* الفلاتر */
   .filters {
     background: var(--card);
     border-radius: var(--radius);
@@ -192,21 +160,15 @@
   }
   .search-box:focus, .select-box:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 0 4px rgba(255,140,0,.15);
-  }
-  .search-box::placeholder {
-    color: var(--text3);
   }
 
-  /* ═══════════════ شبكة الأمثال ═══════════════ */
+  /* بطاقة المثل */
   .proverbs-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
     gap: 24px;
     margin-bottom: 60px;
   }
-
-  /* ═══════════════ بطاقة المثل ═══════════════ */
   .proverb-card {
     background: var(--card);
     border-radius: var(--radius);
@@ -229,18 +191,14 @@
   .proverb-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 12px 40px rgba(255,140,0,.4);
-    border-left-color: var(--gold);
   }
-
   .proverb-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
   }
-  .country-flag {
-    font-size: 2em;
-  }
+  .country-flag { font-size: 2em; }
   .language-badge {
     padding: 6px 14px;
     background: rgba(255,140,0,.2);
@@ -250,7 +208,6 @@
     color: var(--gold);
     font-weight: 700;
   }
-
   .proverb-original {
     font-size: 1.3em;
     font-weight: 700;
@@ -273,7 +230,6 @@
     margin-bottom: 16px;
     font-style: italic;
   }
-
   .proverb-meaning {
     padding-top: 16px;
     border-top: 1px solid rgba(255,140,0,.2);
@@ -281,11 +237,6 @@
     color: var(--text2);
     line-height: 1.7;
   }
-  .proverb-meaning strong {
-    color: var(--accent2);
-    font-weight: 700;
-  }
-
   .proverb-meta {
     display: flex;
     flex-wrap: wrap;
@@ -302,22 +253,6 @@
     font-weight: 600;
   }
 
-  /* ═══════════════ عدم وجود نتائج ═══════════════ */
-  .no-results {
-    text-align: center;
-    padding: 80px 20px;
-    color: var(--text3);
-  }
-  .no-results .icon {
-    font-size: 5em;
-    margin-bottom: 20px;
-    display: block;
-  }
-  .no-results p {
-    font-size: 1.2em;
-  }
-
-  /* ═══════════════ Footer ═══════════════ */
   footer {
     background: var(--card);
     color: var(--text2);
@@ -326,59 +261,26 @@
     margin-top: 60px;
     border-top: 3px solid var(--accent);
   }
-  footer h3 {
-    font-size: 1.5em;
-    margin-bottom: 12px;
-    font-weight: 800;
-    color: var(--gold);
-  }
-  footer p {
-    font-size: .95em;
-    margin-bottom: 8px;
-    line-height: 1.8;
-  }
-  .contribute-btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 12px 32px;
-    background: var(--accent);
-    color: white;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 700;
-    transition: all .3s;
-    box-shadow: 0 4px 16px rgba(255,140,0,.3);
-  }
-  .contribute-btn:hover {
-    background: var(--accent2);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(255,140,0,.5);
-  }
+  footer h3 { font-size: 1.5em; margin-bottom: 12px; font-weight: 800; color: var(--gold); }
 
   @media (max-width: 768px) {
     .hero h1 { font-size: 2em; }
     .proverbs-grid { grid-template-columns: 1fr; }
-    .stats-bar { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
 </head>
 <body>
 
 <div class="container">
-
-  <!-- ═══════════════ الترويسة ═══════════════ -->
   <div class="hero">
     <span class="hero-icon">🌍</span>
     <h1>كنوز الحكمة الأفريقية</h1>
-    <p class="subtitle">African Proverbs Collection</p>
-    <p class="tagline">
-      "إذا أردت أن تذهب بسرعة، اذهب وحدك. إذا أردت أن تذهب بعيدًا، اذهب مع الآخرين"
-      <br>— مثل أفريقي
-    </p>
-    <div class="african-pattern">◆ ◇ ◆ ◇ ◆</div>
+    <p class="subtitle">African Proverbs Collection — 54 Countries</p>
+    <div class="update-badge">
+      ⏰ آخر تحديث: <span id="lastUpdate">-</span>
+    </div>
   </div>
 
-  <!-- ═══════════════ الإحصائيات ═══════════════ -->
   <div class="stats-bar">
     <div class="stat-card">
       <span class="stat-icon">📚</span>
@@ -387,7 +289,7 @@
     </div>
     <div class="stat-card">
       <span class="stat-icon">🌍</span>
-      <span class="stat-value" id="totalCountries">-</span>
+      <span class="stat-value" id="totalCountries">54</span>
       <span class="stat-label">دولة أفريقية</span>
     </div>
     <div class="stat-card">
@@ -396,503 +298,54 @@
       <span class="stat-label">لغة</span>
     </div>
     <div class="stat-card">
-      <span class="stat-icon">🏛️</span>
-      <span class="stat-value" id="totalRegions">5</span>
-      <span class="stat-label">أقاليم</span>
+      <span class="stat-icon">🔄</span>
+      <span class="stat-value">أسبوعي</span>
+      <span class="stat-label">تحديث دوري</span>
     </div>
   </div>
 
-  <!-- ═══════════════ الفلاتر ═══════════════ -->
   <div class="filters">
     <div class="filters-title">🔍 استكشف الحكمة الأفريقية</div>
-    
     <div class="filter-row">
       <span class="filter-label">🔎 البحث:</span>
-      <input 
-        type="text" 
-        class="search-box" 
-        id="searchInput"
-        placeholder="ابحث في الأمثال..." 
-        oninput="filterProverbs()"
-      >
+      <input type="text" class="search-box" id="searchInput" placeholder="ابحث..." oninput="filterProverbs()">
     </div>
-
     <div class="filter-row">
       <span class="filter-label">🌍 الدولة:</span>
       <select class="select-box" id="countrySelect" onchange="filterProverbs()">
-        <option value="">كل الدول (54)</option>
+        <option value="">الكل (54)</option>
       </select>
-
       <span class="filter-label">🗣️ اللغة:</span>
       <select class="select-box" id="languageSelect" onchange="filterProverbs()">
-        <option value="">كل اللغات</option>
-      </select>
-
-      <span class="filter-label">📂 الموضوع:</span>
-      <select class="select-box" id="topicSelect" onchange="filterProverbs()">
-        <option value="">كل المواضيع</option>
-        <option value="الحكمة">الحكمة</option>
-        <option value="التعاون">التعاون</option>
-        <option value="الصبر">الصبر</option>
-        <option value="العائلة">العائلة</option>
-        <option value="الطبيعة">الطبيعة</option>
-        <option value="القيادة">القيادة</option>
-        <option value="الشجاعة">الشجاعة</option>
-        <option value="العدالة">العدالة</option>
+        <option value="">الكل</option>
       </select>
     </div>
   </div>
 
-  <!-- ═══════════════ شبكة الأمثال ═══════════════ -->
-  <div class="proverbs-grid" id="proverbsGrid">
-    <!-- سيتم ملؤها بـ JavaScript -->
-  </div>
-
+  <div class="proverbs-grid" id="proverbsGrid"></div>
 </div>
 
-<!-- ═══════════════ Footer ═══════════════ -->
 <footer>
   <h3>🌍 كنوز الحكمة الأفريقية</h3>
-  <p>مشروع مفتوح المصدر لجمع وحفظ الأمثال الشعبية الأفريقية</p>
-  <p>من 54 دولة أفريقية — بآلاف اللغات والثقافات</p>
+  <p>تحديث دوري أسبوعي — مشروع مفتوح المصدر</p>
   <p style="font-size:.85em;margin-top:16px;opacity:.7">
-    "الحكمة تشبه شجرة الباوباب — لا يستطيع شخص واحد أن يحيط بها" — مثل أكان
-  </p>
-  <a href="#contribute" class="contribute-btn" onclick="showContribute()">
-    ➕ أضف مثلاً شعبياً
-  </a>
-  <p style="font-size:.8em;margin-top:24px;opacity:.6">
     © 2025-2026 — African Proverbs Collection
   </p>
 </footer>
 
+<script src="proverbs-data.js"></script>
 <script>
-// ═══════════════════════════════════════════════════════════════
-//  قاعدة البيانات: الأمثال الأفريقية
-// ═══════════════════════════════════════════════════════════════
-
-const PROVERBS = [
-  // ═══ غرب أفريقيا ═══
-  {
-    id: 1,
-    country: 'غانا',
-    country_en: 'Ghana',
-    flag: '🇬🇭',
-    region: 'غرب أفريقيا',
-    language: 'Akan (أكان)',
-    original: 'Woforo dua pa a, na yepia wo.',
-    arabic: 'عندما تتسلق شجرة جيدة، نساعدك على الصعود',
-    english: 'When you climb a good tree, we push you up',
-    meaning: 'يُشجع المجتمع الأفارقة على دعم من يسعى لأهداف نبيلة. الجهود الإيجابية تستحق المساندة الجماعية.',
-    topics: ['التعاون', 'المجتمع', 'الطموح']
-  },
-  {
-    id: 2,
-    country: 'نيجيريا',
-    country_en: 'Nigeria',
-    flag: '🇳🇬',
-    region: 'غرب أفريقيا',
-    language: 'Yoruba (يوروبا)',
-    original: 'Ìwà l\'ẹwà.',
-    arabic: 'الشخصية هي الجمال',
-    english: 'Character is beauty',
-    meaning: 'الجمال الحقيقي يكمن في الأخلاق الحسنة والسلوك النبيل، وليس في المظهر الخارجي فقط.',
-    topics: ['الحكمة', 'الأخلاق', 'الجمال']
-  },
-  {
-    id: 3,
-    country: 'السنغال',
-    country_en: 'Senegal',
-    flag: '🇸🇳',
-    region: 'غرب أفريقيا',
-    language: 'Wolof (ولوف)',
-    original: 'Nit, nit ay garabam.',
-    arabic: 'الإنسان علاج للإنسان',
-    english: 'A person is the remedy of another person',
-    meaning: 'نحتاج بعضنا البعض. المساعدة المتبادلة والتضامن الاجتماعي أساس الحياة الكريمة.',
-    topics: ['التعاون', 'التضامن', 'الإنسانية']
-  },
-  {
-    id: 4,
-    country: 'مالي',
-    country_en: 'Mali',
-    flag: '🇲🇱',
-    region: 'غرب أفريقيا',
-    language: 'Bambara (بامبارا)',
-    original: 'Muso man fisa, a ka so fisa.',
-    arabic: 'المرأة ليست أقل، بل منزلها أعلى',
-    english: 'A woman is not less, her house is higher',
-    meaning: 'احترام المرأة ودورها المحوري في المجتمع. مكانتها رفيعة وتأثيرها عميق.',
-    topics: ['المرأة', 'الاحترام', 'المساواة']
-  },
-
-  // ═══ شرق أفريقيا ═══
-  {
-    id: 5,
-    country: 'كينيا',
-    country_en: 'Kenya',
-    flag: '🇰🇪',
-    region: 'شرق أفريقيا',
-    language: 'Swahili (سواحيلي)',
-    original: 'Haraka haraka haina baraka.',
-    arabic: 'الاستعجال الاستعجال لا بركة فيه',
-    english: 'Hurry hurry has no blessing',
-    meaning: 'التسرع والعجلة تؤديان إلى نتائج سيئة. التأني والصبر يجلبان البركة والنجاح.',
-    topics: ['الصبر', 'الحكمة', 'التأني']
-  },
-  {
-    id: 6,
-    country: 'تنزانيا',
-    country_en: 'Tanzania',
-    flag: '🇹🇿',
-    region: 'شرق أفريقيا',
-    language: 'Swahili (سواحيلي)',
-    original: 'Umoja ni nguvu, utengano ni udhaifu.',
-    arabic: 'الاتحاد قوة، والتفرق ضعف',
-    english: 'Unity is strength, division is weakness',
-    meaning: 'القوة في التماسك والوحدة. الانقسامات تُضعف المجتمع والأمة.',
-    topics: ['الوحدة', 'القوة', 'التعاون']
-  },
-  {
-    id: 7,
-    country: 'إثيوبيا',
-    country_en: 'Ethiopia',
-    flag: '🇪🇹',
-    region: 'شرق أفريقيا (القرن الأفريقي)',
-    language: 'Amharic (أمهرية)',
-    original: 'የሌላውን ጉድ ሲያዩ የራሳቸውን ይድሰሳል',
-    arabic: 'عندما ترى أخطاء الآخرين، تنسى أخطاءك',
-    english: 'When you see others\' faults, you forget your own',
-    meaning: 'نقد الآخرين سهل، لكن التأمل الذاتي ومعالجة عيوبنا أصعب وأهم.',
-    topics: ['التواضع', 'النقد الذاتي', 'الحكمة']
-  },
-  {
-    id: 8,
-    country: 'أوغندا',
-    country_en: 'Uganda',
-    flag: '🇺🇬',
-    region: 'شرق أفريقيا',
-    language: 'Luganda (لوغندا)',
-    original: 'Omwana takulila nju emoi.',
-    arabic: 'الطفل لا يبكي في بيت واحد فقط',
-    english: 'A child does not cry in one house only',
-    meaning: 'تربية الطفل مسؤولية جماعية. القرية كلها تشارك في تنشئة الأطفال.',
-    topics: ['التربية', 'المجتمع', 'العائلة']
-  },
-
-  // ═══ جنوب أفريقيا ═══
-  {
-    id: 9,
-    country: 'جنوب أفريقيا',
-    country_en: 'South Africa',
-    flag: '🇿🇦',
-    region: 'جنوب أفريقيا',
-    language: 'Zulu (زولو)',
-    original: 'Umuntu ngumuntu ngabantu.',
-    arabic: 'الشخص إنسان بالآخرين',
-    english: 'A person is a person through other people',
-    meaning: 'فلسفة أوبونتو Ubuntu: إنسانيتنا مرتبطة بإنسانية الآخرين. نحن موجودون لأن الآخرين موجودون.',
-    topics: ['الإنسانية', 'التضامن', 'Ubuntu']
-  },
-  {
-    id: 10,
-    country: 'زيمبابوي',
-    country_en: 'Zimbabwe',
-    flag: '🇿🇼',
-    region: 'جنوب أفريقيا',
-    language: 'Shona (شونا)',
-    original: 'Chakafukidza dzimba matenga.',
-    arabic: 'ما يغطي البيوت هو السقف',
-    english: 'What covers houses is the roof',
-    meaning: 'الأشياء الواضحة أحيانًا تُنسى. لا تتجاهل الأساسيات والحقائق البديهية.',
-    topics: ['الحكمة', 'البساطة', 'الوضوح']
-  },
-  {
-    id: 11,
-    country: 'بوتسوانا',
-    country_en: 'Botswana',
-    flag: '🇧🇼',
-    region: 'جنوب أفريقيا',
-    language: 'Setswana (تسوانا)',
-    original: 'Mabogo dinku a thebana.',
-    arabic: 'أيدي الغنم تغسل بعضها',
-    english: 'The hands of sheep wash each other',
-    meaning: 'المساعدة المتبادلة ضرورية. نحتاج بعضنا البعض لنكون أنظف وأفضل.',
-    topics: ['التعاون', 'المساعدة', 'التكافل']
-  },
-
-  // ═══ شمال أفريقيا ═══
-  {
-    id: 12,
-    country: 'مصر',
-    country_en: 'Egypt',
-    flag: '🇪🇬',
-    region: 'شمال أفريقيا',
-    language: 'العربية المصرية',
-    original: 'اللي ما يعرفش يقول عدس',
-    arabic: 'من لا يعرف يقول عدس',
-    english: 'He who doesn\'t know says lentils',
-    meaning: 'الجاهل يتحدث بجهل. من لا يملك معرفة يُطلق أحكامًا سطحية.',
-    topics: ['الجهل', 'الحكمة', 'المعرفة']
-  },
-  {
-    id: 13,
-    country: 'المغرب',
-    country_en: 'Morocco',
-    flag: '🇲🇦',
-    region: 'شمال أفريقيا',
-    language: 'العربية المغربية/الأمازيغية',
-    original: 'اللي بغا العسل يصبر على قرص النحل',
-    arabic: 'من أراد العسل صبر على لسعات النحل',
-    english: 'Who wants honey must endure bee stings',
-    meaning: 'الأشياء الجميلة تتطلب تحمل الصعوبات والمشقة. لا نجاح بلا تضحية.',
-    topics: ['الصبر', 'التضحية', 'النجاح']
-  },
-  {
-    id: 14,
-    country: 'تونس',
-    country_en: 'Tunisia',
-    flag: '🇹🇳',
-    region: 'شمال أفريقيا',
-    language: 'العربية التونسية',
-    original: 'الحاسد ما ينفعش والمحسود ما يتضرش',
-    arabic: 'الحاسد لا ينتفع والمحسود لا يتضرر',
-    english: 'The envious gains nothing, the envied loses nothing',
-    meaning: 'الحسد لا يؤثر على المحسود ولا يفيد الحاسد. اترك الحسد واعمل لنفسك.',
-    topics: ['الحسد', 'الحكمة', 'السلام النفسي']
-  },
-  {
-    id: 15,
-    country: 'الجزائر',
-    country_en: 'Algeria',
-    flag: '🇩🇿',
-    region: 'شمال أفريقيا',
-    language: 'العربية الجزائرية/الأمازيغية',
-    original: 'الصبر مفتاح الفرج',
-    arabic: 'الصبر مفتاح الفرج',
-    english: 'Patience is the key to relief',
-    meaning: 'التحمل والصبر في المحن يؤديان إلى الفرج والحل. لا تيأس.',
-    topics: ['الصبر', 'الأمل', 'المثابرة']
-  },
-
-  // ═══ وسط أفريقيا ═══
-  {
-    id: 16,
-    country: 'الكونغو الديمقراطية',
-    country_en: 'DR Congo',
-    flag: '🇨🇩',
-    region: 'وسط أفريقيا',
-    language: 'Lingala (لينغالا)',
-    original: 'Libala ezali lokola elanga.',
-    arabic: 'الزواج مثل الحديقة',
-    english: 'Marriage is like a garden',
-    meaning: 'الزواج يحتاج رعاية مستمرة واهتمامًا كالحديقة. بلا عناية، يذبل.',
-    topics: ['الزواج', 'العلاقات', 'الرعاية']
-  },
-  {
-    id: 17,
-    country: 'الكاميرون',
-    country_en: 'Cameroon',
-    flag: '🇨🇲',
-    region: 'وسط أفريقيا',
-    language: 'Duala (دوالا)',
-    original: 'Mutu a kwa na mutu.',
-    arabic: 'الشخص يموت مع شخص',
-    english: 'A person dies with a person',
-    meaning: 'لا أحد يموت وحيدًا. أفعالنا وتأثيرنا يستمران في الآخرين.',
-    topics: ['الحياة', 'الموت', 'التأثير']
-  },
-
-  // ═══ أمثال إضافية متنوعة ═══
-  {
-    id: 18,
-    country: 'الصومال',
-    country_en: 'Somalia',
-    flag: '🇸🇴',
-    region: 'شرق أفريقيا (القرن الأفريقي)',
-    language: 'الصومالية',
-    original: 'Nin walba wuxuu u qurux badan yahay.',
-    arabic: 'كل شخص جميل بطريقته',
-    english: 'Every person is beautiful in their own way',
-    meaning: 'لكل إنسان جماله الفريد وقيمته الخاصة. احترم التنوع.',
-    topics: ['الجمال', 'التنوع', 'الاحترام']
-  },
-  {
-    id: 19,
-    country: 'رواندا',
-    country_en: 'Rwanda',
-    flag: '🇷🇼',
-    region: 'شرق أفريقيا',
-    language: 'Kinyarwanda (كينيارواندا)',
-    original: 'Agahinda kanini gashira umutwe.',
-    arabic: 'الحزن الصغير يحتل الرأس',
-    english: 'A small sorrow occupies the head',
-    meaning: 'حتى المشاكل الصغيرة يمكن أن تستهلك تفكيرنا إن لم نعالجها.',
-    topics: ['الحزن', 'التفكير', 'المشاكل']
-  },
-  {
-    id: 20,
-    country: 'موزمبيق',
-    country_en: 'Mozambique',
-    flag: '🇲🇿',
-    region: 'جنوب أفريقيا',
-    language: 'Portuguese/Makua (ماكوا)',
-    original: 'Muene ni wamwene.',
-    arabic: 'الشخص هو الشخص',
-    english: 'A person is a person',
-    meaning: 'الإنسانية المشتركة تتجاوز الاختلافات. كل إنسان يستحق الكرامة.',
-    topics: ['الإنسانية', 'المساواة', 'الكرامة']
-  },
-  {
-    id: 21,
-    country: 'مدغشقر',
-    country_en: 'Madagascar',
-    flag: '🇲🇬',
-    region: 'شرق أفريقيا (جزيرة)',
-    language: 'Malagasy (ملغاشية)',
-    original: 'Ny fitiavana tsy mba miankina amin\'ny tarehy.',
-    arabic: 'الحب لا يعتمد على المظهر',
-    english: 'Love does not depend on appearance',
-    meaning: 'الحب الحقيقي أعمق من الشكل الخارجي. الروح والشخصية هما الأساس.',
-    topics: ['الحب', 'الجمال', 'العمق']
-  },
-  {
-    id: 22,
-    country: 'السودان',
-    country_en: 'Sudan',
-    flag: '🇸🇩',
-    region: 'شمال أفريقيا/شرق أفريقيا',
-    language: 'العربية السودانية',
-    original: 'الصبر طيب',
-    arabic: 'الصبر طيب',
-    english: 'Patience is good',
-    meaning: 'الصبر فضيلة عظيمة تُكافأ دائمًا. لا تستعجل.',
-    topics: ['الصبر', 'الفضيلة', 'الحكمة']
-  },
-  {
-    id: 23,
-    country: 'ليبيا',
-    country_en: 'Libya',
-    flag: '🇱🇾',
-    region: 'شمال أفريقيا',
-    language: 'العربية الليبية',
-    original: 'اللي ما عندو قديم ما عندو جديد',
-    arabic: 'من ليس له قديم ليس له جديد',
-    english: 'Who has no old has no new',
-    meaning: 'احترام التراث والجذور ضروري لبناء المستقبل. التاريخ أساس الحاضر.',
-    topics: ['التراث', 'الجذور', 'الاحترام']
-  },
-  {
-    id: 24,
-    country: 'ناميبيا',
-    country_en: 'Namibia',
-    flag: '🇳🇦',
-    region: 'جنوب أفريقيا',
-    language: 'Oshiwambo (أوشيوامبو)',
-    original: 'Omulumentu okwa li omukuluntu ngoka wu uvite omunwe.',
-    arabic: 'الإنسان الكبير هو من يجمع الناس',
-    english: 'A great person is one who unites people',
-    meaning: 'القيادة الحقيقية في التوحيد لا التفريق. القائد الحكيم يجمع ولا يُشتّت.',
-    topics: ['القيادة', 'الوحدة', 'الحكمة']
-  },
-  {
-    id: 25,
-    country: 'أنغولا',
-    country_en: 'Angola',
-    flag: '🇦🇴',
-    region: 'جنوب أفريقيا',
-    language: 'Umbundu (أومبوندو)',
-    original: 'Oma li ocinhu.',
-    arabic: 'العين شاهد',
-    english: 'The eye is a witness',
-    meaning: 'ما تراه بعينك أصدق من ما تسمعه. الخبرة المباشرة أقوى من الإشاعات.',
-    topics: ['الحقيقة', 'الشهادة', 'الخبرة']
-  },
-  {
-    id: 26,
-    country: 'غينيا',
-    country_en: 'Guinea',
-    flag: '🇬🇳',
-    region: 'غرب أفريقيا',
-    language: 'Susu (سوسو)',
-    original: 'A ma fee ma, a bara fee ma.',
-    arabic: 'إذا لم تزرع، لن تحصد',
-    english: 'If you don\'t plant, you won\'t harvest',
-    meaning: 'العمل الجاد والتخطيط ضروريان للنجاح. لا نتائج بلا جهد.',
-    topics: ['العمل', 'الجهد', 'النجاح']
-  },
-  {
-    id: 27,
-    country: 'ساحل العاج',
-    country_en: 'Ivory Coast',
-    flag: '🇨🇮',
-    region: 'غرب أفريقيا',
-    language: 'Baoulé (باولي)',
-    original: 'Bla bé bi ti yué.',
-    arabic: 'الكلام الكثير لا يطبخ الأرز',
-    english: 'Much talk doesn\'t cook rice',
-    meaning: 'الأفعال أهم من الأقوال. الكلام الكثير بلا عمل لا قيمة له.',
-    topics: ['العمل', 'الأفعال', 'الجدية']
-  },
-  {
-    id: 28,
-    country: 'بوركينا فاسو',
-    country_en: 'Burkina Faso',
-    flag: '🇧🇫',
-    region: 'غرب أفريقيا',
-    language: 'Mooré (موري)',
-    original: 'Ned yaa buiid kãnga.',
-    arabic: 'الحكمة لا تُشترى في السوق',
-    english: 'Wisdom is not bought in the market',
-    meaning: 'الحكمة تُكتسب بالخبرة والتجربة، وليس بالمال أو الشراء.',
-    topics: ['الحكمة', 'الخبرة', 'التعلم']
-  },
-  {
-    id: 29,
-    country: 'توغو',
-    country_en: 'Togo',
-    flag: '🇹🇬',
-    region: 'غرب أفريقيا',
-    language: 'Ewe (إيوي)',
-    original: 'Womeɖea ame ƒe ta me kple asi o.',
-    arabic: 'لا يُفتح رأس الإنسان باليد',
-    english: 'One does not open a person\'s head with the hand',
-    meaning: 'لا يمكنك فرض معرفتك على الآخرين بالقوة. التعليم يحتاج حكمة وصبر.',
-    topics: ['التعليم', 'الحكمة', 'الاحترام']
-  },
-  {
-    id: 30,
-    country: 'بنين',
-    country_en: 'Benin',
-    flag: '🇧🇯',
-    region: 'غرب أفريقيا',
-    language: 'Fon (فون)',
-    original: 'Gbè ɖò tò mɛ.',
-    arabic: 'الحياة في الفم',
-    english: 'Life is in the mouth',
-    meaning: 'كلماتنا قوية — يمكنها أن تُحيي أو تُميت. اختر كلماتك بحكمة.',
-    topics: ['الكلام', 'القوة', 'الحكمة']
-  }
-];
-
-// ═══════════════════════════════════════════════════
-//  دوال التطبيق
-// ═══════════════════════════════════════════════════
-
-let filteredProverbs = [...PROVERBS];
+let filteredProverbs = [];
 
 function updateStats() {
   document.getElementById('totalProverbs').textContent = PROVERBS.length;
-  
-  const uniqueCountries = new Set(PROVERBS.map(p => p.country));
-  document.getElementById('totalCountries').textContent = uniqueCountries.size;
-  
-  const uniqueLanguages = new Set(PROVERBS.map(p => p.language));
-  document.getElementById('totalLanguages').textContent = uniqueLanguages.size;
+  document.getElementById('totalLanguages').textContent = 
+    new Set(PROVERBS.map(p => p.language)).size;
+  document.getElementById('lastUpdate').textContent = 
+    new Date().toLocaleDateString('ar-EG', { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
 function populateFilters() {
-  // Countries
   const countries = [...new Set(PROVERBS.map(p => p.country))].sort();
   const countrySelect = document.getElementById('countrySelect');
   countries.forEach(c => {
@@ -902,7 +355,6 @@ function populateFilters() {
     countrySelect.appendChild(option);
   });
   
-  // Languages
   const languages = [...new Set(PROVERBS.map(p => p.language))].sort();
   const languageSelect = document.getElementById('languageSelect');
   languages.forEach(l => {
@@ -917,20 +369,15 @@ function filterProverbs() {
   const search = document.getElementById('searchInput').value.toLowerCase();
   const country = document.getElementById('countrySelect').value;
   const language = document.getElementById('languageSelect').value;
-  const topic = document.getElementById('topicSelect').value;
   
   filteredProverbs = PROVERBS.filter(p => {
     const matchSearch = !search || 
       p.arabic.toLowerCase().includes(search) ||
       p.english.toLowerCase().includes(search) ||
-      p.original.toLowerCase().includes(search) ||
-      p.meaning.toLowerCase().includes(search);
-    
+      p.original.toLowerCase().includes(search);
     const matchCountry = !country || p.country === country;
     const matchLanguage = !language || p.language === language;
-    const matchTopic = !topic || p.topics.includes(topic);
-    
-    return matchSearch && matchCountry && matchLanguage && matchTopic;
+    return matchSearch && matchCountry && matchLanguage;
   });
   
   renderProverbs();
@@ -938,77 +385,29 @@ function filterProverbs() {
 
 function renderProverbs() {
   const grid = document.getElementById('proverbsGrid');
-  
-  if (filteredProverbs.length === 0) {
-    grid.innerHTML = `
-      <div class="no-results">
-        <span class="icon">🔍</span>
-        <p>لم يتم العثور على أمثال مطابقة</p>
-        <p style="font-size:.9em;margin-top:12px;opacity:.7">جرّب تغيير الفلاتر</p>
-      </div>
-    `;
-    return;
-  }
-  
   grid.innerHTML = filteredProverbs.map(p => `
     <div class="proverb-card">
       <div class="proverb-header">
         <span class="country-flag">${p.flag}</span>
         <span class="language-badge">${p.language}</span>
       </div>
-      
-      <div class="proverb-original">${escapeHtml(p.original)}</div>
-      <div class="proverb-translation">${escapeHtml(p.arabic)}</div>
-      <div class="proverb-english">${escapeHtml(p.english)}</div>
-      
-      <div class="proverb-meaning">
-        <strong>المعنى:</strong> ${escapeHtml(p.meaning)}
-      </div>
-      
+      <div class="proverb-original">${p.original}</div>
+      <div class="proverb-translation">${p.arabic}</div>
+      <div class="proverb-english">${p.english}</div>
+      <div class="proverb-meaning"><strong>المعنى:</strong> ${p.meaning}</div>
       <div class="proverb-meta">
-        <span class="meta-tag">📍 ${escapeHtml(p.country)}</span>
-        <span class="meta-tag">🌍 ${escapeHtml(p.region)}</span>
-        ${p.topics.map(t => `<span class="meta-tag">🏷️ ${escapeHtml(t)}</span>`).join('')}
+        <span class="meta-tag">📍 ${p.country}</span>
+        <span class="meta-tag">🌍 ${p.region}</span>
       </div>
     </div>
   `).join('');
 }
 
-function escapeHtml(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
-}
-
-function showContribute() {
-  alert(`➕ شارك معنا في إثراء المجموعة!
-
-للمساهمة بمثل شعبي أفريقي:
-
-1️⃣ افتح Issue في المستودع على GitHub
-2️⃣ أو راسلنا عبر البريد: proverbs@example.com
-
-المعلومات المطلوبة:
-• المثل بلغته الأصلية
-• الترجمة العربية
-• الترجمة الإنجليزية
-• الدولة واللغة
-• شرح المعنى
-• الموضوع/الموضوعات
-
-شكرًا لمساهمتك في حفظ التراث الأفريقي! 🙏`);
-}
-
-// ═══════════════════════════════════════════════════
-//  التهيئة
-// ═══════════════════════════════════════════════════
 (function init() {
   updateStats();
   populateFilters();
+  filteredProverbs = [...PROVERBS];
   renderProverbs();
-  
-  console.log('🌍 African Proverbs Collection — Loaded');
-  console.log(`📚 Total: ${PROVERBS.length} proverbs`);
 })();
 </script>
 
