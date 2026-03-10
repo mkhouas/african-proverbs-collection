@@ -1,2 +1,1 @@
-# african-proverbs-collection
-Collection of African Proverbs &amp; Folk Wisdom
+# TUR-IRA-ISR-Books
