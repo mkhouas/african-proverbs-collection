@@ -1,2063 +1,1004 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مرصد الكتب الجديدة | الشؤون الأفريقية والعربية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        :root {
-            --primary: #1a1a2e;
-            --secondary: #16213e;
-            --accent: #e94560;
-            --accent2: #0f3460;
-            --gold: #f5a623;
-            --green: #00b894;
-            --light: #f8f9fa;
-            --dark: #0a0a1a;
-            --card-bg: #ffffff;
-            --text-primary: #2d3436;
-            --text-secondary: #636e72;
-            --gradient1: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            --gradient2: linear-gradient(135deg, #e94560 0%, #f5a623 100%);
-            --shadow: 0 10px 40px rgba(0,0,0,0.1);
-            --shadow-hover: 0 20px 60px rgba(0,0,0,0.15);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Tajawal', 'Inter', sans-serif;
-            background: var(--light);
-            color: var(--text-primary);
-            overflow-x: hidden;
-        }
-
-        /* ===== HEADER ===== */
-        .header {
-            background: var(--gradient1);
-            padding: 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
-        }
-
-        .header-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 40px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient2);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-        }
-
-        .logo-text h1 {
-            color: white;
-            font-size: 22px;
-            font-weight: 800;
-        }
-
-        .logo-text p {
-            color: rgba(255,255,255,0.6);
-            font-size: 12px;
-        }
-
-        .header-stats {
-            display: flex;
-            gap: 30px;
-        }
-
-        .stat-item {
-            text-align: center;
-            color: white;
-        }
-
-        .stat-item .number {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--gold);
-        }
-
-        .stat-item .label {
-            font-size: 11px;
-            color: rgba(255,255,255,0.6);
-        }
-
-        .live-badge {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(233, 69, 96, 0.2);
-            border: 1px solid var(--accent);
-            padding: 8px 16px;
-            border-radius: 30px;
-            color: var(--accent);
-            font-size: 13px;
-            font-weight: 600;
-            animation: pulse-badge 2s infinite;
-        }
-
-        .live-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: pulse-dot 1.5s infinite;
-        }
-
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
-        }
-
-        @keyframes pulse-badge {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(233, 69, 96, 0.3); }
-            50% { box-shadow: 0 0 0 8px rgba(233, 69, 96, 0); }
-        }
-
-        /* ===== NAVIGATION / FILTERS ===== */
-        .nav-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 40px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .filter-group {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 8px 18px;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(255,255,255,0.05);
-            color: rgba(255,255,255,0.8);
-            border-radius: 25px;
-            cursor: pointer;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 13px;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: white;
-        }
-
-        .search-box {
-            display: flex;
-            align-items: center;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 25px;
-            padding: 6px 16px;
-            width: 300px;
-        }
-
-        .search-box input {
-            background: none;
-            border: none;
-            color: white;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 14px;
-            width: 100%;
-            outline: none;
-            padding: 4px 8px;
-        }
-
-        .search-box input::placeholder {
-            color: rgba(255,255,255,0.4);
-        }
-
-        .search-box i {
-            color: rgba(255,255,255,0.4);
-        }
-
-        /* ===== TICKER ===== */
-        .ticker-bar {
-            background: var(--dark);
-            padding: 10px 0;
-            overflow: hidden;
-            border-bottom: 2px solid var(--accent);
-        }
-
-        .ticker-content {
-            display: flex;
-            gap: 60px;
-            animation: ticker 40s linear infinite;
-            white-space: nowrap;
-        }
-
-        .ticker-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: rgba(255,255,255,0.7);
-            font-size: 13px;
-        }
-
-        .ticker-item .tag {
-            background: var(--accent);
-            padding: 2px 10px;
-            border-radius: 10px;
-            color: white;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        @keyframes ticker {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* ===== SOURCES BANNER ===== */
-        .sources-banner {
-            background: white;
-            padding: 20px 40px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .sources-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .sources-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .source-chip {
-            padding: 4px 12px;
-            background: #f1f2f6;
-            border-radius: 15px;
-            font-size: 11px;
-            color: var(--text-secondary);
-            font-weight: 500;
-            transition: all 0.3s;
-            cursor: default;
-        }
-
-        .source-chip:hover {
-            background: var(--accent2);
-            color: white;
-        }
-
-        /* ===== MAIN CONTENT ===== */
-        .main-content {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 30px 40px;
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title .count {
-            background: var(--accent);
-            color: white;
-            padding: 2px 12px;
-            border-radius: 15px;
-            font-size: 13px;
-        }
-
-        .view-toggle {
-            display: flex;
-            gap: 5px;
-        }
-
-        .view-btn {
-            width: 36px;
-            height: 36px;
-            border: 1px solid #ddd;
-            background: white;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            transition: all 0.3s;
-        }
-
-        .view-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        /* ===== BOOK CARDS GRID ===== */
-        .books-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 25px;
-        }
-
-        .book-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-        }
-
-        .book-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .book-card-inner {
-            display: flex;
-            padding: 20px;
-            gap: 18px;
-        }
-
-        .book-cover-wrapper {
-            position: relative;
-            flex-shrink: 0;
-        }
-
-        .book-cover {
-            width: 120px;
-            height: 175px;
-            border-radius: 10px;
-            object-fit: cover;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-            transition: transform 0.3s;
-        }
-
-        .book-card:hover .book-cover {
-            transform: scale(1.03);
-        }
-
-        .book-cover-placeholder {
-            width: 120px;
-            height: 175px;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 11px;
-            font-weight: 700;
-            text-align: center;
-            padding: 10px;
-            line-height: 1.4;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .book-cover-placeholder::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .cover-1 { background: linear-gradient(135deg, #2c3e50, #3498db); }
-        .cover-2 { background: linear-gradient(135deg, #8e44ad, #3498db); }
-        .cover-3 { background: linear-gradient(135deg, #e74c3c, #f39c12); }
-        .cover-4 { background: linear-gradient(135deg, #1abc9c, #2c3e50); }
-        .cover-5 { background: linear-gradient(135deg, #e67e22, #e74c3c); }
-        .cover-6 { background: linear-gradient(135deg, #2980b9, #6c3483); }
-        .cover-7 { background: linear-gradient(135deg, #16a085, #f39c12); }
-        .cover-8 { background: linear-gradient(135deg, #c0392b, #8e44ad); }
-        .cover-9 { background: linear-gradient(135deg, #2c3e50, #27ae60); }
-        .cover-10 { background: linear-gradient(135deg, #d35400, #2c3e50); }
-        .cover-11 { background: linear-gradient(135deg, #1a5276, #f5b041); }
-        .cover-12 { background: linear-gradient(135deg, #7d3c98, #2ecc71); }
-
-        .lang-badge {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            padding: 2px 8px;
-            border-radius: 8px;
-            font-size: 10px;
-            font-weight: 700;
-            color: white;
-            z-index: 2;
-        }
-
-        .lang-en { background: #3498db; }
-        .lang-fr { background: #e74c3c; }
-        .lang-ar { background: #27ae60; }
-
-        .new-badge {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            background: var(--accent);
-            color: white;
-            padding: 2px 8px;
-            border-radius: 8px;
-            font-size: 10px;
-            font-weight: 700;
-            z-index: 2;
-        }
-
-        .book-info {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .book-category {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 5px;
-        }
-
-        .book-title {
-            font-size: 15px;
-            font-weight: 800;
-            color: var(--primary);
-            line-height: 1.4;
-            margin-bottom: 6px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .book-author {
-            font-size: 13px;
-            color: var(--text-secondary);
-            margin-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .book-author i {
-            font-size: 11px;
-            color: var(--accent2);
-        }
-
-        .book-publisher {
-            font-size: 12px;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            margin-bottom: 8px;
-        }
-
-        .book-publisher i {
-            font-size: 11px;
-            color: var(--gold);
-        }
-
-        .book-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 11px;
-            color: var(--text-secondary);
-            background: #f8f9fa;
-            padding: 3px 8px;
-            border-radius: 8px;
-        }
-
-        .meta-item i {
-            font-size: 10px;
-        }
-
-        .book-rating {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-
-        .stars {
-            display: flex;
-            gap: 2px;
-        }
-
-        .stars i {
-            font-size: 12px;
-            color: var(--gold);
-        }
-
-        .stars i.empty {
-            color: #ddd;
-        }
-
-        .rating-source {
-            font-size: 10px;
-            color: var(--text-secondary);
-            background: #f0f0f0;
-            padding: 2px 6px;
-            border-radius: 6px;
-        }
-
-        .book-footer {
-            padding: 12px 20px;
-            background: #f8f9fa;
-            border-top: 1px solid #eee;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .book-tags {
-            display: flex;
-            gap: 5px;
-            flex-wrap: wrap;
-        }
-
-        .book-tag {
-            padding: 2px 8px;
-            background: rgba(15, 52, 96, 0.08);
-            color: var(--accent2);
-            border-radius: 8px;
-            font-size: 10px;
-            font-weight: 600;
-        }
-
-        .book-link {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            padding: 6px 14px;
-            background: var(--gradient2);
-            color: white;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 12px;
-            font-weight: 600;
-            transition: all 0.3s;
-            flex-shrink: 0;
-        }
-
-        .book-link:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
-        }
-
-        /* ===== REVIEW TOOLTIP ===== */
-        .review-info {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px;
-            margin-top: auto;
-        }
-
-        .review-badge {
-            font-size: 9px;
-            padding: 2px 6px;
-            border-radius: 6px;
-            font-weight: 600;
-            border: 1px solid;
-        }
-
-        .review-positive {
-            color: #27ae60;
-            background: rgba(39, 174, 96, 0.08);
-            border-color: rgba(39, 174, 96, 0.2);
-        }
-
-        .review-notable {
-            color: #2980b9;
-            background: rgba(41, 128, 185, 0.08);
-            border-color: rgba(41, 128, 185, 0.2);
-        }
-
-        .review-award {
-            color: var(--gold);
-            background: rgba(245, 166, 35, 0.08);
-            border-color: rgba(245, 166, 35, 0.2);
-        }
-
-        /* ===== AUTO SCROLL ANIMATION ===== */
-        .auto-scroll-container {
-            position: relative;
-        }
-
-        .scroll-indicator {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--primary);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            z-index: 999;
-            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
-            transition: all 0.3s;
-        }
-
-        .scroll-indicator:hover {
-            transform: translateX(-50%) scale(1.05);
-        }
-
-        .scroll-indicator .auto-icon {
-            animation: spin 2s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* ===== FOOTER ===== */
-        .dashboard-footer {
-            background: var(--gradient1);
-            padding: 40px;
-            margin-top: 40px;
-            color: white;
-        }
-
-        .footer-content {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-        }
-
-        .footer-section h3 {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--gold);
-        }
-
-        .footer-section p, .footer-section li {
-            font-size: 13px;
-            color: rgba(255,255,255,0.7);
-            line-height: 1.8;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 25px;
-            margin-top: 25px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 12px;
-            color: rgba(255,255,255,0.4);
-        }
-
-        /* ===== LOADING ANIMATION ===== */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            transition: opacity 0.6s, visibility 0.6s;
-        }
-
-        .loading-overlay.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .loader {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(255,255,255,0.1);
-            border-top-color: var(--accent);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-
-        .loading-text {
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .loading-sub {
-            color: rgba(255,255,255,0.5);
-            font-size: 12px;
-            margin-top: 8px;
-        }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1024px) {
-            .header-top { flex-wrap: wrap; gap: 15px; padding: 15px 20px; }
-            .nav-bar { padding: 12px 20px; }
-            .main-content { padding: 20px; }
-            .books-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
-            .footer-content { grid-template-columns: 1fr; }
-        }
-
-        @media (max-width: 768px) {
-            .header-stats { display: none; }
-            .search-box { width: 100%; }
-            .books-grid { grid-template-columns: 1fr; }
-            .book-card-inner { flex-direction: column; align-items: center; text-align: center; }
-            .book-info { align-items: center; }
-            .book-meta { justify-content: center; }
-            .book-rating { justify-content: center; }
-            .review-info { justify-content: center; }
-        }
-
-        /* ===== CATEGORY SECTION DIVIDERS ===== */
-        .category-divider {
-            grid-column: 1 / -1;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 10px 0;
-            margin-top: 10px;
-        }
-
-        .category-divider .cat-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: white;
-        }
-
-        .cat-africa { background: linear-gradient(135deg, #27ae60, #2ecc71); }
-        .cat-arab { background: linear-gradient(135deg, #e74c3c, #f39c12); }
-        .cat-geopolitics { background: linear-gradient(135deg, #2980b9, #3498db); }
-
-        .category-divider .cat-text h3 {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--primary);
-        }
-
-        .category-divider .cat-text p {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        .category-divider .cat-line {
-            flex: 1;
-            height: 2px;
-            background: linear-gradient(to left, transparent, #ddd);
-        }
-
-        /* Auto-refresh progress */
-        .refresh-bar {
-            height: 3px;
-            background: var(--gradient2);
-            width: 0%;
-            transition: width 1s linear;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مرصد الكتب: تركيا • إيران • إسرائيل</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#f4f5f7;--card:#fff;--text:#1a1a2e;--text2:#64748b;
+  --tr:#e30a17;--ir:#239f40;--il:#0038b8;
+  --accent:#e30a17;--shadow:0 2px 20px rgba(0,0,0,.07);--radius:16px
+}
+body{font-family:'Segoe UI','Cairo',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
+
+/* Hero */
+.hero{padding:48px 20px;text-align:center;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#e30a17 0%,#1a1a2e 33%,#239f40 66%,#0038b8 100%)}
+.hero::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.45)}
+.hero *{position:relative;z-index:2;color:#fff}
+.hero h1{font-size:2.3em;font-weight:900;margin-bottom:8px;text-shadow:0 2px 12px rgba(0,0,0,.4)}
+.hero .sub{font-size:1.1em;opacity:.92;margin-bottom:14px}
+.hero .info{font-size:.9em;opacity:.82;max-width:800px;margin:0 auto;line-height:1.8}
+.flags{font-size:2.2em;margin-bottom:12px;letter-spacing:12px}
+
+/* Stats */
+.stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;max-width:1400px;margin:-30px auto 24px;padding:0 20px;position:relative;z-index:10}
+.stat-card{background:var(--card);border-radius:var(--radius);padding:18px 10px;text-align:center;box-shadow:var(--shadow);transition:transform .3s}
+.stat-card:hover{transform:translateY(-3px)}
+.stat-card.c-tr{border-top:4px solid var(--tr)}
+.stat-card.c-ir{border-top:4px solid var(--ir)}
+.stat-card.c-il{border-top:4px solid var(--il)}
+.stat-card.c-all{border-top:4px solid var(--text)}
+.stat-card .num{font-size:1.7em;font-weight:900;line-height:1}
+.stat-card .num.n-tr{color:var(--tr)}.stat-card .num.n-ir{color:var(--ir)}.stat-card .num.n-il{color:var(--il)}
+.stat-card .lbl{font-size:.76em;color:var(--text2);margin-top:4px;font-weight:600}
+
+/* Controls */
+.controls{max-width:1400px;margin:0 auto 20px;padding:0 20px}
+.search-row{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.search-box{flex:1;min-width:250px;padding:12px 22px;border-radius:50px;border:2px solid #e2e8f0;font-size:1em;outline:none;transition:all .3s;background:#fff}
+.search-box:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(227,10,23,.1)}
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.fl{font-size:.85em;font-weight:700;color:var(--text);margin-left:4px}
+.fbtn{padding:8px 18px;border-radius:50px;border:2px solid #e2e8f0;background:#fff;cursor:pointer;font-size:.85em;font-weight:700;transition:all .2s;color:var(--text)}
+.fbtn:hover{border-color:var(--accent);color:var(--accent)}
+.fbtn.active{background:var(--text);color:#fff;border-color:var(--text)}
+.fbtn.a-tr{background:var(--tr);color:#fff;border-color:var(--tr)}
+.fbtn.a-ir{background:var(--ir);color:#fff;border-color:var(--ir)}
+.fbtn.a-il{background:var(--il);color:#fff;border-color:var(--il)}
+.fbtn.a-ar{background:#009639;color:#fff;border-color:#009639}
+.fbtn.a-en{background:#7c3aed;color:#fff;border-color:#7c3aed}
+.fbtn.a-fr{background:#2563eb;color:#fff;border-color:#2563eb}
+.sel{padding:8px 16px;border-radius:50px;border:2px solid #e2e8f0;background:#fff;font-size:.85em;font-weight:600;cursor:pointer;outline:none}
+
+/* Update bar */
+.ubar{max-width:1400px;margin:0 auto 14px;padding:0 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.live{display:flex;align-items:center;gap:7px;font-size:.85em;color:#16a34a;font-weight:700}
+.live-dot{width:9px;height:9px;background:#16a34a;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.3;transform:scale(.8)}}
+.time{font-size:.8em;color:var(--text2)}
+.rbtn{padding:8px 20px;border-radius:50px;border:none;background:var(--accent);color:#fff;cursor:pointer;font-size:.85em;font-weight:700;transition:all .3s}
+.rbtn:hover{background:#b80812}.rbtn:disabled{opacity:.4;cursor:not-allowed}
+
+/* Sources */
+.src-bar{max-width:1400px;margin:0 auto 12px;padding:0 20px}
+.src-grid{display:flex;flex-wrap:wrap;gap:5px}
+.src-tag{padding:4px 10px;border-radius:20px;font-size:.72em;font-weight:700;background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;display:flex;align-items:center;gap:4px}
+.src-tag .d{width:6px;height:6px;border-radius:50%}.d.on{background:#16a34a}.d.off{background:#ccc}
+
+/* Progress */
+.pbar{max-width:1400px;margin:0 auto 12px;padding:0 20px;display:none}
+.ptrack{height:4px;background:#e2e8f0;border-radius:4px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,var(--tr),var(--ir),var(--il));border-radius:4px;transition:width .4s;width:0}
+.ptxt{font-size:.75em;color:var(--text2);margin-top:4px;text-align:center;font-weight:600}
+
+/* Errors */
+.elog{max-width:1400px;margin:0 auto 10px;padding:0 20px;display:none}
+.elog-box{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:10px 14px;font-size:.78em;color:#92400e;max-height:100px;overflow-y:auto}
+
+/* Grid */
+.grid{max-width:1400px;margin:0 auto;padding:0 20px 50px;display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:20px}
+.card{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,.12)}
+.card.b-tr{border-top:4px solid var(--tr)}
+.card.b-ir{border-top:4px solid var(--ir)}
+.card.b-il{border-top:4px solid var(--il)}
+.card.b-multi{border-top:4px solid var(--text)}
+.cover{position:relative;height:220px;background:linear-gradient(135deg,#1a1a2e,#334155);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.cover img{height:185px;max-width:135px;object-fit:cover;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.4);transition:transform .3s;position:relative;z-index:2}
+.card:hover .cover img{transform:scale(1.04)}
+.no-cover{width:120px;height:170px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:3em;position:relative;z-index:2}
+.no-cover.nc-tr{background:linear-gradient(135deg,#e30a17,#c2185b)}
+.no-cover.nc-ir{background:linear-gradient(135deg,#239f40,#1b5e20)}
+.no-cover.nc-il{background:linear-gradient(135deg,#0038b8,#1565c0)}
+.lang-badge{position:absolute;top:10px;right:10px;padding:4px 12px;border-radius:20px;font-size:.75em;font-weight:800;color:#fff;z-index:3;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.lb-ar{background:#009639}.lb-en{background:#7c3aed}.lb-fr{background:#2563eb}
+.country-badge{position:absolute;top:10px;left:10px;padding:4px 12px;border-radius:20px;font-size:.75em;font-weight:800;color:#fff;z-index:3}
+.cb-tr{background:var(--tr)}.cb-ir{background:var(--ir)}.cb-il{background:var(--il)}.cb-multi{background:#475569}
+.src-badge{position:absolute;bottom:8px;left:8px;padding:3px 8px;border-radius:8px;font-size:.65em;background:rgba(255,255,255,.15);color:rgba(255,255,255,.85);backdrop-filter:blur(4px);font-weight:700;z-index:3}
+.body{padding:16px;flex:1;display:flex;flex-direction:column}
+.title{font-size:1em;font-weight:800;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:8px}
+.author{font-size:.88em;color:var(--accent);font-weight:700;margin-bottom:4px}
+.pub{font-size:.8em;color:var(--text2);margin-bottom:8px}
+.meta{display:flex;flex-wrap:wrap;gap:10px;font-size:.76em;color:var(--text2);margin-bottom:8px}
+.meta span{display:flex;align-items:center;gap:3px;font-weight:600}
+.topics{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+.tag{padding:3px 10px;border-radius:20px;font-size:.7em;font-weight:700;border:1px solid}
+.tag-tr{background:#fef2f2;color:var(--tr);border-color:#fecaca}
+.tag-ir{background:#f0fdf4;color:#15803d;border-color:#bbf7d0}
+.tag-il{background:#eff6ff;color:var(--il);border-color:#bfdbfe}
+.tag-n{background:#f8fafc;color:#475569;border-color:#e2e8f0}
+.desc{font-size:.82em;color:var(--text2);line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:10px}
+.actions{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+.alink{flex:1;min-width:85px;padding:9px;text-align:center;border-radius:10px;font-size:.8em;font-weight:700;text-decoration:none;transition:all .2s}
+.ap{background:var(--text);color:#fff}.ap:hover{background:var(--accent)}
+.as{background:#f8fafc;color:var(--text);border:2px solid #e2e8f0}.as:hover{border-color:var(--accent)}
+
+/* Days remaining badge */
+.days-badge{position:absolute;bottom:8px;right:8px;padding:3px 8px;border-radius:8px;font-size:.65em;font-weight:800;z-index:3}
+.days-ok{background:rgba(22,163,74,.85);color:#fff}
+.days-warn{background:rgba(234,179,8,.85);color:#000}
+.days-danger{background:rgba(239,68,68,.85);color:#fff}
+
+.loader{text-align:center;padding:60px;grid-column:1/-1}
+.spinner{width:45px;height:45px;border:4px solid #e2e8f0;border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loader p{font-size:.95em;color:var(--text2);font-weight:600}
+.no-res{text-align:center;padding:60px;grid-column:1/-1;color:var(--text2)}
+.notif{position:fixed;bottom:16px;right:16px;background:#16a34a;color:#fff;padding:12px 20px;border-radius:12px;font-weight:700;font-size:.9em;box-shadow:0 6px 24px rgba(0,0,0,.25);z-index:1000;display:none;animation:sUp .4s ease-out}
+@keyframes sUp{from{transform:translateY(60px);opacity:0}to{transform:translateY(0);opacity:1}}
+footer{background:linear-gradient(135deg,#1a1a2e,#334155);color:#fff;text-align:center;padding:32px 20px;margin-top:32px}
+footer h3{font-size:1.2em;margin-bottom:8px}.footer p{font-size:.85em;opacity:.8}
+@media(max-width:768px){.hero h1{font-size:1.5em}.grid{grid-template-columns:1fr}.stats-bar{grid-template-columns:repeat(3,1fr)}.filter-row{justify-content:center}}
+</style>
 </head>
 <body>
 
-<!-- Loading Screen -->
-<div class="loading-overlay" id="loadingOverlay">
-    <div class="loader"></div>
-    <div class="loading-text">جاري تحميل لوحة العرض...</div>
-    <div class="loading-sub">جمع البيانات من أكثر من 50 مرصداً أكاديمياً وثقافياً</div>
+<div class="hero">
+  <div class="flags">🇹🇷 🇮🇷 🇮🇱</div>
+  <h1>مرصد الكتب: تركيا • إيران • إسرائيل</h1>
+  <p class="sub">Turkey • Iran • Israel — Books Observatory</p>
+  <p class="info">
+    رصد آلي يومي لجميع الكتب الصادرة خلال السنة الأخيرة حول تركيا وإيران وإسرائيل
+    <br>بالعربية والإنجليزية والفرنسية — الكتب تبقى حتى تتجاوز 12 شهراً من تاريخ صدورها ثم تُحذف تلقائياً
+  </p>
 </div>
 
-<!-- Header -->
-<header class="header">
-    <div class="header-top">
-        <div class="logo">
-            <div class="logo-icon"><i class="fas fa-book-open"></i></div>
-            <div class="logo-text">
-                <h1>مرصد الكتب الجديدة</h1>
-                <p>الشؤون الأفريقية والعربية — إصدارات 2025–2026</p>
-            </div>
-        </div>
-        <div class="header-stats">
-            <div class="stat-item">
-                <div class="number" id="totalBooks">0</div>
-                <div class="label">كتاب معروض</div>
-            </div>
-            <div class="stat-item">
-                <div class="number" id="totalSources">53</div>
-                <div class="label">مصدر أكاديمي</div>
-            </div>
-            <div class="stat-item">
-                <div class="number">3</div>
-                <div class="label">لغات مراقبة</div>
-            </div>
-            <div class="stat-item">
-                <div class="number" id="lastUpdate">--:--</div>
-                <div class="label">آخر تحديث</div>
-            </div>
-        </div>
-        <div class="live-badge">
-            <div class="live-dot"></div>
-            تحديث مباشر
-        </div>
-    </div>
-    <div class="nav-bar">
-        <div class="filter-group">
-            <button class="filter-btn active" onclick="filterBooks('all')">الكل</button>
-            <button class="filter-btn" onclick="filterBooks('africa')">🌍 شؤون أفريقية</button>
-            <button class="filter-btn" onclick="filterBooks('arab')">🏛️ شؤون عربية</button>
-            <button class="filter-btn" onclick="filterBooks('geopolitics')">🌐 جيوسياسة</button>
-            <button class="filter-btn" onclick="filterBooks('en')">🇬🇧 إنجليزي</button>
-            <button class="filter-btn" onclick="filterBooks('fr')">🇫🇷 فرنسي</button>
-            <button class="filter-btn" onclick="filterBooks('ar')">🇸🇦 عربي</button>
-            <button class="filter-btn" onclick="filterBooks('2026')">📅 2026</button>
-            <button class="filter-btn" onclick="filterBooks('2025')">📅 2025</button>
-        </div>
-        <div class="search-box">
-            <i class="fas fa-search"></i>
-            <input type="text" placeholder="ابحث عن كتاب، مؤلف أو ناشر..." id="searchInput" oninput="searchBooks()">
-        </div>
-    </div>
-    <div class="refresh-bar" id="refreshBar"></div>
-</header>
-
-<!-- Ticker -->
-<div class="ticker-bar">
-    <div class="ticker-content" id="ticker">
-        <div class="ticker-item"><span class="tag">جديد</span> Africa 2025–2026 — Lawrence R. Sullivan — صدر يناير 2026</div>
-        <div class="ticker-item"><span class="tag">مميز</span> Israel on the Brink — Ilan Pappé — Beacon Press 2025</div>
-        <div class="ticker-item"><span class="tag">جديد</span> Foresight Africa 2026 — Brookings Institution — فبراير 2026</div>
-        <div class="ticker-item"><span class="tag">مرشح</span> Les Universalistes — Natasha Brown — مرشح لجائزة بوكر 2025</div>
-        <div class="ticker-item"><span class="tag">حصري</span> Dream Count — Chimamanda Ngozi Adichie — 2025</div>
-        <div class="ticker-item"><span class="tag">أكاديمي</span> The Middle East and North Africa 2025 — Routledge — الإصدار 71</div>
-        <div class="ticker-item"><span class="tag">جديد</span> Killing the Arab Spring — Algora Publishing — 2025</div>
-        <div class="ticker-item"><span class="tag">جديد</span> Africa 2025–2026 — Lawrence R. Sullivan — صدر يناير 2026</div>
-        <div class="ticker-item"><span class="tag">مميز</span> Israel on the Brink — Ilan Pappé — Beacon Press 2025</div>
-        <div class="ticker-item"><span class="tag">جديد</span> Foresight Africa 2026 — Brookings Institution — فبراير 2026</div>
-        <div class="ticker-item"><span class="tag">مرشح</span> Les Universalistes — Natasha Brown — مرشح لجائزة بوكر 2025</div>
-    </div>
+<div class="stats-bar">
+  <div class="stat-card c-all"><div class="num" id="sAll">0</div><div class="lbl">📚 إجمالي</div></div>
+  <div class="stat-card c-tr"><div class="num n-tr" id="sTR">0</div><div class="lbl">🇹🇷 تركيا</div></div>
+  <div class="stat-card c-ir"><div class="num n-ir" id="sIR">0</div><div class="lbl">🇮🇷 إيران</div></div>
+  <div class="stat-card c-il"><div class="num n-il" id="sIL">0</div><div class="lbl">🇮🇱 إسرائيل</div></div>
+  <div class="stat-card c-all"><div class="num" id="sAr">0</div><div class="lbl">عربي</div></div>
+  <div class="stat-card c-all"><div class="num" id="sEn">0</div><div class="lbl">English</div></div>
+  <div class="stat-card c-all"><div class="num" id="sFr">0</div><div class="lbl">Français</div></div>
+  <div class="stat-card c-all"><div class="num" id="sSrc">0</div><div class="lbl">🔌 مصادر</div></div>
 </div>
 
-<!-- Sources Banner -->
-<div class="sources-banner">
-    <div class="sources-title"><i class="fas fa-satellite-dish"></i> المراصد والمصادر الأكاديمية (53 مصدراً)</div>
-    <div class="sources-grid" id="sourcesGrid"></div>
+<div class="controls">
+  <div class="search-row">
+    <input type="text" class="search-box" id="searchInput" placeholder="🔍 ابحث عن كتاب، مؤلف، ناشر..." oninput="filterBooks()">
+  </div>
+  <div class="filter-row">
+    <span class="fl">البلد:</span>
+    <button class="fbtn active" onclick="setCountry('all',this)">الكل</button>
+    <button class="fbtn" onclick="setCountry('turkey',this)">🇹🇷 تركيا</button>
+    <button class="fbtn" onclick="setCountry('iran',this)">🇮🇷 إيران</button>
+    <button class="fbtn" onclick="setCountry('israel',this)">🇮🇱 إسرائيل</button>
+
+    <span class="fl" style="margin-right:12px">اللغة:</span>
+    <button class="fbtn active" onclick="setLang('all',this)" id="langAll">الكل</button>
+    <button class="fbtn" onclick="setLang('ar',this)">عربي</button>
+    <button class="fbtn" onclick="setLang('en',this)">EN</button>
+    <button class="fbtn" onclick="setLang('fr',this)">FR</button>
+
+    <span class="fl" style="margin-right:12px">الموضوع:</span>
+    <select class="sel" id="topicSel" onchange="filterBooks()">
+      <option value="">الكل</option>
+      <option value="Politics">السياسة</option>
+      <option value="History">التاريخ</option>
+      <option value="Economy">الاقتصاد</option>
+      <option value="Military">العسكري</option>
+      <option value="Nuclear">النووي</option>
+      <option value="Religion">الدين</option>
+      <option value="Society">المجتمع</option>
+      <option value="Foreign Policy">السياسة الخارجية</option>
+      <option value="Conflict">النزاعات</option>
+      <option value="Diplomacy">الدبلوماسية</option>
+      <option value="Human Rights">حقوق الإنسان</option>
+      <option value="Culture">الثقافة</option>
+      <option value="Geopolitics">الجيوسياسة</option>
+    </select>
+
+    <span class="fl" style="margin-right:12px">المصدر:</span>
+    <select class="sel" id="srcSel" onchange="filterBooks()"><option value="">الكل</option></select>
+
+    <span class="fl" style="margin-right:12px">ترتيب:</span>
+    <select class="sel" id="sortSel" onchange="filterBooks()">
+      <option value="newest">الأحدث</option>
+      <option value="oldest">الأقدم</option>
+      <option value="expiring">الأقرب للحذف</option>
+      <option value="title">العنوان</option>
+    </select>
+  </div>
 </div>
 
-<!-- Main Content -->
-<div class="main-content auto-scroll-container">
-    <div class="section-header">
-        <div class="section-title">
-            <i class="fas fa-fire" style="color:var(--accent)"></i>
-            أحدث الإصدارات
-            <span class="count" id="displayCount">0</span>
-        </div>
-        <div class="view-toggle">
-            <button class="view-btn active" onclick="setView('grid')"><i class="fas fa-th-large"></i></button>
-            <button class="view-btn" onclick="setView('list')"><i class="fas fa-list"></i></button>
-        </div>
-    </div>
-    <div class="books-grid" id="booksGrid"></div>
+<div class="ubar">
+  <div class="live"><span class="live-dot"></span>مسح يومي تلقائي</div>
+  <span class="time" id="lastUp">جاري التحميل...</span>
+  <button class="rbtn" id="rBtn" onclick="manualRefresh()">🔄 تحديث</button>
 </div>
 
-<!-- Auto-Scroll Indicator -->
-<div class="scroll-indicator" id="scrollIndicator" onclick="toggleAutoScroll()">
-    <i class="fas fa-sync-alt auto-icon" id="autoIcon"></i>
-    <span id="scrollText">تشغيل التمرير التلقائي</span>
+<div class="src-bar" id="srcBar"></div>
+
+<div class="pbar" id="pbar">
+  <div class="ptrack"><div class="pfill" id="pfill"></div></div>
+  <div class="ptxt" id="ptxt"></div>
 </div>
 
-<!-- Footer -->
-<footer class="dashboard-footer">
-    <div class="footer-content">
-        <div class="footer-section">
-            <h3><i class="fas fa-info-circle"></i> حول لوحة العرض</h3>
-            <p>لوحة عرض ذكية تجمع آخر إصدارات الكتب حول الشؤون الأفريقية والعربية من أكثر من 50 مرصداً أكاديمياً وثقافياً عالمياً، بثلاث لغات: العربية والإنجليزية والفرنسية. يتم التحديث تلقائياً كل 60 ثانية.</p>
-        </div>
-        <div class="footer-section">
-            <h3><i class="fas fa-language"></i> اللغات المغطاة</h3>
-            <ul>
-                <li>🇬🇧 الإنجليزية — مصادر أكاديمية ودور نشر جامعية</li>
-                <li>🇫🇷 الفرنسية — الأدب الأفريقي الفرنكوفوني والدراسات</li>
-                <li>🇸🇦 العربية — إصدارات المراكز البحثية ودور النشر العربية</li>
-            </ul>
-        </div>
-        <div class="footer-section">
-            <h3><i class="fas fa-chart-line"></i> إحصائيات المرصد</h3>
-            <ul>
-                <li>📚 أكثر من 53 مصدراً أكاديمياً وثقافياً</li>
-                <li>🔄 تحديث تلقائي كل 60 ثانية</li>
-                <li>🌍 تغطية شاملة لأفريقيا والعالم العربي</li>
-                <li>⭐ تقييمات من مجلات ومواقع أكاديمية</li>
-            </ul>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        © 2026 مرصد الكتب الجديدة — الشؤون الأفريقية والعربية | جميع الحقوق محفوظة | تم التطوير بتقنيات الويب الحديثة
-    </div>
+<div class="elog" id="elog"><div class="elog-box" id="elogBox"></div></div>
+
+<div class="grid" id="grid">
+  <div class="loader"><div class="spinner"></div><p>جار التحميل...</p></div>
+</div>
+
+<div class="notif" id="notif"></div>
+
+<footer>
+  <h3>🇹🇷🇮🇷🇮🇱 مرصد كتب تركيا وإيران وإسرائيل</h3>
+  <p>الكتب تبقى 12 شهراً من تاريخ صدورها ثم تُحذف تلقائياً</p>
+  <p style="font-size:.8em;margin-top:6px;opacity:.7">2025 © Books Observatory</p>
 </footer>
 
 <script>
-// ============================================================
-// DATA: 53+ Academic Sources
-// ============================================================
-const sources = [
-    "Oxford University Press", "Cambridge University Press", "Routledge / Taylor & Francis",
-    "Brill Academic", "Indiana University Press", "Duke University Press",
-    "University of California Press", "Beacon Press", "Liveright / W.W. Norton",
-    "Brookings Institution Press", "Algora Publishing", "Europa Publications",
-    "JSTOR", "Google Scholar", "African Affairs Journal (OUP)",
-    "Journal of Modern African Studies (Cambridge)", "Review of African Political Economy",
-    "Middle East Journal (MEI)", "International Journal of Middle East Studies (Cambridge)",
-    "Foreign Affairs", "Foreign Policy", "Middle East Policy Council",
-    "Arab Center Washington DC", "Carnegie Endowment", "Chatham House",
-    "IFRI (Institut français des relations internationales)", "Sciences Po / CERI",
-    "CNRS Éditions", "Karthala Éditions", "Éditions L'Harmattan",
-    "Présence Africaine Éditions", "Gallimard", "Actes Sud",
-    "مركز الجزيرة للدراسات", "المركز العربي للأبحاث ودراسة السياسات",
-    "مؤسسة الفكر العربي", "دار الشروق", "الدار المصرية اللبنانية",
-    "New Books Network (African Studies)", "African Arguments",
-    "Goodreads", "Babelio", "Open Country Mag", "The Republic (Africa)",
-    "Harare Review of Books", "Africa Is a Country", "Chimurenga",
-    "Agence Ecofin Culture", "Africae / OpenEdition", "CODESRIA",
-    "African Studies Review", "Washington Report on Middle East Affairs",
-    "Five Books (Middle East)", "مركز شاف للدراسات المستقبلية"
+// ═══════════════════════════════════════════
+//  Turkey • Iran • Israel Books Observatory
+//  v1 - Auto-expiry after 12 months
+// ═══════════════════════════════════════════
+
+let ALL_BOOKS = [];
+let curCountry = 'all';
+let curLang = 'all';
+let isUpdating = false;
+let activeSources = new Map();
+let errors = [];
+const CK = 'tii_books_v1';
+const DAY = 86400000;
+
+// ── Utilities ──
+function getMinDate() { const d = new Date(); d.setFullYear(d.getFullYear() - 1); return d; }
+function getMinISO() { return getMinDate().toISOString().split('T')[0]; }
+
+function isRecent(ds) {
+  if (!ds) return false;
+  if (/^\d{4}$/.test(ds)) ds += '-01-01';
+  try { const d = new Date(ds); return !isNaN(d) && d >= getMinDate() && d <= new Date(); } catch(e) { return false; }
+}
+
+function daysRemaining(ds) {
+  if (!ds) return 0;
+  if (/^\d{4}$/.test(ds)) ds += '-01-01';
+  try {
+    const pub = new Date(ds);
+    const expiry = new Date(pub);
+    expiry.setFullYear(expiry.getFullYear() + 1);
+    const diff = Math.ceil((expiry - new Date()) / DAY);
+    return Math.max(0, diff);
+  } catch(e) { return 0; }
+}
+
+function fmtDate(ds) {
+  if (!ds) return '';
+  if (/^\d{4}$/.test(ds)) ds += '-01-01';
+  try {
+    const d = new Date(ds); if (isNaN(d)) return '';
+    return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()] + ' ' + d.getFullYear();
+  } catch(e) { return ''; }
+}
+
+function fmtNow() {
+  const d = new Date();
+  return d.getDate()+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' '+
+    String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+function esc(s) { const d = document.createElement('div'); d.textContent = s||''; return d.innerHTML; }
+function showNotif(m) { const e = document.getElementById('notif'); e.textContent = m; e.style.display = 'block'; setTimeout(() => e.style.display = 'none', 5000); }
+function logErr(src, msg) { errors.push(src+': '+msg); }
+
+async function fetchT(url, opts = {}, ms = 12000) {
+  const c = new AbortController();
+  const t = setTimeout(() => c.abort(), ms);
+  try { const r = await fetch(url, {...opts, signal: c.signal}); clearTimeout(t); return r; }
+  catch(e) { clearTimeout(t); throw e; }
+}
+
+// ── Country Detection ──
+const KW_TR = [
+  'turkey','turkish','türkiye','turkiye','ankara','istanbul','erdogan','erdoğan',
+  'ottoman','ataturk','atatürk','anatolian','anatolia','akp','kurdish turkey',
+  'bosphorus','dardanelles','turkish military','turkish economy','turkish politics',
+  'turkish foreign policy','neo-ottoman','lira crisis','turkish democracy',
+  'turkish elections','hagia sophia','pkk','turkish nationalism',
+  'kemalism','kemalist','secularism turkey','islamism turkey',
+  'turquie','turc','turque','politique turque','économie turque',
+  'تركيا','تركي','تركية','أنقرة','إسطنبول','أردوغان','العثماني','العثمانية',
+  'أتاتورك','الأناضول','الليرة التركية','السياسة التركية',
+  'الاقتصاد التركي','الجيش التركي','الانتخابات التركية',
+  'حزب العدالة والتنمية','الكمالية','العلمانية التركية'
 ];
 
-// ============================================================
-// DATA: Books Database
-// ============================================================
-const booksData = [
-    // ===== AFRICAN AFFAIRS — ENGLISH =====
-    {
-        id: 1,
-        title: "Africa 2025–2026",
-        titleSub: "The World Today Series",
-        author: "Lawrence R. Sullivan",
-        publisher: "Rowman & Littlefield",
-        year: 2026,
-        month: "يناير",
-        pages: 320,
-        lang: "en",
-        category: "africa",
-        tags: ["دراسات أفريقية", "جيوسياسة", "مرجع سنوي"],
-        coverClass: "cover-1",
-        isbn: "978-1538192528",
-        rating: 4.5,
-        ratingSource: "Mondafrique / Goodreads",
-        reviews: [
-            { source: "Mondafrique", type: "positive", text: "مرجع أكاديمي شامل" },
-            { source: "Foreign Affairs", type: "notable", text: "أداة بحثية أساسية" }
-        ],
-        link: "https://rowman.com/ISBN/9781538192528",
-        description: "بانوراما سنوية شاملة للقارة الأفريقية تغطي التطورات السياسية والاقتصادية والاجتماعية لكل دولة أفريقية"
-    },
-    {
-        id: 2,
-        title: "Foresight Africa 2026",
-        titleSub: "Key Trends, Risks, and Opportunities",
-        author: "Landry Signé et al.",
-        publisher: "Brookings Institution Press",
-        year: 2026,
-        month: "يناير",
-        pages: 180,
-        lang: "en",
-        category: "africa",
-        tags: ["سياسات عامة", "تنمية", "استشراف"],
-        coverClass: "cover-2",
-        isbn: "N/A",
-        rating: 4.7,
-        ratingSource: "Brookings / Google Scholar",
-        reviews: [
-            { source: "Brookings", type: "award", text: "تقرير سنوي رائد" },
-            { source: "African Affairs", type: "positive", text: "مرجع لصناع القرار" }
-        ],
-        link: "https://www.brookings.edu/collection/foresight-africa-2026/",
-        description: "تقرير استشرافي يجمع كبار الباحثين لتحليل أولويات أفريقيا في 2026 وتقديم توصيات عملية"
-    },
-    {
-        id: 3,
-        title: "The Second Emancipation",
-        titleSub: "Nkrumah, Pan-Africanism, and Global Blackness at High Tide",
-        author: "Trilogy Series Author",
-        publisher: "Liveright / W.W. Norton",
-        year: 2025,
-        month: "أكتوبر",
-        pages: 450,
-        lang: "en",
-        category: "africa",
-        tags: ["تاريخ", "حركة بان أفريقية", "نكروما"],
-        coverClass: "cover-3",
-        isbn: "978-1631498442",
-        rating: 4.4,
-        ratingSource: "New Books Network / Goodreads",
-        reviews: [
-            { source: "New Books Network", type: "positive", text: "تحليل عميق لحقبة محورية" },
-            { source: "Goodreads", type: "notable", text: "4.4/5" }
-        ],
-        link: "https://wwnorton.com/books/the-second-emancipation",
-        description: "الجزء الثاني من ثلاثية تتناول صعود نكروما والحركة البان أفريقية في أوج تأثيرها العالمي"
-    },
-    {
-        id: 4,
-        title: "Israel on the Brink",
-        titleSub: "And the Eight Revolutions that Could Lead to Decolonization",
-        author: "Ilan Pappé",
-        publisher: "Beacon Press",
-        year: 2025,
-        month: "سبتمبر",
-        pages: 216,
-        lang: "en",
-        category: "arab",
-        tags: ["فلسطين", "استعمار", "تاريخ"],
-        coverClass: "cover-4",
-        isbn: "978-0807015902",
-        rating: 4.6,
-        ratingSource: "WRMEA / Foreign Affairs",
-        reviews: [
-            { source: "WRMEA", type: "positive", text: "كتاب محوري وراهن" },
-            { source: "Foreign Affairs", type: "notable", text: "تحليل تاريخي جريء" }
-        ],
-        link: "https://www.penguinrandomhouse.com/books/israel-on-the-brink",
-        description: "يطرح المؤرخ إيلان بابيه رؤيته حول التصدعات البنيوية في إسرائيل والسيناريوهات المحتملة للتحول"
-    },
-    {
-        id: 5,
-        title: "Parting Gifts of Empire",
-        titleSub: "Palestine and India at the Dawn of Decolonization",
-        author: "Esmat Elhalaby",
-        publisher: "University of California Press",
-        year: 2025,
-        month: "أغسطس",
-        pages: 268,
-        lang: "en",
-        category: "arab",
-        tags: ["فلسطين", "الهند", "تصفية الاستعمار"],
-        coverClass: "cover-5",
-        isbn: "978-0520397217",
-        rating: 4.3,
-        ratingSource: "WRMEA / JSTOR",
-        reviews: [
-            { source: "WRMEA", type: "positive", text: "سردية غير مروية" },
-            { source: "UC Press", type: "notable", text: "بحث أكاديمي متميز" }
-        ],
-        link: "https://www.ucpress.edu/books/parting-gifts-of-empire",
-        description: "يتتبع الروابط المنسية بين المثقفين العرب والهنود في نضالهم المشترك ضد الاستعمار البريطاني"
-    },
-    {
-        id: 6,
-        title: "The Middle East and North Africa 2025",
-        titleSub: "71st Edition — Europa Regional Survey",
-        author: "Europa Publications",
-        publisher: "Routledge / Taylor & Francis",
-        year: 2025,
-        month: "يوليو",
-        pages: 1400,
-        lang: "en",
-        category: "arab",
-        tags: ["مرجع سنوي", "شرق أوسط", "شمال أفريقيا"],
-        coverClass: "cover-6",
-        isbn: "978-1032761268",
-        rating: 4.8,
-        ratingSource: "Routledge / Academic Libraries",
-        reviews: [
-            { source: "Routledge", type: "award", text: "الإصدار 71 — مرجع عالمي" },
-            { source: "Academic Libraries", type: "positive", text: "لا غنى عنه للباحثين" }
-        ],
-        link: "https://www.routledge.com/9781032761268",
-        description: "المسح الإقليمي الأشمل للشرق الأوسط وشمال أفريقيا يغطي من الجزائر إلى اليمن مع بيانات محدثة"
-    },
-    {
-        id: 7,
-        title: "Dream Count",
-        titleSub: "A Novel",
-        author: "Chimamanda Ngozi Adichie",
-        publisher: "Alfred A. Knopf",
-        year: 2025,
-        month: "مارس",
-        pages: 400,
-        lang: "en",
-        category: "africa",
-        tags: ["رواية", "نسوية", "نيجيريا"],
-        coverClass: "cover-7",
-        isbn: "978-0525521204",
-        rating: 4.5,
-        ratingSource: "Open Country Mag / Goodreads",
-        reviews: [
-            { source: "Open Country Mag", type: "award", text: "الأكثر ترقباً في 2025" },
-            { source: "Goodreads", type: "positive", text: "4.5/5 — رائعة أدبية" }
-        ],
-        link: "https://www.penguinrandomhouse.com/books/dream-count",
-        description: "رواية تتبع حياة أربع نساء: تشياماكا وزيكورا وأوميلوغور وقاجياتو عبر قارات وتجارب مختلفة"
-    },
-    {
-        id: 8,
-        title: "Jewish Books in North Africa",
-        titleSub: "Between the Early Modern and Modern Worlds",
-        author: "Multiple Authors",
-        publisher: "Indiana University Press",
-        year: 2025,
-        month: "يونيو",
-        pages: 350,
-        lang: "en",
-        category: "africa",
-        tags: ["ثقافة", "شمال أفريقيا", "تراث يهودي"],
-        coverClass: "cover-8",
-        isbn: "978-0253069610",
-        rating: 4.2,
-        ratingSource: "New Books Network / JSTOR",
-        reviews: [
-            { source: "New Books Network", type: "notable", text: "بحث متعدد الأبعاد" },
-            { source: "Indiana UP", type: "positive", text: "إسهام أكاديمي فريد" }
-        ],
-        link: "https://iupress.org/9780253069610",
-        description: "يستكشف الدلالات المتعددة للكتب اليهودية في شمال أفريقيا بين العصر الحديث المبكر والمعاصر"
-    },
-    {
-        id: 9,
-        title: "An Unformed Map",
-        titleSub: "Geographies of Belonging Between Africa and the Caribbean",
-        author: "Philip Janzen",
-        publisher: "Duke University Press",
-        year: 2025,
-        month: "مايو",
-        pages: 288,
-        lang: "en",
-        category: "africa",
-        tags: ["جغرافيا", "هوية", "كاريبي"],
-        coverClass: "cover-9",
-        isbn: "978-1478030034",
-        rating: 4.1,
-        ratingSource: "New Books Network / Duke UP",
-        reviews: [
-            { source: "New Books Network", type: "positive", text: "مسارات فكرية مبتكرة" },
-            { source: "Duke UP", type: "notable", text: "دراسة رائدة" }
-        ],
-        link: "https://www.dukeupress.edu/an-unformed-map",
-        description: "يتتبع المسارات الفكرية للمفكرين الكاريبيين في علاقتهم بأفريقيا والشتات الأفريقي"
-    },
-    {
-        id: 10,
-        title: "Killing the Arab Spring",
-        titleSub: "The Rise and Fall of Democratic Aspirations",
-        author: "Sami A. Hasan",
-        publisher: "Algora Publishing",
-        year: 2025,
-        month: "نوفمبر",
-        pages: 380,
-        lang: "en",
-        category: "arab",
-        tags: ["ربيع عربي", "ديمقراطية", "شرق أوسط"],
-        coverClass: "cover-10",
-        isbn: "978-1628945683",
-        rating: 4.0,
-        ratingSource: "Algora / Google Scholar",
-        reviews: [
-            { source: "Algora", type: "positive", text: "تحليل موضوعي شامل" },
-            { source: "Google Scholar", type: "notable", text: "مرجع أكاديمي" }
-        ],
-        link: "https://algora.com/product/killing-the-arab-spring/",
-        description: "يروي قصص انتفاضات الربيع العربي في 15 دولة شرق أوسطية من منظور محلل سياسي مطلع"
-    },
-    {
-        id: 11,
-        title: "Reinventing Uganda",
-        titleSub: "Political Imagination and Social Change after Idi Amin",
-        author: "Florence Brisset-Foucault & Justin Willis (eds.)",
-        publisher: "Africae / Makerere University Press",
-        year: 2026,
-        month: "فبراير",
-        pages: 290,
-        lang: "en",
-        category: "africa",
-        tags: ["أوغندا", "تاريخ سياسي", "تغيير اجتماعي"],
-        coverClass: "cover-11",
-        isbn: "N/A",
-        rating: 4.3,
-        ratingSource: "Africae / OpenEdition",
-        reviews: [
-            { source: "Africae", type: "positive", text: "بحث تاريخي ميداني" },
-            { source: "OpenEdition", type: "notable", text: "وصول مفتوح" }
-        ],
-        link: "https://books.openedition.org/africae/7377",
-        description: "يستكشف التخيل السياسي والتغيير الاجتماعي في أوغندا بعد سقوط نظام عيدي أمين 1979-1980"
-    },
-    {
-        id: 12,
-        title: "The Undulating Capacity of the State",
-        titleSub: "Autochthony and Infrastructure Development in African Cities",
-        author: "Kwamena Ato Onoma",
-        publisher: "Cambridge University Press",
-        year: 2025,
-        month: "سبتمبر",
-        pages: 310,
-        lang: "en",
-        category: "africa",
-        tags: ["مدن أفريقية", "بنية تحتية", "دولة"],
-        coverClass: "cover-12",
-        isbn: "978-1009428859",
-        rating: 4.4,
-        ratingSource: "This Week in Africa / CUP",
-        reviews: [
-            { source: "This Week in Africa", type: "positive", text: "من أبرز كتب 2025" },
-            { source: "Cambridge UP", type: "notable", text: "دراسة معمقة" }
-        ],
-        link: "https://www.cambridge.org/9781009428859",
-        description: "يدرس العلاقة بين الانتماء المحلي وتطوير البنية التحتية في المدن الأفريقية وقدرة الدولة المتقلبة"
-    },
-    // ===== AFRICAN AFFAIRS — FRENCH =====
-    {
-        id: 13,
-        title: "Où s'adosse le ciel",
-        titleSub: "Roman",
-        author: "David Diop",
-        publisher: "Éditions du Seuil",
-        year: 2025,
-        month: "أغسطس",
-        pages: 224,
-        lang: "fr",
-        category: "africa",
-        tags: ["رواية", "سنغال", "أدب فرنكوفوني"],
-        coverClass: "cover-2",
-        isbn: "978-2021540185",
-        rating: 4.6,
-        ratingSource: "Agence Ecofin / Babelio",
-        reviews: [
-            { source: "Agence Ecofin", type: "award", text: "من أبرز الأعمال الأفريقية" },
-            { source: "Babelio", type: "positive", text: "4.6/5" }
-        ],
-        link: "https://www.seuil.com/ouvrage/ou-s-adosse-le-ciel",
-        description: "رواية جديدة من الكاتب السنغالي ديفيد ديوب الحائز على جائزة البوكر الدولية"
-    },
-    {
-        id: 14,
-        title: "L'homme qui lisait des livres",
-        titleSub: "Roman",
-        author: "Rachid Benzine",
-        publisher: "Éditions du Seuil",
-        year: 2025,
-        month: "أغسطس",
-        pages: 192,
-        lang: "fr",
-        category: "arab",
-        tags: ["رواية", "المغرب", "أدب"],
-        coverClass: "cover-7",
-        isbn: "978-2021540208",
-        rating: 4.5,
-        ratingSource: "Agence Ecofin / Babelio",
-        reviews: [
-            { source: "Agence Ecofin", type: "positive", text: "عمل جميل جداً" },
-            { source: "Babelio", type: "positive", text: "4.5/5" }
-        ],
-        link: "https://www.seuil.com/lhomme-qui-lisait-des-livres",
-        description: "رواية المغربي رشيد بنزين التي أُشيد بها كواحدة من أجمل أعمال الموسم الأدبي الفرنسي"
-    },
-    {
-        id: 15,
-        title: "Le corbeau qui m'aimait",
-        titleSub: "Roman",
-        author: "Abdelaziz Baraka Sakin",
-        publisher: "Éditions Zulma",
-        year: 2025,
-        month: "أغسطس",
-        pages: 240,
-        lang: "fr",
-        category: "africa",
-        tags: ["رواية", "السودان", "ترجمة"],
-        coverClass: "cover-5",
-        isbn: "978-2843049613",
-        rating: 4.4,
-        ratingSource: "Agence Ecofin / Babelio",
-        reviews: [
-            { source: "Agence Ecofin", type: "positive", text: "إبداع سوداني مميز" },
-            { source: "Babelio", type: "notable", text: "4.4/5" }
-        ],
-        link: "https://www.zulma.fr/le-corbeau-qui-maimait",
-        description: "رواية الكاتب السوداني عبد العزيز بركة ساكن المترجمة للفرنسية ضمن الموسم الأدبي 2025"
-    },
-    {
-        id: 16,
-        title: "Communication, Médias & Marketing en Afrique",
-        titleSub: "Bilan 2025 & Perspectives 2026",
-        author: "Communicant Afrique (Collectif)",
-        publisher: "Communicant Afrique",
-        year: 2025,
-        month: "ديسمبر",
-        pages: 52,
-        lang: "fr",
-        category: "africa",
-        tags: ["إعلام", "تسويق", "أفريقيا الرقمية"],
-        coverClass: "cover-1",
-        isbn: "N/A",
-        rating: 4.0,
-        ratingSource: "Communicant Afrique",
-        reviews: [
-            { source: "Communicant Afrique", type: "positive", text: "مرجع قطاعي شامل" },
-        ],
-        link: "https://communicant-afrique.mychariow.shop/",
-        description: "بانوراما حول تحولات الاتصال والإعلام والتسويق في أفريقيا مع رؤى 2026"
-    },
-    {
-        id: 17,
-        title: "Avale",
-        titleSub: "Roman",
-        author: "Séphora Pondi",
-        publisher: "Éditions Stock",
-        year: 2025,
-        month: "أغسطس",
-        pages: 208,
-        lang: "fr",
-        category: "africa",
-        tags: ["رواية أولى", "فرنسا-أفريقيا", "هوية"],
-        coverClass: "cover-3",
-        isbn: "978-2234094321",
-        rating: 4.2,
-        ratingSource: "Africa Radio / Babelio",
-        reviews: [
-            { source: "Africa Radio", type: "positive", text: "رواية أولى قوية ومؤثرة" },
-            { source: "Babelio", type: "notable", text: "4.2/5" }
-        ],
-        link: "https://www.editions-stock.fr/avale",
-        description: "الرواية الأولى للممثلة الفرنسية-الأفريقية سيفورا بوندي حول النظرة والإدراك والهوية"
-    },
-    {
-        id: 18,
-        title: "Les Universalistes",
-        titleSub: "Roman",
-        author: "Natasha Brown",
-        publisher: "Grasset (Trad. française)",
-        year: 2025,
-        month: "أغسطس",
-        pages: 176,
-        lang: "fr",
-        category: "africa",
-        tags: ["رواية", "بريطانيا-أفريقيا", "لغة"],
-        coverClass: "cover-8",
-        isbn: "978-2246832451",
-        rating: 4.5,
-        ratingSource: "Africa Radio / Booker Prize",
-        reviews: [
-            { source: "Booker Prize 2025", type: "award", text: "في القائمة القصيرة" },
-            { source: "Africa Radio", type: "positive", text: "استكشاف للغة والسلطة" }
-        ],
-        link: "https://www.grasset.fr/les-universalistes",
-        description: "رواية مرشحة لجائزة بوكر تستكشف قوة اللغة واستخدامها من قبل من يتقنون التلاعب بها"
-    },
-    {
-        id: 19,
-        title: "La nuit au cœur",
-        titleSub: "Récit",
-        author: "Natacha Appanah",
-        publisher: "Gallimard",
-        year: 2025,
-        month: "أغسطس",
-        pages: 160,
-        lang: "fr",
-        category: "africa",
-        tags: ["سيرة", "موريشيوس", "عنف ضد المرأة"],
-        coverClass: "cover-4",
-        isbn: "978-2073066725",
-        rating: 4.3,
-        ratingSource: "Africa Radio / Gallimard",
-        reviews: [
-            { source: "Africa Radio", type: "positive", text: "شجاعة أدبية ونسوية" },
-            { source: "Gallimard", type: "notable", text: "كتابة مؤثرة عميقة" }
-        ],
-        link: "https://www.gallimard.fr/la-nuit-au-coeur",
-        description: "تروي الكاتبة الموريشيوسية ثلاث قصص حقيقية لنساء ضحايا عنف أزواجهن بما فيها قصتها الشخصية"
-    },
-    {
-        id: 20,
-        title: "De la bouche même des indigènes",
-        titleSub: "Échanges linguistiques en Afrique coloniale (Réédition enrichie)",
-        author: "Cécile Van den Avenne",
-        publisher: "Africae / CNRS",
-        year: 2025,
-        month: "نوفمبر",
-        pages: 320,
-        lang: "fr",
-        category: "africa",
-        tags: ["لسانيات", "استعمار", "تاريخ"],
-        coverClass: "cover-6",
-        isbn: "N/A",
-        rating: 4.2,
-        ratingSource: "OpenEdition / CNRS",
-        reviews: [
-            { source: "OpenEdition", type: "notable", text: "إعادة إصدار مُثرية" },
-            { source: "CNRS", type: "positive", text: "دراسة لسانية رائدة" }
-        ],
-        link: "https://books.openedition.org/africae/7377",
-        description: "طبعة مُثرية تدرس التبادلات اللغوية في أفريقيا الاستعمارية من خلال أصوات السكان الأصليين"
-    },
-    // ===== ARAB AFFAIRS =====
-    {
-        id: 21,
-        title: "ميثاق النساء",
-        titleSub: "رواية",
-        author: "حنين الصايغ",
-        publisher: "دار الساقي",
-        year: 2025,
-        month: "يناير",
-        pages: 280,
-        lang: "ar",
-        category: "arab",
-        tags: ["رواية", "لبنان", "بوكر عربية"],
-        coverClass: "cover-9",
-        isbn: "978-6144722381",
-        rating: 4.4,
-        ratingSource: "جائزة البوكر العربية / Goodreads",
-        reviews: [
-            { source: "بوكر عربية 2025", type: "award", text: "القائمة الطويلة" },
-            { source: "Goodreads", type: "positive", text: "4.4/5" }
-        ],
-        link: "https://www.goodreads.com/book/show/223676",
-        description: "رواية ضمن القائمة الطويلة للجائزة العالمية للرواية العربية 2025"
-    },
-    {
-        id: 22,
-        title: "دانشمند",
-        titleSub: "رواية",
-        author: "أحمد فال الدين",
-        publisher: "منشورات المتوسط",
-        year: 2025,
-        month: "فبراير",
-        pages: 320,
-        lang: "ar",
-        category: "arab",
-        tags: ["رواية", "موريتانيا", "بوكر عربية"],
-        coverClass: "cover-10",
-        isbn: "978-8831490672",
-        rating: 4.3,
-        ratingSource: "جائزة البوكر العربية / Goodreads",
-        reviews: [
-            { source: "بوكر عربية 2025", type: "award", text: "القائمة الطويلة" },
-            { source: "Goodreads", type: "notable", text: "4.3/5" }
-        ],
-        link: "https://www.goodreads.com/book/show/danishmand",
-        description: "رواية موريتانية ضمن القائمة الطويلة للجائزة العالمية للرواية العربية 2025"
-    },
-    {
-        id: 23,
-        title: "أحلام سعيدة",
-        titleSub: "رواية",
-        author: "أحمد الملواني",
-        publisher: "الدار المصرية اللبنانية",
-        year: 2025,
-        month: "يناير",
-        pages: 256,
-        lang: "ar",
-        category: "arab",
-        tags: ["رواية", "مصر", "بوكر عربية"],
-        coverClass: "cover-11",
-        isbn: "978-9770938171",
-        rating: 4.1,
-        ratingSource: "جائزة البوكر العربية / الجزيرة نت",
-        reviews: [
-            { source: "بوكر عربية 2025", type: "award", text: "القائمة الطويلة" },
-            { source: "الجزيرة نت", type: "positive", text: "عمل مميز" }
-        ],
-        link: "https://www.goodreads.com/book/show/ahlam-saeeda",
-        description: "رواية مصرية ضمن القائمة الطويلة للجائزة العالمية للرواية العربية 2025"
-    },
-    {
-        id: 24,
-        title: "آخر القرويين",
-        titleSub: "مجموعة قصصية",
-        author: "محسن الرملي",
-        publisher: "المؤسسة العربية للدراسات والنشر",
-        year: 2025,
-        month: "ديسمبر",
-        pages: 180,
-        lang: "ar",
-        category: "arab",
-        tags: ["قصص قصيرة", "العراق", "ريف"],
-        coverClass: "cover-12",
-        isbn: "N/A",
-        rating: 4.2,
-        ratingSource: "الجزيرة نت / Goodreads",
-        reviews: [
-            { source: "الجزيرة نت", type: "positive", text: "مجموعة ناضجة ومميزة" },
-            { source: "Goodreads", type: "notable", text: "4.2/5" }
-        ],
-        link: "https://www.goodreads.com/author/show/mohsen-alramli",
-        description: "مجموعة قصصية للكاتب العراقي محسن الرملي يعتبرها ناضجة وذات خصوصية شكلاً ومضموناً"
-    },
-    {
-        id: 25,
-        title: "Chain of Ideas: The Origins of Our Authoritarian Age",
-        titleSub: "Non-Fiction",
-        author: "Ibram X. Kendi",
-        publisher: "One World",
-        year: 2026,
-        month: "مارس",
-        pages: 592,
-        lang: "en",
-        category: "geopolitics",
-        tags: ["استبداد", "هجرة", "نظرية الاستبدال"],
-        coverClass: "cover-3",
-        isbn: "978-0593230657",
-        rating: 4.5,
-        ratingSource: "Foreign Policy / NYT",
-        reviews: [
-            { source: "Foreign Policy", type: "award", text: "من أبرز إصدارات 2026" },
-            { source: "National Book Award", type: "notable", text: "مؤلف حائز جوائز" }
-        ],
-        link: "https://www.penguinrandomhouse.com/books/chain-of-ideas",
-        description: "يرسم المؤرخ الحائز على جائزة الكتاب الوطني صعود نظرية 'الاستبدال الكبير' وعلاقتها بالتراجع الديمقراطي"
-    },
-    {
-        id: 26,
-        title: "Colonial Chaos",
-        titleSub: "Land Politics and Conflicts on the Shores of Lake Victoria (1885–1925)",
-        author: "Henri Médard",
-        publisher: "Africae",
-        year: 2025,
-        month: "سبتمبر",
-        pages: 380,
-        lang: "en",
-        category: "africa",
-        tags: ["استعمار", "أوغندا", "سياسات أراضي"],
-        coverClass: "cover-1",
-        isbn: "N/A",
-        rating: 4.1,
-        ratingSource: "OpenEdition / Africae",
-        reviews: [
-            { source: "Africae", type: "positive", text: "بحث تاريخي عميق" },
-            { source: "OpenEdition", type: "notable", text: "وصول مفتوح 2026" }
-        ],
-        link: "https://books.openedition.org/africae/",
-        description: "يدرس سياسات الأراضي والنزاعات على شواطئ بحيرة فيكتوريا خلال الحقبة الاستعمارية المبكرة"
-    },
-    {
-        id: 27,
-        title: "Sacred Earth Philosophy",
-        titleSub: "Eco-Spirituality from African Indigenous Knowledge",
-        author: "Esinako Ndabeni",
-        publisher: "Jacana Media",
-        year: 2025,
-        month: "يوليو",
-        pages: 240,
-        lang: "en",
-        category: "africa",
-        tags: ["بيئة", "روحانية", "جنوب أفريقيا"],
-        coverClass: "cover-4",
-        isbn: "978-1431432851",
-        rating: 4.3,
-        ratingSource: "JAY Lit / Goodreads",
-        reviews: [
-            { source: "JAY Lit", type: "positive", text: "استكشاف روحي وبيئي فريد" },
-            { source: "Goodreads", type: "notable", text: "4.3/5" }
-        ],
-        link: "https://www.jacana.co.za/sacred-earth-philosophy",
-        description: "مزيج من السيرة الذاتية والبيان البيئي يستكشف المعرفة الأصلية الجنوب أفريقية في مواجهة التدمير البيئي"
-    },
-    {
-        id: 28,
-        title: "Curandera",
-        titleSub: "A Novel Spanning Centuries and Continents",
-        author: "Irenosen Okojie",
-        publisher: "Dialogue Books",
-        year: 2025,
-        month: "أبريل",
-        pages: 368,
-        lang: "en",
-        category: "africa",
-        tags: ["رواية", "نيجيريا-بريطانيا", "تاريخ"],
-        coverClass: "cover-5",
-        isbn: "978-0349703510",
-        rating: 4.4,
-        ratingSource: "Open Country Mag / The Republic",
-        reviews: [
-            { source: "The Republic", type: "positive", text: "عمل طموح وجريء" },
-            { source: "Open Country Mag", type: "notable", text: "من المنتظرات" }
-        ],
-        link: "https://www.littlebrown.co.uk/titles/curandera",
-        description: "رواية تمتد عبر قرون وقارات تبدأ في القرن السابع عشر في الرأس الأخضر"
-    },
-    {
-        id: 29,
-        title: "ما رأت زينة وما لم ترَ",
-        titleSub: "رواية",
-        author: "رشيد الضعيف",
-        publisher: "رياض الريس للكتب والنشر",
-        year: 2025,
-        month: "فبراير",
-        pages: 220,
-        lang: "ar",
-        category: "arab",
-        tags: ["رواية", "لبنان", "بوكر عربية"],
-        coverClass: "cover-2",
-        isbn: "978-9953219875",
-        rating: 4.2,
-        ratingSource: "جائزة البوكر العربية / Goodreads",
-        reviews: [
-            { source: "بوكر عربية 2025", type: "award", text: "القائمة الطويلة" },
-            { source: "Goodreads", type: "positive", text: "4.2/5" }
-        ],
-        link: "https://www.goodreads.com/book/show/rashid-aldaif",
-        description: "رواية لبنانية ضمن القائمة الطويلة للجائزة العالمية للرواية العربية 2025"
-    },
-    {
-        id: 30,
-        title: "Africology and the African Diaspora",
-        titleSub: "Academic Study",
-        author: "Molefi Kete Asante",
-        publisher: "University of Illinois Press",
-        year: 2026,
-        month: "مايو",
-        pages: 350,
-        lang: "en",
-        category: "africa",
-        tags: ["دراسات أفريقية", "شتات", "أكاديمي"],
-        coverClass: "cover-6",
-        isbn: "978-0252087790",
-        rating: 4.5,
-        ratingSource: "AALBC / Academic Libraries",
-        reviews: [
-            { source: "AALBC", type: "award", text: "من الأكثر ترقباً 2026" },
-            { source: "Academic Reviews", type: "positive", text: "مرجع أكاديمي هام" }
-        ],
-        link: "https://www.press.uillinois.edu/books/africology",
-        description: "دراسة أكاديمية معمقة في علم الأفريقانية والشتات الأفريقي للباحث الرائد مولفي كيتي أسانتي"
-    },
-    {
-        id: 31,
-        title: "Global Norms and Local Action",
-        titleSub: "The Campaigns to End Violence against Women in Africa",
-        author: "Peace A. Medie",
-        publisher: "Oxford University Press",
-        year: 2025,
-        month: "مارس",
-        pages: 256,
-        lang: "en",
-        category: "africa",
-        tags: ["نسوية", "عنف", "أفريقيا"],
-        coverClass: "cover-8",
-        isbn: "978-0197521465",
-        rating: 4.3,
-        ratingSource: "OUP / African Affairs Journal",
-        reviews: [
-            { source: "Oxford UP", type: "positive", text: "دراسة ميدانية متميزة" },
-            { source: "African Affairs", type: "notable", text: "إسهام بحثي هام" }
-        ],
-        link: "https://global.oup.com/academic/product/global-norms",
-        description: "تدرس كيفية تطبيق المعايير العالمية لمناهضة العنف ضد المرأة في السياق الأفريقي المحلي"
-    },
-    {
-        id: 32,
-        title: "The Creation of Half-Broken People",
-        titleSub: "An African Gothic Novel",
-        author: "Siphiwe Gloria Ndlovu",
-        publisher: "Penguin Random House SA",
-        year: 2025,
-        month: "مارس",
-        pages: 336,
-        lang: "en",
-        category: "africa",
-        tags: ["رواية قوطية", "زيمبابوي", "استعمار"],
-        coverClass: "cover-9",
-        isbn: "978-1776099252",
-        rating: 4.3,
-        ratingSource: "Open Country Mag / The Republic",
-        reviews: [
-            { source: "Open Country Mag", type: "positive", text: "رواية قوطية أفريقية مذهلة" },
-            { source: "The Republic", type: "notable", text: "من منتظرات 2025" }
-        ],
-        link: "https://www.penguinrandomhouse.co.za/half-broken-people",
-        description: "رواية قوطية أفريقية عن امرأة تطاردها رؤى الماضي وإرث الاستعمار والرأسمالية"
-    },
-    {
-        id: 33,
-        title: "Into the MCAs' Campaign",
-        titleSub: "The Journeys of the Street-Politicians of Kenya",
-        author: "Francesca Di Matteo, Marie-Aude Fouéré & Chloe Josse Durand",
-        publisher: "Africae",
-        year: 2025,
-        month: "أكتوبر",
-        pages: 250,
-        lang: "en",
-        category: "africa",
-        tags: ["كينيا", "سياسة محلية", "إثنوغرافيا"],
-        coverClass: "cover-10",
-        isbn: "N/A",
-        rating: 4.0,
-        ratingSource: "OpenEdition / Africae",
-        reviews: [
-            { source: "Africae", type: "positive", text: "دراسة ميدانية فريدة" },
-            { source: "OpenEdition", type: "notable", text: "وصول مفتوح" }
-        ],
-        link: "https://books.openedition.org/africae/",
-        description: "دراسة إثنوغرافية تتبع حملات سياسيي الشوارع في كينيا والسياسة المحلية الأفريقية"
-    },
-    {
-        id: 34,
-        title: "Nous serons la tempête",
-        titleSub: "Roman (Traduction française)",
-        author: "Jesmyn Ward",
-        publisher: "Belfond",
-        year: 2025,
-        month: "أغسطس",
-        pages: 384,
-        lang: "fr",
-        category: "africa",
-        tags: ["رواية", "عبودية", "أمريكا-أفريقيا"],
-        coverClass: "cover-11",
-        isbn: "978-2714495983",
-        rating: 4.5,
-        ratingSource: "Africa Radio / Babelio",
-        reviews: [
-            { source: "Africa Radio", type: "positive", text: "غوص في تاريخ العبودية" },
-            { source: "Babelio", type: "notable", text: "4.5/5" }
-        ],
-        link: "https://www.belfond.fr/nous-serons-la-tempete",
-        description: "ترجمة فرنسية لرواية جيسمين وارد عن العبودية في نيو أورلينز من منظور أنيس المفصول عن أمه"
-    },
-    {
-        id: 35,
-        title: "The Making of an African City",
-        titleSub: "How Harare Grew over Centuries",
-        author: "Davison Muchadenyika",
-        publisher: "Weaver Press",
-        year: 2025,
-        month: "يونيو",
-        pages: 290,
-        lang: "en",
-        category: "africa",
-        tags: ["تاريخ حضري", "زيمبابوي", "هراري"],
-        coverClass: "cover-12",
-        isbn: "978-1779224576",
-        rating: 4.1,
-        ratingSource: "This Week in Africa / Weaver",
-        reviews: [
-            { source: "This Week in Africa", type: "positive", text: "من كتب المدن الأفريقية 2025" },
-            { source: "Weaver Press", type: "notable", text: "تاريخ حضري شامل" }
-        ],
-        link: "https://weaverpresszimbabwe.com/harare",
-        description: "يتتبع نمو مدينة هراري عبر القرون من قرية صغيرة إلى عاصمة حديثة"
-    },
-    {
-        id: 36,
-        title: "Headstrong: Women Porters, Blackness, and Modernity in Accra",
-        titleSub: "Ethnographic Study",
-        author: "Laurian R. Bowles",
-        publisher: "Indiana University Press",
-        year: 2025,
-        month: "مايو",
-        pages: 264,
-        lang: "en",
-        category: "africa",
-        tags: ["نسوية", "غانا", "إثنوغرافيا"],
-        coverClass: "cover-7",
-        isbn: "978-0253069634",
-        rating: 4.2,
-        ratingSource: "This Week in Africa / IUP",
-        reviews: [
-            { source: "This Week in Africa", type: "positive", text: "من أبرز كتب المدن الأفريقية" },
-            { source: "Indiana UP", type: "notable", text: "دراسة إثنوغرافية" }
-        ],
-        link: "https://iupress.org/9780253069634",
-        description: "دراسة عن حاملات البضائع على رؤوسهن في أكرا والحداثة والهوية السوداء"
+const KW_IR = [
+  'iran','iranian','persia','persian','tehran','tehran','khamenei','khomeini',
+  'islamic republic','iranian revolution','irgc','revolutionary guard',
+  'iranian nuclear','jcpoa','iranian politics','iranian economy',
+  'sanctions iran','shiite iran','shia iran','velayat-e faqih',
+  'pahlavi','safavid','qajar','iranian diaspora','iranian women',
+  'iranian protests','mahsa amini','iranian foreign policy',
+  'hezbollah iran','proxy iran','iranian missile',
+  'iran','iranien','iranienne','politique iranienne','nucléaire iranien',
+  'إيران','إيراني','إيرانية','طهران','خامنئي','خميني',
+  'الجمهورية الإسلامية','الثورة الإيرانية','الحرس الثوري',
+  'النووي الإيراني','العقوبات على إيران','السياسة الإيرانية',
+  'الاقتصاد الإيراني','الاحتجاجات الإيرانية','مهسا أميني',
+  'حزب الله','الوكلاء الإيرانيون','البرنامج الصاروخي'
+];
+
+const KW_IL = [
+  'israel','israeli','zionism','zionist','tel aviv','jerusalem','netanyahu',
+  'idf','knesset','mossad','shin bet','israeli politics','israeli economy',
+  'israeli military','israeli settlements','west bank','gaza','palestinian',
+  'hamas','hezbollah','iron dome','israeli democracy','israeli elections',
+  'two-state','one-state','occupation','apartheid israel',
+  'kibbutz','israeli society','israeli technology','startup nation',
+  'october 7','october 7th','jewish state',
+  'israël','israélien','israélienne','politique israélienne','sionisme',
+  'إسرائيل','إسرائيلي','إسرائيلية','الصهيونية','تل أبيب','القدس',
+  'نتنياهو','الكنيست','الموساد','الجيش الإسرائيلي','المستوطنات',
+  'الاحتلال','السابع من أكتوبر','القبة الحديدية',
+  'السياسة الإسرائيلية','الاقتصاد الإسرائيلي','الانتخابات الإسرائيلية',
+  'حماس','غزة','الضفة الغربية'
+];
+
+function detectCountry(title, desc, authors) {
+  const t = ((title||'') + ' ' + (desc||'') + ' ' + (authors||[]).join(' ')).toLowerCase();
+  const countries = [];
+  for (const kw of KW_TR) if (t.includes(kw)) { countries.push('turkey'); break; }
+  for (const kw of KW_IR) if (t.includes(kw)) { countries.push('iran'); break; }
+  for (const kw of KW_IL) if (t.includes(kw)) { countries.push('israel'); break; }
+  return countries.length ? countries : null;
+}
+
+function isRelevant(title, desc, authors) {
+  return detectCountry(title, desc, authors) !== null;
+}
+
+function detectLang(text) {
+  if (!text) return 'en';
+  if (/[\u0600-\u06FF]/.test(text)) return 'ar';
+  if (/[àâéèêëïîôùûüÿçœæ]/i.test(text) ||
+      /\b(le|la|les|du|des|une?|et|dans|pour|avec|sur|livre|politique|histoire)\b/i.test(text)) return 'fr';
+  return 'en';
+}
+
+function detectTopics(title, desc) {
+  const t = ((title||'')+' '+(desc||'')).toLowerCase();
+  const out = [];
+  const map = [
+    [/politi|سياس/i,'Politics'],[/histor|histoire|تاريخ/i,'History'],
+    [/econom|économi|اقتصاد/i,'Economy'],[/military|militaire|عسكري|جيش|army/i,'Military'],
+    [/nuclear|nucléaire|نووي/i,'Nuclear'],[/relig|دين|islam|شيع|سني/i,'Religion'],
+    [/societ|société|مجتمع/i,'Society'],[/foreign.poli|politique.étrangère|خارجي/i,'Foreign Policy'],
+    [/conflict|conflit|war|guerre|حرب|نزاع/i,'Conflict'],
+    [/diplom|دبلوماس/i,'Diplomacy'],[/human.right|droits|حقوق/i,'Human Rights'],
+    [/cultur|ثقاف/i,'Culture'],[/geopolit|جيوسياس/i,'Geopolitics'],
+    [/election|élection|انتخاب/i,'Elections'],[/sanction|عقوب/i,'Sanctions'],
+    [/terror|إرهاب/i,'Terrorism'],[/democra|ديمقراط/i,'Democracy'],
+    [/energy|énergie|طاق/i,'Energy'],[/secur|sécur|أمن/i,'Security'],
+    [/trade|commerce|تجار/i,'Trade'],[/migrat|هجر/i,'Migration'],
+    [/technol|تقن|تكنولوج/i,'Technology'],[/women|femmes|مرأة|نساء/i,'Women'],
+    [/media|إعلام/i,'Media'],[/oil|gas|pétrole|نفط|غاز/i,'Energy']
+  ];
+  for (const [rx, lb] of map) if (rx.test(t)) out.push(lb);
+  return out.length ? out.slice(0,5) : ['General'];
+}
+
+// ── Dedup ──
+function normT(s) { return (s||'').toLowerCase().replace(/[^\w\s\u0600-\u06FF]/g,' ').replace(/\s+/g,' ').trim().substring(0,80); }
+function dedup(books) {
+  const seen = new Set(), titles = [], out = [];
+  for (const b of books) {
+    const nt = normT(b.title); if (!nt || nt.length < 4) continue;
+    const isbn = (b.isbn||'').replace(/[^0-9X]/gi,'');
+    if (isbn.length >= 10) { if (seen.has('i:'+isbn)) continue; seen.add('i:'+isbn); }
+    let dup = false;
+    for (const et of titles) {
+      if (nt === et || (nt.length > 12 && et.length > 12 && (nt.includes(et) || et.includes(nt)))) { dup = true; break; }
     }
-];
+    if (dup) continue;
+    titles.push(nt); out.push(b);
+  }
+  return out;
+}
 
-// ============================================================
-// FUNCTIONS
-// ============================================================
+// ── Purge expired books ──
+function purgeExpired(books) {
+  return books.filter(b => {
+    const dr = daysRemaining(b.publication_date);
+    return dr > 0;
+  });
+}
 
-function renderSources() {
-    const grid = document.getElementById('sourcesGrid');
-    grid.innerHTML = sources.map(s => `<span class="source-chip">${s}</span>`).join('');
+// ── Make Book ──
+function mkBook(id, title, authors, publisher, pubDate, pages, isbn, url, cover, desc, lang, source) {
+  const countries = detectCountry(title, desc, authors) || [];
+  return {
+    id, title: (title||'').trim(),
+    authors: (authors||[]).filter(Boolean).map(a => a.trim()),
+    publisher: (publisher||'').trim(),
+    publication_date: pubDate || '',
+    pages: pages||null, isbn: isbn||'',
+    book_url: url||'', cover: (cover||'').replace('http:','https:'),
+    description: (desc||'').substring(0,500).trim(),
+    language: lang||'en',
+    countries,
+    topics: detectTopics(title, desc),
+    source, rating: null, addedAt: Date.now()
+  };
+}
+
+// ═══════════════════════════════════════════
+//  SEARCH QUERIES
+// ═══════════════════════════════════════════
+const Q = {
+  en: [
+    // Turkey
+    "turkey politics","turkey economy","erdogan","turkish foreign policy",
+    "ottoman empire","turkish military","turkish elections","turkey democracy",
+    "turkey EU","turkey NATO","kurdish turkey","turkish nationalism",
+    "turkey syria","turkey russia","turkish lira","istanbul","ankara politics",
+    "kemalism","turkey coup","turkish society","turkey religion",
+    "turkey energy","neo-ottoman","turkey middle east",
+    // Iran
+    "iran politics","iran economy","iranian nuclear","iran sanctions",
+    "khamenei","iranian revolution","IRGC","iran foreign policy",
+    "iran protests","mahsa amini","iran israel","iran proxy",
+    "iranian society","iranian women","iran oil","tehran",
+    "jcpoa iran","iran hezbollah","iran military","iranian diaspora",
+    "iran human rights","iran elections","iran technology",
+    "iran iraq","iran saudi","persian gulf",
+    // Israel
+    "israel politics","israel economy","israeli military","netanyahu",
+    "israel gaza","october 7","israel hamas","israeli settlements",
+    "israeli democracy","israel iran","israeli elections","tel aviv",
+    "israel technology","startup nation israel","israel palestine",
+    "zionism","israeli society","mossad","idf","iron dome",
+    "west bank","israeli occupation","two state solution",
+    "israel hezbollah","israeli foreign policy","knesset",
+    // Cross-cutting
+    "turkey iran relations","turkey israel relations","iran israel conflict",
+    "middle east geopolitics","middle east power","regional rivalry"
+  ],
+  fr: [
+    "turquie politique","turquie économie","erdogan","politique étrangère turque",
+    "empire ottoman","turquie OTAN","turquie UE","élections turques",
+    "iran politique","iran nucléaire","iran sanctions","khamenei",
+    "iran protestations","iran société","iran pétrole",
+    "israël politique","israël économie","netanyahu","israël gaza",
+    "7 octobre","israël hamas","colonies israéliennes","sionisme",
+    "israël palestine","démocratie israélienne",
+    "turquie iran","iran israël","moyen orient géopolitique"
+  ],
+  ar: [
+    "تركيا السياسة","تركيا الاقتصاد","أردوغان","السياسة الخارجية التركية",
+    "الدولة العثمانية","الجيش التركي","الانتخابات التركية","تركيا الناتو",
+    "إيران السياسة","إيران الاقتصاد","النووي الإيراني","العقوبات إيران",
+    "خامنئي","الحرس الثوري","الاحتجاجات الإيرانية","إيران حزب الله",
+    "إسرائيل السياسة","إسرائيل الاقتصاد","نتنياهو","إسرائيل غزة",
+    "السابع من أكتوبر","حماس","المستوطنات","الاحتلال الإسرائيلي",
+    "الصهيونية","القدس","إسرائيل إيران",
+    "تركيا إيران","الشرق الأوسط جيوسياسة"
+  ]
+};
+
+// ═══════════════════════════════════════════
+// SOURCE 1: Google Books
+// ═══════════════════════════════════════════
+async function srcGoogle(query, langR) {
+  const books = [];
+  try {
+    const p = new URLSearchParams({ q: query, printType: 'books', orderBy: 'newest', maxResults: '40' });
+    if (langR === 'ar' || langR === 'fr') p.set('langRestrict', langR);
+    const r = await fetchT('https://www.googleapis.com/books/v1/volumes?' + p);
+    if (r.status === 429) { logErr('Google', 'Rate limit'); await sleep(5000); return books; }
+    if (!r.ok) return books;
+    const d = await r.json();
+    for (const item of (d.items || [])) {
+      try {
+        const v = item.volumeInfo || {};
+        if (!v.title || !v.publishedDate) continue;
+        if (!isRecent(v.publishedDate)) continue;
+        const ft = v.title + (v.subtitle ? ': ' + v.subtitle : '');
+        if (!isRelevant(ft, v.description, v.authors)) continue;
+        const lang = v.language === 'ar' ? 'ar' : v.language === 'fr' ? 'fr' : detectLang(v.title);
+        const ids = v.industryIdentifiers || [];
+        books.push(mkBook(item.id, ft, v.authors, v.publisher, v.publishedDate,
+          v.pageCount, (ids.find(i => i.type === 'ISBN_13') || ids[0] || {}).identifier,
+          v.infoLink, (v.imageLinks || {}).thumbnail, v.description, lang, 'Google Books'));
+      } catch(e) {}
+    }
+  } catch(e) { logErr('Google', e.message); }
+  return books;
+}
+
+// ═══════════════════════════════════════════
+// SOURCE 2: Open Library
+// ═══════════════════════════════════════════
+async function srcOpenLib(query) {
+  const books = [];
+  try {
+    const r = await fetchT('https://openlibrary.org/search.json?q=' + encodeURIComponent(query) + '&limit=25&sort=new');
+    if (!r.ok) return books;
+    const d = await r.json();
+    for (const doc of (d.docs || [])) {
+      try {
+        if (!doc.title) continue;
+        const yr = doc.first_publish_year; if (!yr) continue;
+        const pd = yr + '-01-01'; if (!isRecent(pd)) continue;
+        const subj = (doc.subject || []).join(' ');
+        if (!isRelevant(doc.title, subj, doc.author_name)) continue;
+        const cid = doc.cover_i;
+        books.push(mkBook('ol_'+doc.key, doc.title, doc.author_name,
+          (doc.publisher||[])[0], pd, doc.number_of_pages_median,
+          (doc.isbn||[])[0], 'https://openlibrary.org'+doc.key,
+          cid ? 'https://covers.openlibrary.org/b/id/'+cid+'-M.jpg' : '',
+          '', detectLang(doc.title), 'Open Library'));
+      } catch(e) {}
+    }
+  } catch(e) { logErr('OpenLib', e.message); }
+  return books;
+}
+
+// ═══════════════════════════════════════════
+// SOURCE 3: Crossref
+// ═══════════════════════════════════════════
+async function srcCrossref(query) {
+  const books = [];
+  try {
+    const p = new URLSearchParams({
+      query, filter: 'type:book,from-pub-date:'+getMinISO(),
+      rows: '20', sort: 'published', order: 'desc'
+    });
+    const r = await fetchT('https://api.crossref.org/works?'+p,
+      { headers: { 'User-Agent': 'BooksObs/1.0 (mailto:t@example.com)' } });
+    if (!r.ok) return books;
+    const d = await r.json();
+    for (const item of ((d.message||{}).items||[])) {
+      try {
+        const title = (item.title||[])[0]; if (!title) continue;
+        const auths = (item.author||[]).map(a => ((a.given||'')+' '+(a.family||'')).trim());
+        if (!isRelevant(title, (item.subject||[]).join(' '), auths)) continue;
+        const dp = ((item['published-print']||item['published-online']||{})['date-parts']||[])[0];
+        if (!dp) continue;
+        const pd = dp[0]+'-'+String(dp[1]||1).padStart(2,'0')+'-'+String(dp[2]||1).padStart(2,'0');
+        if (!isRecent(pd)) continue;
+        books.push(mkBook('cr_'+(item.DOI||Math.random().toString(36).substr(2,8)),
+          title, auths, item.publisher, pd, null, (item.ISBN||[])[0],
+          item.URL||(item.DOI?'https://doi.org/'+item.DOI:''),
+          '', '', detectLang(title), 'Crossref'));
+      } catch(e) {}
+    }
+  } catch(e) { logErr('Crossref', e.message); }
+  return books;
+}
+
+// ═══════════════════════════════════════════
+// SOURCE 4: OpenAlex
+// ═══════════════════════════════════════════
+async function srcOpenAlex(query) {
+  const books = [];
+  try {
+    const p = new URLSearchParams({
+      search: query,
+      filter: 'type:book,from_publication_date:'+getMinISO(),
+      per_page: '25', sort: 'publication_date:desc'
+    });
+    const r = await fetchT('https://api.openalex.org/works?'+p,
+      { headers: { 'User-Agent': 'mailto:t@example.com' } });
+    if (!r.ok) return books;
+    const d = await r.json();
+    for (const w of (d.results||[])) {
+      try {
+        const title = w.title || w.display_name; if (!title) continue;
+        const pd = w.publication_date; if (!pd || !isRecent(pd)) continue;
+        const auths = (w.authorships||[]).map(a => (a.author||{}).display_name||'').filter(Boolean);
+        const concepts = (w.concepts||[]).map(c => c.display_name||'').join(' ');
+        if (!isRelevant(title, concepts, auths)) continue;
+        const doi = w.doi ? w.doi.replace('https://doi.org/','') : '';
+        books.push(mkBook('oa_'+(w.id||''), title, auths,
+          ((w.primary_location||{}).source||{}).display_name||'',
+          pd, null, '', doi ? 'https://doi.org/'+doi : (w.id||''),
+          '', '', detectLang(title), 'OpenAlex'));
+      } catch(e) {}
+    }
+  } catch(e) { logErr('OpenAlex', e.message); }
+  return books;
+}
+
+// ═══════════════════════════════════════════
+// SOURCE 5: Semantic Scholar
+// ═══════════════════════════════════════════
+async function srcSemantic(query) {
+  const books = [];
+  try {
+    const yr = new Date().getFullYear();
+    const p = new URLSearchParams({
+      query, limit: '12',
+      fields: 'title,authors,year,externalIds,url,publicationDate,venue,abstract',
+      year: (yr-1)+'-'+yr
+    });
+    const r = await fetchT('https://api.semanticscholar.org/graph/v1/paper/search?'+p, {}, 15000);
+    if (r.status === 429) { logErr('Semantic', 'Rate limit'); return books; }
+    if (!r.ok) return books;
+    const d = await r.json();
+    for (const paper of (d.data||[])) {
+      try {
+        if (!paper.title) continue;
+        const pd = paper.publicationDate || (paper.year?paper.year+'-01-01':'');
+        if (!pd || !isRecent(pd)) continue;
+        const auths = (paper.authors||[]).map(a => a.name||'');
+        if (!isRelevant(paper.title, (paper.abstract||'')+' '+(paper.venue||''), auths)) continue;
+        const doi = (paper.externalIds||{}).DOI;
+        books.push(mkBook('ss_'+paper.paperId, paper.title, auths, paper.venue||'',
+          pd, null, '', doi?'https://doi.org/'+doi:(paper.url||''),
+          '', paper.abstract||'', detectLang(paper.title), 'Semantic Scholar'));
+      } catch(e) {}
+    }
+  } catch(e) { logErr('Semantic', e.message); }
+  return books;
+}
+
+// ═══════════════════════════════════════════
+// SOURCE 6: Internet Archive
+// ═══════════════════════════════════════════
+async function srcIA(query) {
+  const books = [];
+  try {
+    const yr = new Date().getFullYear();
+    const url = 'https://archive.org/advancedsearch.php?q='+encodeURIComponent(query)+
+      '+mediatype:texts+year:['+(yr-1)+' TO '+yr+
+      ']&fl[]=identifier&fl[]=title&fl[]=creator&fl[]=publisher&fl[]=date&fl[]=year&fl[]=description&rows=12&output=json';
+    const r = await fetchT(url);
+    if (!r.ok) return books;
+    const d = await r.json();
+    for (const doc of ((d.response||{}).docs||[])) {
+      try {
+        if (!doc.title) continue;
+        const pd = doc.date || (doc.year?doc.year+'-01-01':'');
+        if (!isRecent(pd)) continue;
+        const auths = doc.creator ? [].concat(doc.creator) : [];
+        if (!isRelevant(doc.title, doc.description||'', auths)) continue;
+        books.push(mkBook('ia_'+doc.identifier, doc.title, auths,
+          Array.isArray(doc.publisher)?doc.publisher[0]:(doc.publisher||''),
+          pd, null, '', 'https://archive.org/details/'+doc.identifier,
+          'https://archive.org/services/img/'+doc.identifier,
+          (doc.description||'').substring(0,300), detectLang(doc.title), 'Internet Archive'));
+      } catch(e) {}
+    }
+  } catch(e) { logErr('IA', e.message); }
+  return books;
+}
+
+// ═══════════════════════════════════════════
+// SOURCE 7: LOC
+// ═══════════════════════════════════════════
+async function srcLOC(query) {
+  const books = [];
+  try {
+    const r = await fetchT('https://www.loc.gov/books/?q='+encodeURIComponent(query)+'&fo=json&c=12');
+    if (!r.ok) return books;
+    const d = await r.json();
+    for (const item of (d.results||[])) {
+      try {
+        if (!item.title) continue;
+        const yr = parseInt([].concat(item.date||[])[0]||'');
+        const pd = yr ? yr+'-01-01' : '';
+        if (pd && !isRecent(pd)) continue;
+        const auths = [].concat(item.contributor||[]).filter(c => typeof c === 'string');
+        const desc = Array.isArray(item.description) ? item.description.join(' ') : '';
+        if (!isRelevant(item.title, desc, auths)) continue;
+        const img = item.image_url ? (Array.isArray(item.image_url)?item.image_url[0]:item.image_url) : '';
+        books.push(mkBook('loc_'+Math.random().toString(36).substr(2,8),
+          item.title, auths, '', pd, null, '', item.url||item.id||'',
+          img, '', detectLang(item.title), 'LOC'));
+      } catch(e) {}
+    }
+  } catch(e) { logErr('LOC', e.message); }
+  return books;
+}
+
+// ═══════════════════════════════════════════
+//  MAIN ENGINE
+// ═══════════════════════════════════════════
+async function fetchAll() {
+  if (isUpdating) return;
+  isUpdating = true;
+  activeSources.clear();
+  errors = [];
+  document.getElementById('elog').style.display = 'none';
+  const prev = ALL_BOOKS.length;
+  document.getElementById('pbar').style.display = 'block';
+  document.getElementById('rBtn').disabled = true;
+  if (!ALL_BOOKS.length)
+    document.getElementById('grid').innerHTML = '<div class="loader"><div class="spinner"></div><p>جار المسح من المصادر...</p></div>';
+
+  const allNew = [];
+  const tasks = [];
+
+  // Google Books
+  for (const q of Q.en) tasks.push({ fn: () => srcGoogle(q,'en'), name: 'Google Books', q });
+  for (const q of Q.fr) tasks.push({ fn: () => srcGoogle(q,'fr'), name: 'Google Books', q });
+  for (const q of Q.ar) tasks.push({ fn: () => srcGoogle(q,'ar'), name: 'Google Books', q });
+  // Open Library
+  for (const q of Q.en.slice(0,20)) tasks.push({ fn: () => srcOpenLib(q), name: 'Open Library', q });
+  for (const q of Q.fr.slice(0,10)) tasks.push({ fn: () => srcOpenLib(q), name: 'Open Library', q });
+  for (const q of Q.ar.slice(0,8)) tasks.push({ fn: () => srcOpenLib(q), name: 'Open Library', q });
+  // Crossref
+  for (const q of Q.en.slice(0,15)) tasks.push({ fn: () => srcCrossref(q), name: 'Crossref', q });
+  for (const q of Q.fr.slice(0,8)) tasks.push({ fn: () => srcCrossref(q), name: 'Crossref', q });
+  // OpenAlex
+  for (const q of Q.en.slice(0,15)) tasks.push({ fn: () => srcOpenAlex(q), name: 'OpenAlex', q });
+  for (const q of Q.fr.slice(0,8)) tasks.push({ fn: () => srcOpenAlex(q), name: 'OpenAlex', q });
+  // Semantic Scholar
+  for (const q of Q.en.slice(0,10)) tasks.push({ fn: () => srcSemantic(q), name: 'Semantic Scholar', q });
+  // Internet Archive
+  for (const q of Q.en.slice(0,8)) tasks.push({ fn: () => srcIA(q), name: 'Internet Archive', q });
+  // LOC
+  for (const q of Q.en.slice(0,6)) tasks.push({ fn: () => srcLOC(q), name: 'LOC', q });
+
+  const total = tasks.length;
+  let done = 0;
+
+  for (let i = 0; i < tasks.length; i += 2) {
+    const batch = tasks.slice(i, i+2);
+    await Promise.allSettled(batch.map(async t => {
+      try {
+        const res = await t.fn();
+        if (res.length > 0) {
+          activeSources.set(t.name, (activeSources.get(t.name)||0) + res.length);
+          allNew.push(...res);
+        }
+      } catch(e) { logErr(t.name, e.message); }
+    }));
+
+    done += batch.length;
+    const pct = Math.round((done/total)*100);
+    document.getElementById('pfill').style.width = pct + '%';
+    document.getElementById('ptxt').textContent = pct + '% | ' + batch[0].name + ': ' + batch[0].q.substring(0,30);
+
+    // Live update
+    if (allNew.length > 0 && done % 16 === 0) {
+      let temp = dedup([...ALL_BOOKS, ...allNew]);
+      temp = purgeExpired(temp);
+      temp.sort((a,b) => new Date(b.publication_date) - new Date(a.publication_date));
+      ALL_BOOKS = temp;
+      updateUI();
+    }
+
+    const src = batch[0].name;
+    await sleep(src === 'Google Books' ? 700 : src === 'Semantic Scholar' ? 1500 : src === 'Crossref' ? 600 : 400);
+  }
+
+  // Final merge + purge
+  ALL_BOOKS = dedup([...ALL_BOOKS, ...allNew]);
+  ALL_BOOKS = purgeExpired(ALL_BOOKS);
+  ALL_BOOKS.sort((a,b) => new Date(b.publication_date) - new Date(a.publication_date));
+  const added = ALL_BOOKS.length - prev;
+
+  try {
+    localStorage.setItem(CK, JSON.stringify({
+      books: ALL_BOOKS.slice(0,600), ts: Date.now(),
+      sources: Object.fromEntries(activeSources)
+    }));
+  } catch(e) {}
+
+  document.getElementById('pbar').style.display = 'none';
+  document.getElementById('rBtn').disabled = false;
+  isUpdating = false;
+  updateUI();
+
+  if (errors.length) {
+    document.getElementById('elog').style.display = 'block';
+    document.getElementById('elogBox').innerHTML = errors.slice(-8).map(e => '⚠️ '+e).join('<br>');
+  }
+
+  if (added > 0 && prev > 0) showNotif('✅ '+added+' كتاب جديد من '+activeSources.size+' مصادر');
+  console.log('✅ Total:', ALL_BOOKS.length, '| New:', added, '| Sources:', activeSources.size);
+}
+
+// ═══════════════════════════════════════════
+//  UI
+// ═══════════════════════════════════════════
+function updateUI() { updateStats(); filterBooks(); updateTime(); updateSrcUI(); updateSrcFilter(); }
+
+function updateStats() {
+  document.getElementById('sAll').textContent = ALL_BOOKS.length;
+  document.getElementById('sTR').textContent = ALL_BOOKS.filter(b => b.countries.includes('turkey')).length;
+  document.getElementById('sIR').textContent = ALL_BOOKS.filter(b => b.countries.includes('iran')).length;
+  document.getElementById('sIL').textContent = ALL_BOOKS.filter(b => b.countries.includes('israel')).length;
+  document.getElementById('sAr').textContent = ALL_BOOKS.filter(b => b.language === 'ar').length;
+  document.getElementById('sEn').textContent = ALL_BOOKS.filter(b => b.language === 'en').length;
+  document.getElementById('sFr').textContent = ALL_BOOKS.filter(b => b.language === 'fr').length;
+  document.getElementById('sSrc').textContent = activeSources.size;
+}
+
+function updateTime() { document.getElementById('lastUp').textContent = 'آخر تحديث: ' + fmtNow(); }
+
+function updateSrcUI() {
+  const all = ['Google Books','Open Library','Crossref','OpenAlex','Semantic Scholar','Internet Archive','LOC'];
+  document.getElementById('srcBar').innerHTML = '<div class="src-grid">' +
+    all.map(s => {
+      const c = activeSources.get(s)||0;
+      return '<span class="src-tag"><span class="d '+(c?'on':'off')+'"></span>'+s+(c?' ('+c+')':'')+'</span>';
+    }).join('') + '</div>';
+}
+
+function updateSrcFilter() {
+  const sel = document.getElementById('srcSel');
+  const cur = sel.value;
+  const srcs = [...new Set(ALL_BOOKS.map(b => b.source))].sort();
+  sel.innerHTML = '<option value="">الكل ('+srcs.length+')</option>';
+  srcs.forEach(s => {
+    sel.innerHTML += '<option value="'+esc(s)+'">'+esc(s)+' ('+ALL_BOOKS.filter(b => b.source === s).length+')</option>';
+  });
+  sel.value = cur;
+}
+
+function setCountry(c, btn) {
+  curCountry = c;
+  document.querySelectorAll('.filter-row .fbtn').forEach(b => {
+    if (['🇹🇷','🇮🇷','🇮🇱','الكل'].some(x => b.textContent.includes(x))) b.className = 'fbtn';
+  });
+  if (c === 'all') btn.classList.add('active');
+  else if (c === 'turkey') btn.classList.add('a-tr');
+  else if (c === 'iran') btn.classList.add('a-ir');
+  else if (c === 'israel') btn.classList.add('a-il');
+  filterBooks();
+}
+
+function setLang(l, btn) {
+  curLang = l;
+  // Reset only lang buttons
+  const langBtns = [...document.querySelectorAll('.filter-row .fbtn')].filter(b =>
+    ['الكل','عربي','EN','FR'].includes(b.textContent.trim()) && b.id !== undefined
+  );
+  // Simple approach: reset all then set
+  document.querySelectorAll('.filter-row .fbtn').forEach(b => {
+    if (['عربي','EN','FR'].includes(b.textContent.trim()) ||
+        (b.textContent.trim() === 'الكل' && b === document.getElementById('langAll'))) {
+      b.className = 'fbtn';
+    }
+  });
+  if (l === 'all') btn.classList.add('active');
+  else btn.classList.add('a-'+l);
+  filterBooks();
+}
+
+function filterBooks() {
+  const search = document.getElementById('searchInput').value.toLowerCase().trim();
+  const topic = document.getElementById('topicSel').value;
+  const src = document.getElementById('srcSel').value;
+  const sort = document.getElementById('sortSel').value;
+
+  let list = ALL_BOOKS.filter(b => {
+    if (curCountry !== 'all' && !b.countries.includes(curCountry)) return false;
+    if (curLang !== 'all' && b.language !== curLang) return false;
+    if (topic && !b.topics.some(t => t.toLowerCase().includes(topic.toLowerCase()))) return false;
+    if (src && b.source !== src) return false;
+    if (search) {
+      const hay = (b.title+' '+b.authors.join(' ')+' '+b.publisher+' '+(b.description||'')).toLowerCase();
+      if (!hay.includes(search)) return false;
+    }
+    return true;
+  });
+
+  switch(sort) {
+    case 'newest': list.sort((a,b) => new Date(b.publication_date) - new Date(a.publication_date)); break;
+    case 'oldest': list.sort((a,b) => new Date(a.publication_date) - new Date(b.publication_date)); break;
+    case 'expiring': list.sort((a,b) => daysRemaining(a.publication_date) - daysRemaining(b.publication_date)); break;
+    case 'title': list.sort((a,b) => a.title.localeCompare(b.title)); break;
+  }
+  renderBooks(list);
 }
 
 function renderBooks(books) {
-    const grid = document.getElementById('booksGrid');
-    let html = '';
+  const grid = document.getElementById('grid');
+  if (!books.length && !ALL_BOOKS.length) {
+    grid.innerHTML = '<div class="loader"><div class="spinner"></div><p>جار التحميل...</p></div>'; return;
+  }
+  if (!books.length) {
+    grid.innerHTML = '<div class="no-res"><p style="font-size:3em">🔍</p><p>لا توجد كتب مطابقة</p></div>'; return;
+  }
 
-    // Group by category for section dividers
-    const categoryOrder = ['africa', 'arab', 'geopolitics'];
-    const categoryNames = {
-        'africa': { name: 'الشؤون الأفريقية', icon: 'fa-globe-africa', cls: 'cat-africa', sub: 'دراسات وإصدارات حول أفريقيا — سياسة، اقتصاد، ثقافة، أدب' },
-        'arab': { name: 'الشؤون العربية', icon: 'fa-mosque', cls: 'cat-arab', sub: 'دراسات وإصدارات حول العالم العربي والشرق الأوسط' },
-        'geopolitics': { name: 'الجيوسياسة العالمية', icon: 'fa-earth-americas', cls: 'cat-geopolitics', sub: 'إصدارات حول العلاقات الدولية والنظام العالمي' }
-    };
+  grid.innerHTML = books.map(b => {
+    const countries = b.countries || [];
+    const mainC = countries[0] || 'multi';
+    const bc = countries.length > 1 ? 'b-multi' : 'b-'+mainC.substring(0,2);
+    const cbClass = countries.length > 1 ? 'cb-multi' : 'cb-'+mainC.substring(0,2);
+    const countryLabel = countries.length > 1 ?
+      countries.map(c => c === 'turkey' ? '🇹🇷' : c === 'iran' ? '🇮🇷' : '🇮🇱').join('') :
+      (mainC === 'turkey' ? '🇹🇷 تركيا' : mainC === 'iran' ? '🇮🇷 إيران' : '🇮🇱 إسرائيل');
 
-    categoryOrder.forEach(cat => {
-        const catBooks = books.filter(b => b.category === cat);
-        if (catBooks.length === 0) return;
+    const lc = 'lb-' + b.language;
+    const ll = b.language === 'ar' ? 'عربي' : b.language === 'fr' ? 'FR' : 'EN';
+    const date = fmtDate(b.publication_date);
+    const dr = daysRemaining(b.publication_date);
+    const drClass = dr > 180 ? 'days-ok' : dr > 60 ? 'days-warn' : 'days-danger';
+    const drText = dr + ' يوم متبقي';
 
-        const info = categoryNames[cat];
-        html += `
-            <div class="category-divider">
-                <div class="cat-icon ${info.cls}"><i class="fas ${info.icon}"></i></div>
-                <div class="cat-text">
-                    <h3>${info.name} <span style="font-size:13px;color:var(--accent)">(${catBooks.length})</span></h3>
-                    <p>${info.sub}</p>
-                </div>
-                <div class="cat-line"></div>
-            </div>
-        `;
+    const ncClass = mainC === 'turkey' ? 'nc-tr' : mainC === 'iran' ? 'nc-ir' : 'nc-il';
+    const ncEmoji = mainC === 'turkey' ? '🇹🇷' : mainC === 'iran' ? '🇮🇷' : '🇮🇱';
 
-        catBooks.forEach(book => {
-            html += renderBookCard(book);
-        });
-    });
+    const coverHTML = b.cover
+      ? '<img src="'+esc(b.cover)+'" alt="" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"><div class="no-cover '+ncClass+'" style="display:none">'+ncEmoji+'</div>'
+      : '<div class="no-cover '+ncClass+'">'+ncEmoji+'</div>';
 
-    grid.innerHTML = html;
-    document.getElementById('displayCount').textContent = books.length;
+    const tagClass = c => c === 'turkey' ? 'tag-tr' : c === 'iran' ? 'tag-ir' : c === 'israel' ? 'tag-il' : 'tag-n';
+    const tags = b.topics.slice(0,4).map(t => '<span class="tag tag-n">'+esc(t)+'</span>').join('');
+
+    return '<div class="card '+bc+'">' +
+      '<div class="cover">' + coverHTML +
+      '<span class="lang-badge '+lc+'">'+ll+'</span>' +
+      '<span class="country-badge '+cbClass+'">'+countryLabel+'</span>' +
+      '<span class="src-badge">'+esc(b.source)+'</span>' +
+      '<span class="days-badge '+drClass+'">'+drText+'</span>' +
+      '</div>' +
+      '<div class="body">' +
+      '<div class="title">'+esc(b.title)+'</div>' +
+      '<div class="author">'+esc(b.authors.slice(0,3).join(', ')||'—')+'</div>' +
+      '<div class="pub">'+esc(b.publisher||'—')+'</div>' +
+      '<div class="meta">' +
+      (date ? '<span>📅 '+date+'</span>' : '') +
+      (b.pages ? '<span>📄 '+b.pages+'</span>' : '') +
+      (b.isbn ? '<span>📋 ISBN</span>' : '') +
+      '</div>' +
+      '<div class="topics">'+tags+'</div>' +
+      (b.description ? '<div class="desc">'+esc(b.description)+'</div>' : '') +
+      '<div class="actions">' +
+      (b.book_url ? '<a href="'+esc(b.book_url)+'" target="_blank" class="alink ap">🔗 الكتاب</a>' : '') +
+      (b.isbn ? '<a href="https://www.worldcat.org/isbn/'+esc(b.isbn)+'" target="_blank" class="alink as">📚 WorldCat</a>' : '') +
+      '</div></div></div>';
+  }).join('');
 }
 
-function renderBookCard(book) {
-    const langLabel = { en: 'EN', fr: 'FR', ar: 'عربي' };
-    const langClass = `lang-${book.lang}`;
-    const starsHtml = renderStars(book.rating);
-    const reviewsHtml = book.reviews.map(r =>
-        `<span class="review-badge review-${r.type}">${r.source}: ${r.text}</span>`
-    ).join('');
-
-    return `
-        <div class="book-card" data-lang="${book.lang}" data-category="${book.category}" data-year="${book.year}">
-            <div class="book-card-inner">
-                <div class="book-cover-wrapper">
-                    <span class="lang-badge ${langClass}">${langLabel[book.lang]}</span>
-                    ${book.year >= 2026 ? '<span class="new-badge">جديد 2026</span>' : ''}
-                    <div class="book-cover-placeholder ${book.coverClass}">
-                        <i class="fas fa-book" style="font-size:28px;margin-bottom:8px;opacity:0.6"></i>
-                        <span style="font-size:10px;opacity:0.9;position:relative;z-index:1">${book.title.length > 30 ? book.title.substring(0,30) + '...' : book.title}</span>
-                    </div>
-                </div>
-                <div class="book-info">
-                    <div class="book-category">${book.tags[0]}</div>
-                    <div class="book-title">${book.title}</div>
-                    ${book.titleSub ? `<div style="font-size:11px;color:#999;margin-bottom:5px">${book.titleSub}</div>` : ''}
-                    <div class="book-author"><i class="fas fa-user-pen"></i> ${book.author}</div>
-                    <div class="book-publisher"><i class="fas fa-building"></i> ${book.publisher}</div>
-                    <div class="book-meta">
-                        <span class="meta-item"><i class="far fa-calendar"></i> ${book.month} ${book.year}</span>
-                        <span class="meta-item"><i class="far fa-file-alt"></i> ${book.pages} ص</span>
-                        ${book.isbn !== 'N/A' ? `<span class="meta-item"><i class="fas fa-barcode"></i> ISBN</span>` : ''}
-                    </div>
-                    <div class="book-rating">
-                        <div class="stars">${starsHtml}</div>
-                        <span style="font-size:12px;font-weight:700;color:var(--gold)">${book.rating}</span>
-                        <span class="rating-source">${book.ratingSource}</span>
-                    </div>
-                    <div class="review-info">${reviewsHtml}</div>
-                </div>
-            </div>
-            <div class="book-footer">
-                <div class="book-tags">
-                    ${book.tags.map(t => `<span class="book-tag">${t}</span>`).join('')}
-                </div>
-                <a href="${book.link}" target="_blank" class="book-link">
-                    <i class="fas fa-external-link-alt"></i> عرض الكتاب
-                </a>
-            </div>
-        </div>
-    `;
+function manualRefresh() {
+  localStorage.removeItem(CK);
+  ALL_BOOKS = [];
+  fetchAll();
 }
 
-function renderStars(rating) {
-    let html = '';
-    const full = Math.floor(rating);
-    const half = rating % 1 >= 0.5 ? 1 : 0;
-    const empty = 5 - full - half;
-    for (let i = 0; i < full; i++) html += '<i class="fas fa-star"></i>';
-    if (half) html += '<i class="fas fa-star-half-alt"></i>';
-    for (let i = 0; i < empty; i++) html += '<i class="far fa-star empty"></i>';
-    return html;
-}
-
-// ===== FILTERS =====
-function filterBooks(type) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
-
-    let filtered = booksData;
-    if (type === 'africa') filtered = booksData.filter(b => b.category === 'africa');
-    else if (type === 'arab') filtered = booksData.filter(b => b.category === 'arab');
-    else if (type === 'geopolitics') filtered = booksData.filter(b => b.category === 'geopolitics');
-    else if (type === 'en') filtered = booksData.filter(b => b.lang === 'en');
-    else if (type === 'fr') filtered = booksData.filter(b => b.lang === 'fr');
-    else if (type === 'ar') filtered = booksData.filter(b => b.lang === 'ar');
-    else if (type === '2026') filtered = booksData.filter(b => b.year === 2026);
-    else if (type === '2025') filtered = booksData.filter(b => b.year === 2025);
-
-    renderBooks(filtered);
-}
-
-function searchBooks() {
-    const q = document.getElementById('searchInput').value.toLowerCase();
-    if (!q) { renderBooks(booksData); return; }
-    const filtered = booksData.filter(b =>
-        b.title.toLowerCase().includes(q) ||
-        b.author.toLowerCase().includes(q) ||
-        b.publisher.toLowerCase().includes(q) ||
-        b.description.toLowerCase().includes(q) ||
-        b.tags.some(t => t.includes(q))
-    );
-    renderBooks(filtered);
-}
-
-// ===== AUTO SCROLL =====
-let autoScrollActive = false;
-let scrollInterval;
-
-function toggleAutoScroll() {
-    autoScrollActive = !autoScrollActive;
-    const icon = document.getElementById('autoIcon');
-    const text = document.getElementById('scrollText');
-
-    if (autoScrollActive) {
-        text.textContent = 'إيقاف التمرير التلقائي';
-        icon.style.animationPlayState = 'running';
-        scrollInterval = setInterval(() => {
-            window.scrollBy({ top: 1, behavior: 'auto' });
-            if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight - 50) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }, 30);
-    } else {
-        text.textContent = 'تشغيل التمرير التلقائي';
-        icon.style.animationPlayState = 'paused';
-        clearInterval(scrollInterval);
-    }
-}
-
-// ===== AUTO REFRESH SIMULATION =====
-let refreshProgress = 0;
-function simulateRefresh() {
-    const bar = document.getElementById('refreshBar');
-    refreshProgress = 0;
-    const interval = setInterval(() => {
-        refreshProgress += (100 / 60);
-        bar.style.width = refreshProgress + '%';
-        if (refreshProgress >= 100) {
-            clearInterval(interval);
-            bar.style.width = '0%';
-            updateTimestamp();
-            setTimeout(simulateRefresh, 500);
+// ═══════════════════════════════════════════
+//  INIT + Daily auto-refresh + auto-purge
+// ═══════════════════════════════════════════
+(async function() {
+  try {
+    const raw = localStorage.getItem(CK);
+    if (raw) {
+      const cache = JSON.parse(raw);
+      if (cache && cache.books && cache.books.length > 0) {
+        ALL_BOOKS = purgeExpired(cache.books); // ← حذف المنتهية عند التحميل
+        if (cache.sources) Object.entries(cache.sources).forEach(([k,v]) => activeSources.set(k,v));
+        updateUI();
+        const elapsed = Date.now() - (cache.ts || 0);
+        if (elapsed < DAY) {
+          console.log('📦 Cache valid, next refresh in', Math.round((DAY-elapsed)/60000), 'min');
+          setTimeout(() => fetchAll(), DAY - elapsed);
+          return;
         }
-    }, 1000);
-}
-
-function updateTimestamp() {
-    const now = new Date();
-    document.getElementById('lastUpdate').textContent =
-        now.getHours().toString().padStart(2, '0') + ':' +
-        now.getMinutes().toString().padStart(2, '0');
-}
-
-// ===== COUNT ANIMATION =====
-function animateCount(id, target) {
-    let current = 0;
-    const step = Math.ceil(target / 30);
-    const interval = setInterval(() => {
-        current += step;
-        if (current >= target) { current = target; clearInterval(interval); }
-        document.getElementById(id).textContent = current;
-    }, 50);
-}
-
-// ===== VIEW TOGGLE =====
-function setView(type) {
-    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
-    event.target.closest('.view-btn').classList.add('active');
-    const grid = document.getElementById('booksGrid');
-    if (type === 'list') {
-        grid.style.gridTemplateColumns = '1fr';
-    } else {
-        grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(340px, 1fr))';
+      }
     }
-}
+  } catch(e) {}
+  await fetchAll();
+})();
 
-// ===== INIT =====
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        document.getElementById('loadingOverlay').classList.add('hidden');
-    }, 1500);
+// Auto-refresh daily
+setInterval(() => fetchAll(), DAY);
 
-    renderSources();
-    renderBooks(booksData);
-    animateCount('totalBooks', booksData.length);
-    updateTimestamp();
-    simulateRefresh();
-});
+// Auto-purge every 6 hours
+setInterval(() => {
+  const before = ALL_BOOKS.length;
+  ALL_BOOKS = purgeExpired(ALL_BOOKS);
+  if (ALL_BOOKS.length < before) {
+    const removed = before - ALL_BOOKS.length;
+    console.log('🗑️ Auto-purged', removed, 'expired books');
+    try { localStorage.setItem(CK, JSON.stringify({ books: ALL_BOOKS.slice(0,600), ts: Date.now(), sources: Object.fromEntries(activeSources) })); } catch(e) {}
+    updateUI();
+    showNotif('🗑️ تم حذف '+removed+' كتاب تجاوز السنة');
+  }
+}, 6 * 60 * 60 * 1000);
 </script>
 </body>
 </html>
