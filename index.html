@@ -5,174 +5,575 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>مرصد الكتب: تركيا • إيران • إسرائيل</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#f4f5f7;--card:#fff;--text:#1a1a2e;--text2:#64748b;
-  --tr:#e30a17;--ir:#239f40;--il:#0038b8;
-  --accent:#e30a17;--shadow:0 2px 20px rgba(0,0,0,.07);--radius:16px
+/* ═══ Reset ═══ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #f4f5f7;
+  --card: #fff;
+  --text: #1a1a2e;
+  --text2: #64748b;
+  --tr: #e30a17;
+  --ir: #239f40;
+  --il: #0038b8;
+  --accent: #e30a17;
+  --shadow: 0 2px 20px rgba(0,0,0,.07);
+  --radius: 16px;
 }
-body{font-family:'Segoe UI','Cairo',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.65}
 
-/* Hero */
-.hero{padding:48px 20px;text-align:center;position:relative;overflow:hidden;
-  background:linear-gradient(135deg,#e30a17 0%,#1a1a2e 33%,#239f40 66%,#0038b8 100%)}
-.hero::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.45)}
-.hero *{position:relative;z-index:2;color:#fff}
-.hero h1{font-size:2.3em;font-weight:900;margin-bottom:8px;text-shadow:0 2px 12px rgba(0,0,0,.4)}
-.hero .sub{font-size:1.1em;opacity:.92;margin-bottom:14px}
-.hero .info{font-size:.9em;opacity:.82;max-width:800px;margin:0 auto;line-height:1.8}
-.flags{font-size:2.2em;margin-bottom:12px;letter-spacing:12px}
+body {
+  font-family: 'Segoe UI', 'Cairo', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+}
 
-/* Stats */
-.stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;max-width:1400px;margin:-30px auto 24px;padding:0 20px;position:relative;z-index:10}
-.stat-card{background:var(--card);border-radius:var(--radius);padding:18px 10px;text-align:center;box-shadow:var(--shadow);transition:transform .3s}
-.stat-card:hover{transform:translateY(-3px)}
-.stat-card.c-tr{border-top:4px solid var(--tr)}
-.stat-card.c-ir{border-top:4px solid var(--ir)}
-.stat-card.c-il{border-top:4px solid var(--il)}
-.stat-card.c-all{border-top:4px solid var(--text)}
-.stat-card .num{font-size:1.7em;font-weight:900;line-height:1}
-.stat-card .num.n-tr{color:var(--tr)}.stat-card .num.n-ir{color:var(--ir)}.stat-card .num.n-il{color:var(--il)}
-.stat-card .lbl{font-size:.76em;color:var(--text2);margin-top:4px;font-weight:600}
+/* ═══ Hero ═══ */
+.hero {
+  padding: 48px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #e30a17 0%, #1a1a2e 33%, #239f40 66%, #0038b8 100%);
+}
 
-/* Controls */
-.controls{max-width:1400px;margin:0 auto 20px;padding:0 20px}
-.search-row{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
-.search-box{flex:1;min-width:250px;padding:12px 22px;border-radius:50px;border:2px solid #e2e8f0;font-size:1em;outline:none;transition:all .3s;background:#fff}
-.search-box:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(227,10,23,.1)}
-.filter-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.fl{font-size:.85em;font-weight:700;color:var(--text);margin-left:4px}
-.fbtn{padding:8px 18px;border-radius:50px;border:2px solid #e2e8f0;background:#fff;cursor:pointer;font-size:.85em;font-weight:700;transition:all .2s;color:var(--text)}
-.fbtn:hover{border-color:var(--accent);color:var(--accent)}
-.fbtn.active{background:var(--text);color:#fff;border-color:var(--text)}
-.fbtn.a-tr{background:var(--tr);color:#fff;border-color:var(--tr)}
-.fbtn.a-ir{background:var(--ir);color:#fff;border-color:var(--ir)}
-.fbtn.a-il{background:var(--il);color:#fff;border-color:var(--il)}
-.fbtn.a-ar{background:#009639;color:#fff;border-color:#009639}
-.fbtn.a-en{background:#7c3aed;color:#fff;border-color:#7c3aed}
-.fbtn.a-fr{background:#2563eb;color:#fff;border-color:#2563eb}
-.sel{padding:8px 16px;border-radius:50px;border:2px solid #e2e8f0;background:#fff;font-size:.85em;font-weight:600;cursor:pointer;outline:none}
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+}
 
-/* Update bar */
-.ubar{max-width:1400px;margin:0 auto 14px;padding:0 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.live{display:flex;align-items:center;gap:7px;font-size:.85em;color:#16a34a;font-weight:700}
-.live-dot{width:9px;height:9px;background:#16a34a;border-radius:50%;animation:pulse 2s infinite}
-@keyframes pulse{50%{opacity:.3;transform:scale(.8)}}
-.time{font-size:.8em;color:var(--text2)}
-.rbtn{padding:8px 20px;border-radius:50px;border:none;background:var(--accent);color:#fff;cursor:pointer;font-size:.85em;font-weight:700;transition:all .3s}
-.rbtn:hover{background:#b80812}.rbtn:disabled{opacity:.4;cursor:not-allowed}
+.hero * { position: relative; z-index: 2; color: #fff; }
 
-/* Sources */
-.src-bar{max-width:1400px;margin:0 auto 12px;padding:0 20px}
-.src-grid{display:flex;flex-wrap:wrap;gap:5px}
-.src-tag{padding:4px 10px;border-radius:20px;font-size:.72em;font-weight:700;background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0;display:flex;align-items:center;gap:4px}
-.src-tag .d{width:6px;height:6px;border-radius:50%}.d.on{background:#16a34a}.d.off{background:#ccc}
+.hero h1 {
+  font-size: 2.3em;
+  font-weight: 900;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 12px rgba(0,0,0,.4);
+}
 
-/* Progress */
-.pbar{max-width:1400px;margin:0 auto 12px;padding:0 20px;display:none}
-.ptrack{height:4px;background:#e2e8f0;border-radius:4px;overflow:hidden}
-.pfill{height:100%;background:linear-gradient(90deg,var(--tr),var(--ir),var(--il));border-radius:4px;transition:width .4s;width:0}
-.ptxt{font-size:.75em;color:var(--text2);margin-top:4px;text-align:center;font-weight:600}
+.hero .sub { font-size: 1.1em; opacity: .92; margin-bottom: 14px; }
 
-/* Errors */
-.elog{max-width:1400px;margin:0 auto 10px;padding:0 20px;display:none}
-.elog-box{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:10px 14px;font-size:.78em;color:#92400e;max-height:100px;overflow-y:auto}
+.hero .info {
+  font-size: .9em;
+  opacity: .82;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
 
-/* Grid */
-.grid{max-width:1400px;margin:0 auto;padding:0 20px 50px;display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:20px}
-.card{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column}
-.card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(0,0,0,.12)}
-.card.b-tr{border-top:4px solid var(--tr)}
-.card.b-ir{border-top:4px solid var(--ir)}
-.card.b-il{border-top:4px solid var(--il)}
-.card.b-multi{border-top:4px solid var(--text)}
-.cover{position:relative;height:220px;background:linear-gradient(135deg,#1a1a2e,#334155);display:flex;align-items:center;justify-content:center;overflow:hidden}
-.cover img{height:185px;max-width:135px;object-fit:cover;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.4);transition:transform .3s;position:relative;z-index:2}
-.card:hover .cover img{transform:scale(1.04)}
-.no-cover{width:120px;height:170px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:3em;position:relative;z-index:2}
-.no-cover.nc-tr{background:linear-gradient(135deg,#e30a17,#c2185b)}
-.no-cover.nc-ir{background:linear-gradient(135deg,#239f40,#1b5e20)}
-.no-cover.nc-il{background:linear-gradient(135deg,#0038b8,#1565c0)}
-.lang-badge{position:absolute;top:10px;right:10px;padding:4px 12px;border-radius:20px;font-size:.75em;font-weight:800;color:#fff;z-index:3;box-shadow:0 2px 6px rgba(0,0,0,.3)}
-.lb-ar{background:#009639}.lb-en{background:#7c3aed}.lb-fr{background:#2563eb}
-.country-badge{position:absolute;top:10px;left:10px;padding:4px 12px;border-radius:20px;font-size:.75em;font-weight:800;color:#fff;z-index:3}
-.cb-tr{background:var(--tr)}.cb-ir{background:var(--ir)}.cb-il{background:var(--il)}.cb-multi{background:#475569}
-.src-badge{position:absolute;bottom:8px;left:8px;padding:3px 8px;border-radius:8px;font-size:.65em;background:rgba(255,255,255,.15);color:rgba(255,255,255,.85);backdrop-filter:blur(4px);font-weight:700;z-index:3}
-.body{padding:16px;flex:1;display:flex;flex-direction:column}
-.title{font-size:1em;font-weight:800;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:8px}
-.author{font-size:.88em;color:var(--accent);font-weight:700;margin-bottom:4px}
-.pub{font-size:.8em;color:var(--text2);margin-bottom:8px}
-.meta{display:flex;flex-wrap:wrap;gap:10px;font-size:.76em;color:var(--text2);margin-bottom:8px}
-.meta span{display:flex;align-items:center;gap:3px;font-weight:600}
-.topics{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
-.tag{padding:3px 10px;border-radius:20px;font-size:.7em;font-weight:700;border:1px solid}
-.tag-tr{background:#fef2f2;color:var(--tr);border-color:#fecaca}
-.tag-ir{background:#f0fdf4;color:#15803d;border-color:#bbf7d0}
-.tag-il{background:#eff6ff;color:var(--il);border-color:#bfdbfe}
-.tag-n{background:#f8fafc;color:#475569;border-color:#e2e8f0}
-.desc{font-size:.82em;color:var(--text2);line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:10px}
-.actions{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
-.alink{flex:1;min-width:85px;padding:9px;text-align:center;border-radius:10px;font-size:.8em;font-weight:700;text-decoration:none;transition:all .2s}
-.ap{background:var(--text);color:#fff}.ap:hover{background:var(--accent)}
-.as{background:#f8fafc;color:var(--text);border:2px solid #e2e8f0}.as:hover{border-color:var(--accent)}
+.flags { font-size: 2.2em; margin-bottom: 12px; letter-spacing: 12px; }
 
-/* Days remaining badge */
-.days-badge{position:absolute;bottom:8px;right:8px;padding:3px 8px;border-radius:8px;font-size:.65em;font-weight:800;z-index:3}
-.days-ok{background:rgba(22,163,74,.85);color:#fff}
-.days-warn{background:rgba(234,179,8,.85);color:#000}
-.days-danger{background:rgba(239,68,68,.85);color:#fff}
+/* ═══ Stats Bar ═══ */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  max-width: 1400px;
+  margin: -30px auto 24px;
+  padding: 0 20px;
+  position: relative;
+  z-index: 10;
+}
 
-.loader{text-align:center;padding:60px;grid-column:1/-1}
-.spinner{width:45px;height:45px;border:4px solid #e2e8f0;border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loader p{font-size:.95em;color:var(--text2);font-weight:600}
-.no-res{text-align:center;padding:60px;grid-column:1/-1;color:var(--text2)}
-.notif{position:fixed;bottom:16px;right:16px;background:#16a34a;color:#fff;padding:12px 20px;border-radius:12px;font-weight:700;font-size:.9em;box-shadow:0 6px 24px rgba(0,0,0,.25);z-index:1000;display:none;animation:sUp .4s ease-out}
-@keyframes sUp{from{transform:translateY(60px);opacity:0}to{transform:translateY(0);opacity:1}}
-footer{background:linear-gradient(135deg,#1a1a2e,#334155);color:#fff;text-align:center;padding:32px 20px;margin-top:32px}
-footer h3{font-size:1.2em;margin-bottom:8px}.footer p{font-size:.85em;opacity:.8}
-@media(max-width:768px){.hero h1{font-size:1.5em}.grid{grid-template-columns:1fr}.stats-bar{grid-template-columns:repeat(3,1fr)}.filter-row{justify-content:center}}
+.stat-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 18px 10px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: transform .3s;
+}
+
+.stat-card:hover { transform: translateY(-3px); }
+.stat-card.c-tr { border-top: 4px solid var(--tr); }
+.stat-card.c-ir { border-top: 4px solid var(--ir); }
+.stat-card.c-il { border-top: 4px solid var(--il); }
+.stat-card.c-all { border-top: 4px solid var(--text); }
+
+.stat-card .num { font-size: 1.7em; font-weight: 900; line-height: 1; }
+.stat-card .num.n-tr { color: var(--tr); }
+.stat-card .num.n-ir { color: var(--ir); }
+.stat-card .num.n-il { color: var(--il); }
+.stat-card .lbl { font-size: .76em; color: var(--text2); margin-top: 4px; font-weight: 600; }
+
+/* ═══ Controls ═══ */
+.controls { max-width: 1400px; margin: 0 auto 20px; padding: 0 20px; }
+
+.search-row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+
+.search-box {
+  flex: 1;
+  min-width: 250px;
+  padding: 12px 22px;
+  border-radius: 50px;
+  border: 2px solid #e2e8f0;
+  font-size: 1em;
+  outline: none;
+  transition: all .3s;
+  background: #fff;
+  font-family: inherit;
+}
+
+.search-box:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(227,10,23,.1);
+}
+
+.filter-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+.fl { font-size: .85em; font-weight: 700; color: var(--text); margin-left: 4px; }
+
+.fbtn {
+  padding: 8px 18px;
+  border-radius: 50px;
+  border: 2px solid #e2e8f0;
+  background: #fff;
+  cursor: pointer;
+  font-size: .85em;
+  font-weight: 700;
+  transition: all .2s;
+  color: var(--text);
+  font-family: inherit;
+}
+
+.fbtn:hover { border-color: var(--accent); color: var(--accent); }
+.fbtn.active { background: var(--text); color: #fff; border-color: var(--text); }
+.fbtn.a-tr { background: var(--tr); color: #fff; border-color: var(--tr); }
+.fbtn.a-ir { background: var(--ir); color: #fff; border-color: var(--ir); }
+.fbtn.a-il { background: var(--il); color: #fff; border-color: var(--il); }
+.fbtn.a-ar { background: #009639; color: #fff; border-color: #009639; }
+.fbtn.a-en { background: #7c3aed; color: #fff; border-color: #7c3aed; }
+.fbtn.a-fr { background: #2563eb; color: #fff; border-color: #2563eb; }
+
+.sel {
+  padding: 8px 16px;
+  border-radius: 50px;
+  border: 2px solid #e2e8f0;
+  background: #fff;
+  font-size: .85em;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  font-family: inherit;
+}
+
+/* ═══ Update Bar ═══ */
+.ubar {
+  max-width: 1400px;
+  margin: 0 auto 14px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.live { display: flex; align-items: center; gap: 7px; font-size: .85em; color: #16a34a; font-weight: 700; }
+
+.live-dot {
+  width: 9px;
+  height: 9px;
+  background: #16a34a;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse {
+  50% { opacity: .3; transform: scale(.8); }
+}
+
+.time { font-size: .8em; color: var(--text2); }
+
+.rbtn {
+  padding: 8px 20px;
+  border-radius: 50px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  font-size: .85em;
+  font-weight: 700;
+  transition: all .3s;
+  font-family: inherit;
+}
+
+.rbtn:hover { background: #b80812; }
+.rbtn:disabled { opacity: .4; cursor: not-allowed; }
+
+/* ═══ Sources ═══ */
+.src-bar { max-width: 1400px; margin: 0 auto 12px; padding: 0 20px; }
+
+.src-grid { display: flex; flex-wrap: wrap; gap: 5px; }
+
+.src-tag {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: .72em;
+  font-weight: 700;
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.src-tag .d { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.d.on { background: #16a34a; }
+.d.off { background: #ccc; }
+
+/* ═══ Progress ═══ */
+.pbar { max-width: 1400px; margin: 0 auto 12px; padding: 0 20px; display: none; }
+
+.ptrack { height: 4px; background: #e2e8f0; border-radius: 4px; overflow: hidden; }
+
+.pfill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--tr), var(--ir), var(--il));
+  border-radius: 4px;
+  transition: width .4s;
+  width: 0%;
+}
+
+.ptxt { font-size: .75em; color: var(--text2); margin-top: 4px; text-align: center; font-weight: 600; }
+
+/* ═══ Error Log ═══ */
+.elog { max-width: 1400px; margin: 0 auto 10px; padding: 0 20px; display: none; }
+
+.elog-box {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: .78em;
+  color: #92400e;
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+/* ═══ Grid ═══ */
+.grid {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px 50px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform .3s, box-shadow .3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,.12); }
+
+.card.b-tr { border-top: 4px solid var(--tr); }
+.card.b-ir { border-top: 4px solid var(--ir); }
+.card.b-il { border-top: 4px solid var(--il); }
+.card.b-multi { border-top: 4px solid var(--text); }
+
+/* ═══ Cover ═══ */
+.cover {
+  position: relative;
+  height: 220px;
+  background: linear-gradient(135deg, #1a1a2e, #334155);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cover img {
+  height: 185px;
+  max-width: 135px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.4);
+  transition: transform .3s;
+  position: relative;
+  z-index: 2;
+}
+
+.card:hover .cover img { transform: scale(1.04); }
+
+.no-cover {
+  width: 120px;
+  height: 170px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3em;
+  position: relative;
+  z-index: 2;
+}
+
+.no-cover.nc-tr { background: linear-gradient(135deg, #e30a17, #c2185b); }
+.no-cover.nc-ir { background: linear-gradient(135deg, #239f40, #1b5e20); }
+.no-cover.nc-il { background: linear-gradient(135deg, #0038b8, #1565c0); }
+
+/* ═══ Badges ═══ */
+.lang-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: .75em;
+  font-weight: 800;
+  color: #fff;
+  z-index: 3;
+  box-shadow: 0 2px 6px rgba(0,0,0,.3);
+}
+
+.lb-ar { background: #009639; }
+.lb-en { background: #7c3aed; }
+.lb-fr { background: #2563eb; }
+
+.country-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: .75em;
+  font-weight: 800;
+  color: #fff;
+  z-index: 3;
+}
+
+.cb-tr { background: var(--tr); }
+.cb-ir { background: var(--ir); }
+.cb-il { background: var(--il); }
+.cb-multi { background: #475569; }
+
+.src-badge {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  padding: 3px 8px;
+  border-radius: 8px;
+  font-size: .65em;
+  background: rgba(255,255,255,.15);
+  color: rgba(255,255,255,.9);
+  backdrop-filter: blur(4px);
+  font-weight: 700;
+  z-index: 3;
+}
+
+.days-badge {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  padding: 3px 8px;
+  border-radius: 8px;
+  font-size: .65em;
+  font-weight: 800;
+  z-index: 3;
+}
+
+.days-ok { background: rgba(22,163,74,.85); color: #fff; }
+.days-warn { background: rgba(234,179,8,.85); color: #000; }
+.days-danger { background: rgba(239,68,68,.85); color: #fff; }
+
+/* ═══ Card Body ═══ */
+.body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
+
+.title {
+  font-size: 1em;
+  font-weight: 800;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.author { font-size: .88em; color: var(--accent); font-weight: 700; margin-bottom: 4px; }
+.pub { font-size: .8em; color: var(--text2); margin-bottom: 8px; }
+
+.meta { display: flex; flex-wrap: wrap; gap: 10px; font-size: .76em; color: var(--text2); margin-bottom: 8px; }
+.meta span { display: flex; align-items: center; gap: 3px; font-weight: 600; }
+
+.topics { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
+
+.tag { padding: 3px 10px; border-radius: 20px; font-size: .7em; font-weight: 700; border: 1px solid; }
+.tag-tr { background: #fef2f2; color: var(--tr); border-color: #fecaca; }
+.tag-ir { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
+.tag-il { background: #eff6ff; color: var(--il); border-color: #bfdbfe; }
+.tag-n { background: #f8fafc; color: #475569; border-color: #e2e8f0; }
+
+.desc {
+  font-size: .82em;
+  color: var(--text2);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.actions { margin-top: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+
+.alink {
+  flex: 1;
+  min-width: 85px;
+  padding: 9px;
+  text-align: center;
+  border-radius: 10px;
+  font-size: .8em;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all .2s;
+}
+
+.ap { background: var(--text); color: #fff; }
+.ap:hover { background: var(--accent); }
+.as { background: #f8fafc; color: var(--text); border: 2px solid #e2e8f0; }
+.as:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ═══ Loader ═══ */
+.loader { text-align: center; padding: 60px; grid-column: 1 / -1; }
+
+.spinner {
+  width: 45px;
+  height: 45px;
+  border: 4px solid #e2e8f0;
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+  margin: 0 auto 14px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loader p { font-size: .95em; color: var(--text2); font-weight: 600; }
+
+.no-res { text-align: center; padding: 60px; grid-column: 1 / -1; color: var(--text2); }
+
+/* ═══ Notification ═══ */
+.notif {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  background: #16a34a;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: .9em;
+  box-shadow: 0 6px 24px rgba(0,0,0,.25);
+  z-index: 1000;
+  display: none;
+  animation: sUp .4s ease-out;
+}
+
+@keyframes sUp {
+  from { transform: translateY(60px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* ═══ Footer ═══ */
+footer {
+  background: linear-gradient(135deg, #1a1a2e, #334155);
+  color: #fff;
+  text-align: center;
+  padding: 32px 20px;
+  margin-top: 32px;
+}
+
+footer h3 { font-size: 1.2em; margin-bottom: 8px; }
+footer p { font-size: .85em; opacity: .8; }
+
+/* ═══ Responsive ═══ */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 1.5em; }
+  .grid { grid-template-columns: 1fr; }
+  .stats-bar { grid-template-columns: repeat(3, 1fr); }
+  .filter-row { justify-content: center; }
+}
 </style>
 </head>
 <body>
 
+<!-- Hero -->
 <div class="hero">
   <div class="flags">🇹🇷 🇮🇷 🇮🇱</div>
   <h1>مرصد الكتب: تركيا • إيران • إسرائيل</h1>
   <p class="sub">Turkey • Iran • Israel — Books Observatory</p>
   <p class="info">
-    رصد آلي يومي لجميع الكتب الصادرة خلال السنة الأخيرة حول تركيا وإيران وإسرائيل
-    <br>بالعربية والإنجليزية والفرنسية — الكتب تبقى حتى تتجاوز 12 شهراً من تاريخ صدورها ثم تُحذف تلقائياً
+    رصد آلي يومي لجميع الكتب الصادرة خلال السنة الأخيرة حول تركيا وإيران وإسرائيل<br>
+    بالعربية والإنجليزية والفرنسية — الكتب تبقى حتى تتجاوز 12 شهراً من تاريخ صدورها ثم تُحذف تلقائياً
   </p>
 </div>
 
+<!-- Stats Bar -->
 <div class="stats-bar">
-  <div class="stat-card c-all"><div class="num" id="sAll">0</div><div class="lbl">📚 إجمالي</div></div>
-  <div class="stat-card c-tr"><div class="num n-tr" id="sTR">0</div><div class="lbl">🇹🇷 تركيا</div></div>
-  <div class="stat-card c-ir"><div class="num n-ir" id="sIR">0</div><div class="lbl">🇮🇷 إيران</div></div>
-  <div class="stat-card c-il"><div class="num n-il" id="sIL">0</div><div class="lbl">🇮🇱 إسرائيل</div></div>
-  <div class="stat-card c-all"><div class="num" id="sAr">0</div><div class="lbl">عربي</div></div>
-  <div class="stat-card c-all"><div class="num" id="sEn">0</div><div class="lbl">English</div></div>
-  <div class="stat-card c-all"><div class="num" id="sFr">0</div><div class="lbl">Français</div></div>
-  <div class="stat-card c-all"><div class="num" id="sSrc">0</div><div class="lbl">🔌 مصادر</div></div>
+  <div class="stat-card c-all">
+    <div class="num" id="sAll">0</div>
+    <div class="lbl">إجمالي</div>
+  </div>
+  <div class="stat-card c-tr">
+    <div class="num n-tr" id="sTR">0</div>
+    <div class="lbl">🇹🇷 تركيا</div>
+  </div>
+  <div class="stat-card c-ir">
+    <div class="num n-ir" id="sIR">0</div>
+    <div class="lbl">🇮🇷 إيران</div>
+  </div>
+  <div class="stat-card c-il">
+    <div class="num n-il" id="sIL">0</div>
+    <div class="lbl">🇮🇱 إسرائيل</div>
+  </div>
+  <div class="stat-card c-all">
+    <div class="num" id="sAr">0</div>
+    <div class="lbl">عربي</div>
+  </div>
+  <div class="stat-card c-all">
+    <div class="num" id="sEn">0</div>
+    <div class="lbl">English</div>
+  </div>
+  <div class="stat-card c-all">
+    <div class="num" id="sFr">0</div>
+    <div class="lbl">Français</div>
+  </div>
+  <div class="stat-card c-all">
+    <div class="num" id="sSrc">0</div>
+    <div class="lbl">مصادر</div>
+  </div>
 </div>
 
+<!-- Controls -->
 <div class="controls">
   <div class="search-row">
-    <input type="text" class="search-box" id="searchInput" placeholder="🔍 ابحث عن كتاب، مؤلف، ناشر..." oninput="filterBooks()">
+    <input type="text" class="search-box" id="searchInput"
+           placeholder="🔍 ابحث عن كتاب، مؤلف، ناشر..."
+           oninput="filterBooks()">
   </div>
   <div class="filter-row">
     <span class="fl">البلد:</span>
-    <button class="fbtn active" onclick="setCountry('all',this)">الكل</button>
-    <button class="fbtn" onclick="setCountry('turkey',this)">🇹🇷 تركيا</button>
-    <button class="fbtn" onclick="setCountry('iran',this)">🇮🇷 إيران</button>
-    <button class="fbtn" onclick="setCountry('israel',this)">🇮🇱 إسرائيل</button>
+    <button class="fbtn active" onclick="setCountry('all', this)">الكل</button>
+    <button class="fbtn" onclick="setCountry('turkey', this)">🇹🇷 تركيا</button>
+    <button class="fbtn" onclick="setCountry('iran', this)">🇮🇷 إيران</button>
+    <button class="fbtn" onclick="setCountry('israel', this)">🇮🇱 إسرائيل</button>
 
     <span class="fl" style="margin-right:12px">اللغة:</span>
-    <button class="fbtn active" onclick="setLang('all',this)" id="langAll">الكل</button>
-    <button class="fbtn" onclick="setLang('ar',this)">عربي</button>
-    <button class="fbtn" onclick="setLang('en',this)">EN</button>
-    <button class="fbtn" onclick="setLang('fr',this)">FR</button>
+    <button class="fbtn active" id="langAll" onclick="setLang('all', this)">الكل</button>
+    <button class="fbtn" onclick="setLang('ar', this)">عربي</button>
+    <button class="fbtn" onclick="setLang('en', this)">EN</button>
+    <button class="fbtn" onclick="setLang('fr', this)">FR</button>
 
     <span class="fl" style="margin-right:12px">الموضوع:</span>
     <select class="sel" id="topicSel" onchange="filterBooks()">
@@ -190,10 +591,23 @@ footer h3{font-size:1.2em;margin-bottom:8px}.footer p{font-size:.85em;opacity:.8
       <option value="Human Rights">حقوق الإنسان</option>
       <option value="Culture">الثقافة</option>
       <option value="Geopolitics">الجيوسياسة</option>
+      <option value="Sanctions">العقوبات</option>
+      <option value="Elections">الانتخابات</option>
+      <option value="Democracy">الديمقراطية</option>
+      <option value="Terrorism">الإرهاب</option>
+      <option value="Security">الأمن</option>
+      <option value="Energy">الطاقة</option>
+      <option value="Migration">الهجرة</option>
+      <option value="Trade">التجارة</option>
+      <option value="Women">المرأة</option>
+      <option value="Technology">التكنولوجيا</option>
+      <option value="Media">الإعلام</option>
     </select>
 
     <span class="fl" style="margin-right:12px">المصدر:</span>
-    <select class="sel" id="srcSel" onchange="filterBooks()"><option value="">الكل</option></select>
+    <select class="sel" id="srcSel" onchange="filterBooks()">
+      <option value="">الكل</option>
+    </select>
 
     <span class="fl" style="margin-right:12px">ترتيب:</span>
     <select class="sel" id="sortSel" onchange="filterBooks()">
@@ -205,37 +619,54 @@ footer h3{font-size:1.2em;margin-bottom:8px}.footer p{font-size:.85em;opacity:.8
   </div>
 </div>
 
+<!-- Update Bar -->
 <div class="ubar">
-  <div class="live"><span class="live-dot"></span>مسح يومي تلقائي</div>
+  <div class="live">
+    <span class="live-dot"></span>
+    مسح يومي تلقائي
+  </div>
   <span class="time" id="lastUp">جاري التحميل...</span>
   <button class="rbtn" id="rBtn" onclick="manualRefresh()">🔄 تحديث</button>
 </div>
 
+<!-- Sources -->
 <div class="src-bar" id="srcBar"></div>
 
+<!-- Progress -->
 <div class="pbar" id="pbar">
   <div class="ptrack"><div class="pfill" id="pfill"></div></div>
   <div class="ptxt" id="ptxt"></div>
 </div>
 
-<div class="elog" id="elog"><div class="elog-box" id="elogBox"></div></div>
-
-<div class="grid" id="grid">
-  <div class="loader"><div class="spinner"></div><p>جار التحميل...</p></div>
+<!-- Error Log -->
+<div class="elog" id="elog">
+  <div class="elog-box" id="elogBox"></div>
 </div>
 
+<!-- Grid -->
+<div class="grid" id="grid">
+  <div class="loader">
+    <div class="spinner"></div>
+    <p>جاري التحميل...</p>
+  </div>
+</div>
+
+<!-- Notification -->
 <div class="notif" id="notif"></div>
 
+<!-- Footer -->
 <footer>
   <h3>🇹🇷🇮🇷🇮🇱 مرصد كتب تركيا وإيران وإسرائيل</h3>
   <p>الكتب تبقى 12 شهراً من تاريخ صدورها ثم تُحذف تلقائياً</p>
-  <p style="font-size:.8em;margin-top:6px;opacity:.7">2025 © Books Observatory</p>
+  <p style="font-size:.8em; margin-top:6px; opacity:.7">© 2025 Books Observatory</p>
 </footer>
 
 <script>
+'use strict';
+
 // ═══════════════════════════════════════════
-//  Turkey • Iran • Israel Books Observatory
-//  v1 - Auto-expiry after 12 months
+// Turkey • Iran • Israel Books Observatory
+// v2 - Fixed & Optimized
 // ═══════════════════════════════════════════
 
 let ALL_BOOKS = [];
@@ -244,17 +675,29 @@ let curLang = 'all';
 let isUpdating = false;
 let activeSources = new Map();
 let errors = [];
-const CK = 'tii_books_v1';
+
+const CK = 'tii_books_v2';
 const DAY = 86400000;
 
 // ── Utilities ──
-function getMinDate() { const d = new Date(); d.setFullYear(d.getFullYear() - 1); return d; }
-function getMinISO() { return getMinDate().toISOString().split('T')[0]; }
+
+function getMinDate() {
+  const d = new Date();
+  d.setFullYear(d.getFullYear() - 1);
+  return d;
+}
+
+function getMinISO() {
+  return getMinDate().toISOString().split('T')[0];
+}
 
 function isRecent(ds) {
   if (!ds) return false;
   if (/^\d{4}$/.test(ds)) ds += '-01-01';
-  try { const d = new Date(ds); return !isNaN(d) && d >= getMinDate() && d <= new Date(); } catch(e) { return false; }
+  try {
+    const d = new Date(ds);
+    return !isNaN(d) && d >= getMinDate() && d <= new Date();
+  } catch(e) { return false; }
 }
 
 function daysRemaining(ds) {
@@ -273,30 +716,56 @@ function fmtDate(ds) {
   if (!ds) return '';
   if (/^\d{4}$/.test(ds)) ds += '-01-01';
   try {
-    const d = new Date(ds); if (isNaN(d)) return '';
-    return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()] + ' ' + d.getFullYear();
+    const d = new Date(ds);
+    if (isNaN(d)) return '';
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return months[d.getMonth()] + ' ' + d.getFullYear();
   } catch(e) { return ''; }
 }
 
 function fmtNow() {
   const d = new Date();
-  return d.getDate()+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' '+
-    String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+  return d.getDate() + '/' +
+    String(d.getMonth() + 1).padStart(2, '0') + '/' +
+    d.getFullYear() + ' ' +
+    String(d.getHours()).padStart(2, '0') + ':' +
+    String(d.getMinutes()).padStart(2, '0');
 }
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-function esc(s) { const d = document.createElement('div'); d.textContent = s||''; return d.innerHTML; }
-function showNotif(m) { const e = document.getElementById('notif'); e.textContent = m; e.style.display = 'block'; setTimeout(() => e.style.display = 'none', 5000); }
-function logErr(src, msg) { errors.push(src+': '+msg); }
+
+function esc(s) {
+  const d = document.createElement('div');
+  d.textContent = s || '';
+  return d.innerHTML;
+}
+
+function showNotif(m) {
+  const e = document.getElementById('notif');
+  e.textContent = m;
+  e.style.display = 'block';
+  setTimeout(() => { e.style.display = 'none'; }, 5000);
+}
+
+function logErr(src, msg) {
+  errors.push(src + ': ' + msg);
+}
 
 async function fetchT(url, opts = {}, ms = 12000) {
   const c = new AbortController();
   const t = setTimeout(() => c.abort(), ms);
-  try { const r = await fetch(url, {...opts, signal: c.signal}); clearTimeout(t); return r; }
-  catch(e) { clearTimeout(t); throw e; }
+  try {
+    const r = await fetch(url, { ...opts, signal: c.signal });
+    clearTimeout(t);
+    return r;
+  } catch(e) {
+    clearTimeout(t);
+    throw e;
+  }
 }
 
 // ── Country Detection ──
+
 const KW_TR = [
   'turkey','turkish','türkiye','turkiye','ankara','istanbul','erdogan','erdoğan',
   'ottoman','ataturk','atatürk','anatolian','anatolia','akp','kurdish turkey',
@@ -312,7 +781,7 @@ const KW_TR = [
 ];
 
 const KW_IR = [
-  'iran','iranian','persia','persian','tehran','tehran','khamenei','khomeini',
+  'iran','iranian','persia','persian','tehran','khamenei','khomeini',
   'islamic republic','iranian revolution','irgc','revolutionary guard',
   'iranian nuclear','jcpoa','iranian politics','iranian economy',
   'sanctions iran','shiite iran','shia iran','velayat-e faqih',
@@ -344,7 +813,7 @@ const KW_IL = [
 ];
 
 function detectCountry(title, desc, authors) {
-  const t = ((title||'') + ' ' + (desc||'') + ' ' + (authors||[]).join(' ')).toLowerCase();
+  const t = ((title || '') + ' ' + (desc || '') + ' ' + (authors || []).join(' ')).toLowerCase();
   const countries = [];
   for (const kw of KW_TR) if (t.includes(kw)) { countries.push('turkey'); break; }
   for (const kw of KW_IR) if (t.includes(kw)) { countries.push('iran'); break; }
@@ -360,137 +829,180 @@ function detectLang(text) {
   if (!text) return 'en';
   if (/[\u0600-\u06FF]/.test(text)) return 'ar';
   if (/[àâéèêëïîôùûüÿçœæ]/i.test(text) ||
-      /\b(le|la|les|du|des|une?|et|dans|pour|avec|sur|livre|politique|histoire)\b/i.test(text)) return 'fr';
+      /\b(le|la|les|du|des|une?|et|dans|pour|avec|sur|livre|politique|histoire)\b/i.test(text))
+    return 'fr';
   return 'en';
 }
 
 function detectTopics(title, desc) {
-  const t = ((title||'')+' '+(desc||'')).toLowerCase();
+  const t = ((title || '') + ' ' + (desc || '')).toLowerCase();
   const out = [];
   const map = [
-    [/politi|سياس/i,'Politics'],[/histor|histoire|تاريخ/i,'History'],
-    [/econom|économi|اقتصاد/i,'Economy'],[/military|militaire|عسكري|جيش|army/i,'Military'],
-    [/nuclear|nucléaire|نووي/i,'Nuclear'],[/relig|دين|islam|شيع|سني/i,'Religion'],
-    [/societ|société|مجتمع/i,'Society'],[/foreign.poli|politique.étrangère|خارجي/i,'Foreign Policy'],
-    [/conflict|conflit|war|guerre|حرب|نزاع/i,'Conflict'],
-    [/diplom|دبلوماس/i,'Diplomacy'],[/human.right|droits|حقوق/i,'Human Rights'],
-    [/cultur|ثقاف/i,'Culture'],[/geopolit|جيوسياس/i,'Geopolitics'],
-    [/election|élection|انتخاب/i,'Elections'],[/sanction|عقوب/i,'Sanctions'],
-    [/terror|إرهاب/i,'Terrorism'],[/democra|ديمقراط/i,'Democracy'],
-    [/energy|énergie|طاق/i,'Energy'],[/secur|sécur|أمن/i,'Security'],
-    [/trade|commerce|تجار/i,'Trade'],[/migrat|هجر/i,'Migration'],
-    [/technol|تقن|تكنولوج/i,'Technology'],[/women|femmes|مرأة|نساء/i,'Women'],
-    [/media|إعلام/i,'Media'],[/oil|gas|pétrole|نفط|غاز/i,'Energy']
+    [/سياس|politi/i, 'Politics'],
+    [/تاريخ|histor|histoire/i, 'History'],
+    [/اقتصاد|econom|économi/i, 'Economy'],
+    [/جيش|عسكري|military|militaire|army/i, 'Military'],
+    [/نووي|nuclear|nucléaire/i, 'Nuclear'],
+    [/سني|شيع|islam\s|دين|relig/i, 'Religion'],
+    [/مجتمع|societ|société/i, 'Society'],
+    [/خارجي|foreign.poli|politique.étrangère/i, 'Foreign Policy'],
+    [/نزاع|حرب|conflict|conflit|war|guerre/i, 'Conflict'],
+    [/دبلوماس|diplom/i, 'Diplomacy'],
+    [/حقوق|human.right|droits/i, 'Human Rights'],
+    [/ثقاف|cultur/i, 'Culture'],
+    [/جيوسياس|geopolit/i, 'Geopolitics'],
+    [/انتخاب|election|élection/i, 'Elections'],
+    [/عقوب|sanction/i, 'Sanctions'],
+    [/ديمقراط|democra/i, 'Democracy'],
+    [/إرهاب|terror/i, 'Terrorism'],
+    [/أمن|secur|sécur/i, 'Security'],
+    [/طاق|energy|énergie/i, 'Energy'],
+    [/هجر|migrat/i, 'Migration'],
+    [/تجار|trade|commerce/i, 'Trade'],
+    [/نساء|مرأة|women|femmes/i, 'Women'],
+    [/تكنولوج|تقن|technol/i, 'Technology'],
+    [/إعلام|media/i, 'Media'],
+    [/غاز|نفط|oil|gas|pétrole/i, 'Energy'],
   ];
   for (const [rx, lb] of map) if (rx.test(t)) out.push(lb);
-  return out.length ? out.slice(0,5) : ['General'];
+  // إزالة التكرار
+  const unique = [...new Set(out)];
+  return unique.length ? unique.slice(0, 5) : ['General'];
 }
 
 // ── Dedup ──
-function normT(s) { return (s||'').toLowerCase().replace(/[^\w\s\u0600-\u06FF]/g,' ').replace(/\s+/g,' ').trim().substring(0,80); }
+
+function normT(s) {
+  return (s || '').toLowerCase()
+    .replace(/[^\w\s\u0600-\u06FF]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .substring(0, 80);
+}
+
 function dedup(books) {
-  const seen = new Set(), titles = [], out = [];
+  const seen = new Set();
+  const titles = [];
+  const out = [];
   for (const b of books) {
-    const nt = normT(b.title); if (!nt || nt.length < 4) continue;
-    const isbn = (b.isbn||'').replace(/[^0-9X]/gi,'');
-    if (isbn.length >= 10) { if (seen.has('i:'+isbn)) continue; seen.add('i:'+isbn); }
+    const nt = normT(b.title);
+    if (!nt || nt.length < 4) continue;
+    const isbn = (b.isbn || '').replace(/[^0-9X]/gi, '');
+    if (isbn.length >= 10) {
+      if (seen.has('i:' + isbn)) continue;
+      seen.add('i:' + isbn);
+    }
     let dup = false;
     for (const et of titles) {
-      if (nt === et || (nt.length > 12 && et.length > 12 && (nt.includes(et) || et.includes(nt)))) { dup = true; break; }
+      if (nt === et || (nt.length > 12 && et.length > 12 && (nt.includes(et) || et.includes(nt)))) {
+        dup = true; break;
+      }
     }
     if (dup) continue;
-    titles.push(nt); out.push(b);
+    titles.push(nt);
+    out.push(b);
   }
   return out;
 }
 
-// ── Purge expired books ──
+// ── Purge Expired ──
+
 function purgeExpired(books) {
-  return books.filter(b => {
-    const dr = daysRemaining(b.publication_date);
-    return dr > 0;
-  });
+  return books.filter(b => daysRemaining(b.publication_date) > 0);
 }
 
 // ── Make Book ──
+
 function mkBook(id, title, authors, publisher, pubDate, pages, isbn, url, cover, desc, lang, source) {
   const countries = detectCountry(title, desc, authors) || [];
   return {
-    id, title: (title||'').trim(),
-    authors: (authors||[]).filter(Boolean).map(a => a.trim()),
-    publisher: (publisher||'').trim(),
+    id,
+    title: (title || '').trim(),
+    authors: (authors || []).filter(Boolean).map(a => a.trim()),
+    publisher: (publisher || '').trim(),
     publication_date: pubDate || '',
-    pages: pages||null, isbn: isbn||'',
-    book_url: url||'', cover: (cover||'').replace('http:','https:'),
-    description: (desc||'').substring(0,500).trim(),
-    language: lang||'en',
+    pages: pages || null,
+    isbn: isbn || '',
+    book_url: url || '',
+    cover: (cover || '').replace('http:', 'https:'),
+    description: (desc || '').substring(0, 500).trim(),
+    language: lang || 'en',
     countries,
     topics: detectTopics(title, desc),
-    source, rating: null, addedAt: Date.now()
+    source,
+    rating: null,
+    addedAt: Date.now()
   };
 }
 
 // ═══════════════════════════════════════════
-//  SEARCH QUERIES
+// SEARCH QUERIES
 // ═══════════════════════════════════════════
+
 const Q = {
   en: [
     // Turkey
-    "turkey politics","turkey economy","erdogan","turkish foreign policy",
-    "ottoman empire","turkish military","turkish elections","turkey democracy",
-    "turkey EU","turkey NATO","kurdish turkey","turkish nationalism",
-    "turkey syria","turkey russia","turkish lira","istanbul","ankara politics",
-    "kemalism","turkey coup","turkish society","turkey religion",
-    "turkey energy","neo-ottoman","turkey middle east",
+    'turkey politics','turkey economy','erdogan','turkish foreign policy',
+    'ottoman empire','turkish military','turkish elections','turkey democracy',
+    'turkey EU','turkey NATO','kurdish turkey','turkish nationalism',
+    'turkey syria','turkey russia','turkish lira','istanbul','ankara politics',
+    'kemalism','turkey coup','turkish society','turkey religion',
+    'turkey energy','neo-ottoman','turkey middle east',
     // Iran
-    "iran politics","iran economy","iranian nuclear","iran sanctions",
-    "khamenei","iranian revolution","IRGC","iran foreign policy",
-    "iran protests","mahsa amini","iran israel","iran proxy",
-    "iranian society","iranian women","iran oil","tehran",
-    "jcpoa iran","iran hezbollah","iran military","iranian diaspora",
-    "iran human rights","iran elections","iran technology",
-    "iran iraq","iran saudi","persian gulf",
+    'iran politics','iran economy','iranian nuclear','iran sanctions',
+    'khamenei','iranian revolution','IRGC','iran foreign policy',
+    'iran protests','mahsa amini','iran israel','iran proxy',
+    'iranian society','iranian women','iran oil','tehran',
+    'jcpoa iran','iran hezbollah','iran military','iranian diaspora',
+    'iran human rights','iran elections','iran technology',
+    'iran iraq','iran saudi','persian gulf',
     // Israel
-    "israel politics","israel economy","israeli military","netanyahu",
-    "israel gaza","october 7","israel hamas","israeli settlements",
-    "israeli democracy","israel iran","israeli elections","tel aviv",
-    "israel technology","startup nation israel","israel palestine",
-    "zionism","israeli society","mossad","idf","iron dome",
-    "west bank","israeli occupation","two state solution",
-    "israel hezbollah","israeli foreign policy","knesset",
+    'israel politics','israel economy','israeli military','netanyahu',
+    'israel gaza','october 7','israel hamas','israeli settlements',
+    'israeli democracy','israel iran','israeli elections','tel aviv',
+    'israel technology','startup nation israel','israel palestine',
+    'zionism','israeli society','mossad','idf','iron dome',
+    'west bank','israeli occupation','two state solution',
+    'israel hezbollah','israeli foreign policy','knesset',
     // Cross-cutting
-    "turkey iran relations","turkey israel relations","iran israel conflict",
-    "middle east geopolitics","middle east power","regional rivalry"
+    'turkey iran relations','turkey israel relations','iran israel conflict',
+    'middle east geopolitics','middle east power','regional rivalry'
   ],
   fr: [
-    "turquie politique","turquie économie","erdogan","politique étrangère turque",
-    "empire ottoman","turquie OTAN","turquie UE","élections turques",
-    "iran politique","iran nucléaire","iran sanctions","khamenei",
-    "iran protestations","iran société","iran pétrole",
-    "israël politique","israël économie","netanyahu","israël gaza",
-    "7 octobre","israël hamas","colonies israéliennes","sionisme",
-    "israël palestine","démocratie israélienne",
-    "turquie iran","iran israël","moyen orient géopolitique"
+    'turquie politique','turquie économie','erdogan','politique étrangère turque',
+    'empire ottoman','turquie OTAN','turquie UE','élections turques',
+    'iran politique','iran nucléaire','iran sanctions','khamenei',
+    'iran protestations','iran société','iran pétrole',
+    'israël politique','israël économie','netanyahu','israël gaza',
+    'octobre 7','israël hamas','colonies israéliennes','sionisme',
+    'israël palestine','démocratie israélienne',
+    'turquie iran','iran israël','moyen orient géopolitique'
   ],
   ar: [
-    "تركيا السياسة","تركيا الاقتصاد","أردوغان","السياسة الخارجية التركية",
-    "الدولة العثمانية","الجيش التركي","الانتخابات التركية","تركيا الناتو",
-    "إيران السياسة","إيران الاقتصاد","النووي الإيراني","العقوبات إيران",
-    "خامنئي","الحرس الثوري","الاحتجاجات الإيرانية","إيران حزب الله",
-    "إسرائيل السياسة","إسرائيل الاقتصاد","نتنياهو","إسرائيل غزة",
-    "السابع من أكتوبر","حماس","المستوطنات","الاحتلال الإسرائيلي",
-    "الصهيونية","القدس","إسرائيل إيران",
-    "تركيا إيران","الشرق الأوسط جيوسياسة"
+    'تركيا السياسة','تركيا الاقتصاد','أردوغان','السياسة الخارجية التركية',
+    'الدولة العثمانية','الجيش التركي','الانتخابات التركية','تركيا الناتو',
+    'إيران السياسة','إيران الاقتصاد','النووي الإيراني','العقوبات إيران',
+    'خامنئي','الحرس الثوري','الاحتجاجات الإيرانية','إيران حزب الله',
+    'إسرائيل السياسة','إسرائيل الاقتصاد','نتنياهو','إسرائيل غزة',
+    'السابع من أكتوبر','حماس','المستوطنات','الاحتلال الإسرائيلي',
+    'الصهيونية','القدس','إسرائيل إيران',
+    'تركيا إيران','الشرق الأوسط جيوسياسة'
   ]
 };
 
 // ═══════════════════════════════════════════
 // SOURCE 1: Google Books
 // ═══════════════════════════════════════════
+
 async function srcGoogle(query, langR) {
   const books = [];
   try {
-    const p = new URLSearchParams({ q: query, printType: 'books', orderBy: 'newest', maxResults: '40' });
+    const p = new URLSearchParams({
+      q: query,
+      printType: 'books',
+      orderBy: 'newest',
+      maxResults: '40'
+    });
     if (langR === 'ar' || langR === 'fr') p.set('langRestrict', langR);
     const r = await fetchT('https://www.googleapis.com/books/v1/volumes?' + p);
     if (r.status === 429) { logErr('Google', 'Rate limit'); await sleep(5000); return books; }
@@ -505,9 +1017,14 @@ async function srcGoogle(query, langR) {
         if (!isRelevant(ft, v.description, v.authors)) continue;
         const lang = v.language === 'ar' ? 'ar' : v.language === 'fr' ? 'fr' : detectLang(v.title);
         const ids = v.industryIdentifiers || [];
-        books.push(mkBook(item.id, ft, v.authors, v.publisher, v.publishedDate,
-          v.pageCount, (ids.find(i => i.type === 'ISBN_13') || ids[0] || {}).identifier,
-          v.infoLink, (v.imageLinks || {}).thumbnail, v.description, lang, 'Google Books'));
+        books.push(mkBook(
+          item.id, ft, v.authors, v.publisher, v.publishedDate,
+          v.pageCount,
+          (ids.find(i => i.type === 'ISBN_13') || ids[0] || {}).identifier,
+          v.infoLink,
+          (v.imageLinks || {}).thumbnail,
+          v.description, lang, 'Google Books'
+        ));
       } catch(e) {}
     }
   } catch(e) { logErr('Google', e.message); }
@@ -517,25 +1034,33 @@ async function srcGoogle(query, langR) {
 // ═══════════════════════════════════════════
 // SOURCE 2: Open Library
 // ═══════════════════════════════════════════
+
 async function srcOpenLib(query) {
   const books = [];
   try {
-    const r = await fetchT('https://openlibrary.org/search.json?q=' + encodeURIComponent(query) + '&limit=25&sort=new');
+    const r = await fetchT(
+      'https://openlibrary.org/search.json?q=' + encodeURIComponent(query) + '&limit=25&sort=new'
+    );
     if (!r.ok) return books;
     const d = await r.json();
     for (const doc of (d.docs || [])) {
       try {
         if (!doc.title) continue;
-        const yr = doc.first_publish_year; if (!yr) continue;
-        const pd = yr + '-01-01'; if (!isRecent(pd)) continue;
+        const yr = doc.first_publish_year;
+        if (!yr) continue;
+        const pd = yr + '-01-01';
+        if (!isRecent(pd)) continue;
         const subj = (doc.subject || []).join(' ');
         if (!isRelevant(doc.title, subj, doc.author_name)) continue;
         const cid = doc.cover_i;
-        books.push(mkBook('ol_'+doc.key, doc.title, doc.author_name,
-          (doc.publisher||[])[0], pd, doc.number_of_pages_median,
-          (doc.isbn||[])[0], 'https://openlibrary.org'+doc.key,
-          cid ? 'https://covers.openlibrary.org/b/id/'+cid+'-M.jpg' : '',
-          '', detectLang(doc.title), 'Open Library'));
+        books.push(mkBook(
+          'ol_' + doc.key, doc.title, doc.author_name,
+          (doc.publisher || [])[0], pd, doc.number_of_pages_median,
+          (doc.isbn || [])[0],
+          'https://openlibrary.org' + doc.key,
+          cid ? 'https://covers.openlibrary.org/b/id/' + cid + '-M.jpg' : '',
+          '', detectLang(doc.title), 'Open Library'
+        ));
       } catch(e) {}
     }
   } catch(e) { logErr('OpenLib', e.message); }
@@ -545,30 +1070,39 @@ async function srcOpenLib(query) {
 // ═══════════════════════════════════════════
 // SOURCE 3: Crossref
 // ═══════════════════════════════════════════
+
 async function srcCrossref(query) {
   const books = [];
   try {
     const p = new URLSearchParams({
-      query, filter: 'type:book,from-pub-date:'+getMinISO(),
-      rows: '20', sort: 'published', order: 'desc'
+      query,
+      filter: 'type:book,from-pub-date:' + getMinISO(),
+      rows: '20',
+      sort: 'published',
+      order: 'desc'
     });
-    const r = await fetchT('https://api.crossref.org/works?'+p,
-      { headers: { 'User-Agent': 'BooksObs/1.0 (mailto:t@example.com)' } });
+    const r = await fetchT('https://api.crossref.org/works?' + p, {
+      headers: { 'User-Agent': 'BooksObs/2.0 (mailto:contact@example.com)' }
+    });
     if (!r.ok) return books;
     const d = await r.json();
-    for (const item of ((d.message||{}).items||[])) {
+    for (const item of ((d.message || {}).items || [])) {
       try {
-        const title = (item.title||[])[0]; if (!title) continue;
-        const auths = (item.author||[]).map(a => ((a.given||'')+' '+(a.family||'')).trim());
-        if (!isRelevant(title, (item.subject||[]).join(' '), auths)) continue;
-        const dp = ((item['published-print']||item['published-online']||{})['date-parts']||[])[0];
+        const title = (item.title || [])[0];
+        if (!title) continue;
+        const auths = (item.author || []).map(a => ((a.given || '') + ' ' + (a.family || '')).trim());
+        if (!isRelevant(title, (item.subject || []).join(' '), auths)) continue;
+        const dp = ((item['published-print'] || item['published-online'] || {})['date-parts'] || [])[0];
         if (!dp) continue;
-        const pd = dp[0]+'-'+String(dp[1]||1).padStart(2,'0')+'-'+String(dp[2]||1).padStart(2,'0');
+        const pd = dp[0] + '-' + String(dp[1] || 1).padStart(2, '0') + '-' + String(dp[2] || 1).padStart(2, '0');
         if (!isRecent(pd)) continue;
-        books.push(mkBook('cr_'+(item.DOI||Math.random().toString(36).substr(2,8)),
-          title, auths, item.publisher, pd, null, (item.ISBN||[])[0],
-          item.URL||(item.DOI?'https://doi.org/'+item.DOI:''),
-          '', '', detectLang(title), 'Crossref'));
+        books.push(mkBook(
+          'cr_' + (item.DOI || Math.random().toString(36).substr(2, 8)),
+          title, auths, item.publisher, pd, null,
+          (item.ISBN || [])[0],
+          item.URL || (item.DOI ? 'https://doi.org/' + item.DOI : ''),
+          '', '', detectLang(title), 'Crossref'
+        ));
       } catch(e) {}
     }
   } catch(e) { logErr('Crossref', e.message); }
@@ -578,30 +1112,38 @@ async function srcCrossref(query) {
 // ═══════════════════════════════════════════
 // SOURCE 4: OpenAlex
 // ═══════════════════════════════════════════
+
 async function srcOpenAlex(query) {
   const books = [];
   try {
     const p = new URLSearchParams({
       search: query,
-      filter: 'type:book,from_publication_date:'+getMinISO(),
-      per_page: '25', sort: 'publication_date:desc'
+      filter: 'type:book,from_publication_date:' + getMinISO(),
+      per_page: '25',
+      sort: 'publication_date:desc'
     });
-    const r = await fetchT('https://api.openalex.org/works?'+p,
-      { headers: { 'User-Agent': 'mailto:t@example.com' } });
+    const r = await fetchT('https://api.openalex.org/works?' + p, {
+      headers: { 'User-Agent': 'mailto:contact@example.com' }
+    });
     if (!r.ok) return books;
     const d = await r.json();
-    for (const w of (d.results||[])) {
+    for (const w of (d.results || [])) {
       try {
-        const title = w.title || w.display_name; if (!title) continue;
-        const pd = w.publication_date; if (!pd || !isRecent(pd)) continue;
-        const auths = (w.authorships||[]).map(a => (a.author||{}).display_name||'').filter(Boolean);
-        const concepts = (w.concepts||[]).map(c => c.display_name||'').join(' ');
+        const title = w.title || w.display_name;
+        if (!title) continue;
+        const pd = w.publication_date;
+        if (!pd || !isRecent(pd)) continue;
+        const auths = (w.authorships || []).map(a => (a.author || {}).display_name || '').filter(Boolean);
+        const concepts = (w.concepts || []).map(c => c.display_name || '').join(' ');
         if (!isRelevant(title, concepts, auths)) continue;
-        const doi = w.doi ? w.doi.replace('https://doi.org/','') : '';
-        books.push(mkBook('oa_'+(w.id||''), title, auths,
-          ((w.primary_location||{}).source||{}).display_name||'',
-          pd, null, '', doi ? 'https://doi.org/'+doi : (w.id||''),
-          '', '', detectLang(title), 'OpenAlex'));
+        const doi = w.doi ? w.doi.replace('https://doi.org/', '') : '';
+        books.push(mkBook(
+          'oa_' + (w.id || ''), title, auths,
+          ((w.primary_location || {}).source || {}).display_name || '',
+          pd, null, '',
+          doi ? 'https://doi.org/' + doi : (w.id || ''),
+          '', '', detectLang(title), 'OpenAlex'
+        ));
       } catch(e) {}
     }
   } catch(e) { logErr('OpenAlex', e.message); }
@@ -611,30 +1153,38 @@ async function srcOpenAlex(query) {
 // ═══════════════════════════════════════════
 // SOURCE 5: Semantic Scholar
 // ═══════════════════════════════════════════
+
 async function srcSemantic(query) {
   const books = [];
   try {
     const yr = new Date().getFullYear();
     const p = new URLSearchParams({
-      query, limit: '12',
+      query,
+      limit: '12',
       fields: 'title,authors,year,externalIds,url,publicationDate,venue,abstract',
-      year: (yr-1)+'-'+yr
+      year: (yr - 1) + '-' + yr
     });
-    const r = await fetchT('https://api.semanticscholar.org/graph/v1/paper/search?'+p, {}, 15000);
+    const r = await fetchT(
+      'https://api.semanticscholar.org/graph/v1/paper/search?' + p,
+      {}, 15000
+    );
     if (r.status === 429) { logErr('Semantic', 'Rate limit'); return books; }
     if (!r.ok) return books;
     const d = await r.json();
-    for (const paper of (d.data||[])) {
+    for (const paper of (d.data || [])) {
       try {
         if (!paper.title) continue;
-        const pd = paper.publicationDate || (paper.year?paper.year+'-01-01':'');
+        const pd = paper.publicationDate || (paper.year ? paper.year + '-01-01' : '');
         if (!pd || !isRecent(pd)) continue;
-        const auths = (paper.authors||[]).map(a => a.name||'');
-        if (!isRelevant(paper.title, (paper.abstract||'')+' '+(paper.venue||''), auths)) continue;
-        const doi = (paper.externalIds||{}).DOI;
-        books.push(mkBook('ss_'+paper.paperId, paper.title, auths, paper.venue||'',
-          pd, null, '', doi?'https://doi.org/'+doi:(paper.url||''),
-          '', paper.abstract||'', detectLang(paper.title), 'Semantic Scholar'));
+        const auths = (paper.authors || []).map(a => a.name || '');
+        if (!isRelevant(paper.title, (paper.abstract || '') + ' ' + (paper.venue || ''), auths)) continue;
+        const doi = (paper.externalIds || {}).DOI;
+        books.push(mkBook(
+          'ss_' + paper.paperId, paper.title, auths, paper.venue || '',
+          pd, null, '',
+          doi ? 'https://doi.org/' + doi : (paper.url || ''),
+          '', paper.abstract || '', detectLang(paper.title), 'Semantic Scholar'
+        ));
       } catch(e) {}
     }
   } catch(e) { logErr('Semantic', e.message); }
@@ -644,28 +1194,35 @@ async function srcSemantic(query) {
 // ═══════════════════════════════════════════
 // SOURCE 6: Internet Archive
 // ═══════════════════════════════════════════
+
 async function srcIA(query) {
   const books = [];
   try {
     const yr = new Date().getFullYear();
-    const url = 'https://archive.org/advancedsearch.php?q='+encodeURIComponent(query)+
-      '+mediatype:texts+year:['+(yr-1)+' TO '+yr+
-      ']&fl[]=identifier&fl[]=title&fl[]=creator&fl[]=publisher&fl[]=date&fl[]=year&fl[]=description&rows=12&output=json';
+    const url = 'https://archive.org/advancedsearch.php?q=' +
+      encodeURIComponent(query) +
+      '+mediatype:texts+year:[' + (yr - 1) + '+TO+' + yr + ']' +
+      '&fl[]=identifier&fl[]=title&fl[]=creator&fl[]=publisher' +
+      '&fl[]=date&fl[]=year&fl[]=description&rows=12&output=json';
     const r = await fetchT(url);
     if (!r.ok) return books;
     const d = await r.json();
-    for (const doc of ((d.response||{}).docs||[])) {
+    for (const doc of ((d.response || {}).docs || [])) {
       try {
         if (!doc.title) continue;
-        const pd = doc.date || (doc.year?doc.year+'-01-01':'');
+        const pd = doc.date || (doc.year ? doc.year + '-01-01' : '');
         if (!isRecent(pd)) continue;
         const auths = doc.creator ? [].concat(doc.creator) : [];
-        if (!isRelevant(doc.title, doc.description||'', auths)) continue;
-        books.push(mkBook('ia_'+doc.identifier, doc.title, auths,
-          Array.isArray(doc.publisher)?doc.publisher[0]:(doc.publisher||''),
-          pd, null, '', 'https://archive.org/details/'+doc.identifier,
-          'https://archive.org/services/img/'+doc.identifier,
-          (doc.description||'').substring(0,300), detectLang(doc.title), 'Internet Archive'));
+        if (!isRelevant(doc.title, doc.description || '', auths)) continue;
+        books.push(mkBook(
+          'ia_' + doc.identifier, doc.title, auths,
+          Array.isArray(doc.publisher) ? doc.publisher[0] : (doc.publisher || ''),
+          pd, null, '',
+          'https://archive.org/details/' + doc.identifier,
+          'https://archive.org/services/img/' + doc.identifier,
+          (doc.description || '').substring(0, 300),
+          detectLang(doc.title), 'Internet Archive'
+        ));
       } catch(e) {}
     }
   } catch(e) { logErr('IA', e.message); }
@@ -675,25 +1232,33 @@ async function srcIA(query) {
 // ═══════════════════════════════════════════
 // SOURCE 7: LOC
 // ═══════════════════════════════════════════
+
 async function srcLOC(query) {
   const books = [];
   try {
-    const r = await fetchT('https://www.loc.gov/books/?q='+encodeURIComponent(query)+'&fo=json&c=12');
+    const r = await fetchT(
+      'https://www.loc.gov/books/?q=' + encodeURIComponent(query) + '&fo=json&c=12'
+    );
     if (!r.ok) return books;
     const d = await r.json();
-    for (const item of (d.results||[])) {
+    for (const item of (d.results || [])) {
       try {
         if (!item.title) continue;
-        const yr = parseInt([].concat(item.date||[])[0]||'');
-        const pd = yr ? yr+'-01-01' : '';
+        const yr = parseInt(([].concat(item.date || []))[0] || '');
+        const pd = yr ? yr + '-01-01' : '';
         if (pd && !isRecent(pd)) continue;
-        const auths = [].concat(item.contributor||[]).filter(c => typeof c === 'string');
+        const auths = [].concat(item.contributor || []).filter(c => typeof c === 'string');
         const desc = Array.isArray(item.description) ? item.description.join(' ') : '';
         if (!isRelevant(item.title, desc, auths)) continue;
-        const img = item.image_url ? (Array.isArray(item.image_url)?item.image_url[0]:item.image_url) : '';
-        books.push(mkBook('loc_'+Math.random().toString(36).substr(2,8),
-          item.title, auths, '', pd, null, '', item.url||item.id||'',
-          img, '', detectLang(item.title), 'LOC'));
+        const img = item.image_url
+          ? (Array.isArray(item.image_url) ? item.image_url[0] : item.image_url)
+          : '';
+        books.push(mkBook(
+          'loc_' + Math.random().toString(36).substr(2, 8),
+          item.title, auths, '', pd, null, '',
+          item.url || item.id || '',
+          img, '', detectLang(item.title), 'LOC'
+        ));
       } catch(e) {}
     }
   } catch(e) { logErr('LOC', e.message); }
@@ -701,86 +1266,105 @@ async function srcLOC(query) {
 }
 
 // ═══════════════════════════════════════════
-//  MAIN ENGINE
+// MAIN ENGINE
 // ═══════════════════════════════════════════
+
 async function fetchAll() {
   if (isUpdating) return;
   isUpdating = true;
   activeSources.clear();
   errors = [];
+
   document.getElementById('elog').style.display = 'none';
   const prev = ALL_BOOKS.length;
   document.getElementById('pbar').style.display = 'block';
   document.getElementById('rBtn').disabled = true;
-  if (!ALL_BOOKS.length)
-    document.getElementById('grid').innerHTML = '<div class="loader"><div class="spinner"></div><p>جار المسح من المصادر...</p></div>';
+
+  if (!ALL_BOOKS.length) {
+    document.getElementById('grid').innerHTML =
+      '<div class="loader"><div class="spinner"></div><p>جار المسح من المصادر...</p></div>';
+  }
 
   const allNew = [];
   const tasks = [];
 
   // Google Books
-  for (const q of Q.en) tasks.push({ fn: () => srcGoogle(q,'en'), name: 'Google Books', q });
-  for (const q of Q.fr) tasks.push({ fn: () => srcGoogle(q,'fr'), name: 'Google Books', q });
-  for (const q of Q.ar) tasks.push({ fn: () => srcGoogle(q,'ar'), name: 'Google Books', q });
+  for (const q of Q.en) tasks.push({ fn: () => srcGoogle(q, 'en'), name: 'Google Books', q });
+  for (const q of Q.fr) tasks.push({ fn: () => srcGoogle(q, 'fr'), name: 'Google Books', q });
+  for (const q of Q.ar) tasks.push({ fn: () => srcGoogle(q, 'ar'), name: 'Google Books', q });
+
   // Open Library
-  for (const q of Q.en.slice(0,20)) tasks.push({ fn: () => srcOpenLib(q), name: 'Open Library', q });
-  for (const q of Q.fr.slice(0,10)) tasks.push({ fn: () => srcOpenLib(q), name: 'Open Library', q });
-  for (const q of Q.ar.slice(0,8)) tasks.push({ fn: () => srcOpenLib(q), name: 'Open Library', q });
+  for (const q of Q.en.slice(0, 20)) tasks.push({ fn: () => srcOpenLib(q), name: 'Open Library', q });
+  for (const q of Q.fr.slice(0, 10)) tasks.push({ fn: () => srcOpenLib(q), name: 'Open Library', q });
+  for (const q of Q.ar.slice(0, 8))  tasks.push({ fn: () => srcOpenLib(q), name: 'Open Library', q });
+
   // Crossref
-  for (const q of Q.en.slice(0,15)) tasks.push({ fn: () => srcCrossref(q), name: 'Crossref', q });
-  for (const q of Q.fr.slice(0,8)) tasks.push({ fn: () => srcCrossref(q), name: 'Crossref', q });
+  for (const q of Q.en.slice(0, 15)) tasks.push({ fn: () => srcCrossref(q), name: 'Crossref', q });
+  for (const q of Q.fr.slice(0, 8))  tasks.push({ fn: () => srcCrossref(q), name: 'Crossref', q });
+
   // OpenAlex
-  for (const q of Q.en.slice(0,15)) tasks.push({ fn: () => srcOpenAlex(q), name: 'OpenAlex', q });
-  for (const q of Q.fr.slice(0,8)) tasks.push({ fn: () => srcOpenAlex(q), name: 'OpenAlex', q });
+  for (const q of Q.en.slice(0, 15)) tasks.push({ fn: () => srcOpenAlex(q), name: 'OpenAlex', q });
+  for (const q of Q.fr.slice(0, 8))  tasks.push({ fn: () => srcOpenAlex(q), name: 'OpenAlex', q });
+
   // Semantic Scholar
-  for (const q of Q.en.slice(0,10)) tasks.push({ fn: () => srcSemantic(q), name: 'Semantic Scholar', q });
+  for (const q of Q.en.slice(0, 10)) tasks.push({ fn: () => srcSemantic(q), name: 'Semantic Scholar', q });
+
   // Internet Archive
-  for (const q of Q.en.slice(0,8)) tasks.push({ fn: () => srcIA(q), name: 'Internet Archive', q });
+  for (const q of Q.en.slice(0, 8)) tasks.push({ fn: () => srcIA(q), name: 'Internet Archive', q });
+
   // LOC
-  for (const q of Q.en.slice(0,6)) tasks.push({ fn: () => srcLOC(q), name: 'LOC', q });
+  for (const q of Q.en.slice(0, 6)) tasks.push({ fn: () => srcLOC(q), name: 'LOC', q });
 
   const total = tasks.length;
   let done = 0;
+  const BATCH = 3; // زيادة حجم الدفعة لتسريع التحميل
 
-  for (let i = 0; i < tasks.length; i += 2) {
-    const batch = tasks.slice(i, i+2);
+  for (let i = 0; i < tasks.length; i += BATCH) {
+    const batch = tasks.slice(i, i + BATCH);
     await Promise.allSettled(batch.map(async t => {
       try {
         const res = await t.fn();
         if (res.length > 0) {
-          activeSources.set(t.name, (activeSources.get(t.name)||0) + res.length);
+          activeSources.set(t.name, (activeSources.get(t.name) || 0) + res.length);
           allNew.push(...res);
         }
       } catch(e) { logErr(t.name, e.message); }
     }));
 
     done += batch.length;
-    const pct = Math.round((done/total)*100);
+    const pct = Math.round((done / total) * 100);
     document.getElementById('pfill').style.width = pct + '%';
-    document.getElementById('ptxt').textContent = pct + '% | ' + batch[0].name + ': ' + batch[0].q.substring(0,30);
+    document.getElementById('ptxt').textContent =
+      pct + '% | ' + batch[0].name + ': ' + batch[0].q.substring(0, 30);
 
-    // Live update
-    if (allNew.length > 0 && done % 16 === 0) {
+    // Live update كل 20 مهمة
+    if (allNew.length > 0 && done % 20 === 0) {
       let temp = dedup([...ALL_BOOKS, ...allNew]);
       temp = purgeExpired(temp);
-      temp.sort((a,b) => new Date(b.publication_date) - new Date(a.publication_date));
+      temp.sort((a, b) => new Date(b.publication_date) - new Date(a.publication_date));
       ALL_BOOKS = temp;
       updateUI();
     }
 
     const src = batch[0].name;
-    await sleep(src === 'Google Books' ? 700 : src === 'Semantic Scholar' ? 1500 : src === 'Crossref' ? 600 : 400);
+    await sleep(
+      src === 'Google Books'     ? 700 :
+      src === 'Semantic Scholar' ? 1500 :
+      src === 'Crossref'         ? 600 : 400
+    );
   }
 
   // Final merge + purge
   ALL_BOOKS = dedup([...ALL_BOOKS, ...allNew]);
   ALL_BOOKS = purgeExpired(ALL_BOOKS);
-  ALL_BOOKS.sort((a,b) => new Date(b.publication_date) - new Date(a.publication_date));
+  ALL_BOOKS.sort((a, b) => new Date(b.publication_date) - new Date(a.publication_date));
+
   const added = ALL_BOOKS.length - prev;
 
   try {
     localStorage.setItem(CK, JSON.stringify({
-      books: ALL_BOOKS.slice(0,600), ts: Date.now(),
+      books: ALL_BOOKS.slice(0, 600),
+      ts: Date.now(),
       sources: Object.fromEntries(activeSources)
     }));
   } catch(e) {}
@@ -788,41 +1372,56 @@ async function fetchAll() {
   document.getElementById('pbar').style.display = 'none';
   document.getElementById('rBtn').disabled = false;
   isUpdating = false;
+
   updateUI();
 
   if (errors.length) {
     document.getElementById('elog').style.display = 'block';
-    document.getElementById('elogBox').innerHTML = errors.slice(-8).map(e => '⚠️ '+e).join('<br>');
+    document.getElementById('elogBox').innerHTML =
+      errors.slice(-8).map(e => '⚠️ ' + esc(e)).join('<br>');
   }
 
-  if (added > 0 && prev > 0) showNotif('✅ '+added+' كتاب جديد من '+activeSources.size+' مصادر');
+  if (added > 0 && prev > 0) {
+    showNotif('✅ ' + added + ' كتاب جديد من ' + activeSources.size + ' مصادر');
+  }
+
   console.log('✅ Total:', ALL_BOOKS.length, '| New:', added, '| Sources:', activeSources.size);
 }
 
 // ═══════════════════════════════════════════
-//  UI
+// UI Functions
 // ═══════════════════════════════════════════
-function updateUI() { updateStats(); filterBooks(); updateTime(); updateSrcUI(); updateSrcFilter(); }
+
+function updateUI() {
+  updateStats();
+  filterBooks();
+  updateTime();
+  updateSrcUI();
+  updateSrcFilter();
+}
 
 function updateStats() {
   document.getElementById('sAll').textContent = ALL_BOOKS.length;
-  document.getElementById('sTR').textContent = ALL_BOOKS.filter(b => b.countries.includes('turkey')).length;
-  document.getElementById('sIR').textContent = ALL_BOOKS.filter(b => b.countries.includes('iran')).length;
-  document.getElementById('sIL').textContent = ALL_BOOKS.filter(b => b.countries.includes('israel')).length;
-  document.getElementById('sAr').textContent = ALL_BOOKS.filter(b => b.language === 'ar').length;
-  document.getElementById('sEn').textContent = ALL_BOOKS.filter(b => b.language === 'en').length;
-  document.getElementById('sFr').textContent = ALL_BOOKS.filter(b => b.language === 'fr').length;
+  document.getElementById('sTR').textContent  = ALL_BOOKS.filter(b => b.countries.includes('turkey')).length;
+  document.getElementById('sIR').textContent  = ALL_BOOKS.filter(b => b.countries.includes('iran')).length;
+  document.getElementById('sIL').textContent  = ALL_BOOKS.filter(b => b.countries.includes('israel')).length;
+  document.getElementById('sAr').textContent  = ALL_BOOKS.filter(b => b.language === 'ar').length;
+  document.getElementById('sEn').textContent  = ALL_BOOKS.filter(b => b.language === 'en').length;
+  document.getElementById('sFr').textContent  = ALL_BOOKS.filter(b => b.language === 'fr').length;
   document.getElementById('sSrc').textContent = activeSources.size;
 }
 
-function updateTime() { document.getElementById('lastUp').textContent = 'آخر تحديث: ' + fmtNow(); }
+function updateTime() {
+  document.getElementById('lastUp').textContent = 'آخر تحديث: ' + fmtNow();
+}
 
 function updateSrcUI() {
   const all = ['Google Books','Open Library','Crossref','OpenAlex','Semantic Scholar','Internet Archive','LOC'];
   document.getElementById('srcBar').innerHTML = '<div class="src-grid">' +
     all.map(s => {
-      const c = activeSources.get(s)||0;
-      return '<span class="src-tag"><span class="d '+(c?'on':'off')+'"></span>'+s+(c?' ('+c+')':'')+'</span>';
+      const c = activeSources.get(s) || 0;
+      return '<span class="src-tag"><span class="d ' + (c ? 'on' : 'off') + '"></span>' +
+        esc(s) + (c ? ' (' + c + ')' : '') + '</span>';
     }).join('') + '</div>';
 }
 
@@ -830,9 +1429,10 @@ function updateSrcFilter() {
   const sel = document.getElementById('srcSel');
   const cur = sel.value;
   const srcs = [...new Set(ALL_BOOKS.map(b => b.source))].sort();
-  sel.innerHTML = '<option value="">الكل ('+srcs.length+')</option>';
+  sel.innerHTML = '<option value="">الكل (' + srcs.length + ')</option>';
   srcs.forEach(s => {
-    sel.innerHTML += '<option value="'+esc(s)+'">'+esc(s)+' ('+ALL_BOOKS.filter(b => b.source === s).length+')</option>';
+    sel.innerHTML += '<option value="' + esc(s) + '">' + esc(s) +
+      ' (' + ALL_BOOKS.filter(b => b.source === s).length + ')</option>';
   });
   sel.value = cur;
 }
@@ -840,38 +1440,36 @@ function updateSrcFilter() {
 function setCountry(c, btn) {
   curCountry = c;
   document.querySelectorAll('.filter-row .fbtn').forEach(b => {
-    if (['🇹🇷','🇮🇷','🇮🇱','الكل'].some(x => b.textContent.includes(x))) b.className = 'fbtn';
+    const txt = b.textContent.trim();
+    if (['الكل','🇹🇷 تركيا','🇮🇷 إيران','🇮🇱 إسرائيل'].some(x => txt.includes(x.trim()))) {
+      b.className = 'fbtn';
+    }
   });
-  if (c === 'all') btn.classList.add('active');
-  else if (c === 'turkey') btn.classList.add('a-tr');
-  else if (c === 'iran') btn.classList.add('a-ir');
-  else if (c === 'israel') btn.classList.add('a-il');
+  if (c === 'all')       btn.classList.add('active');
+  else if (c === 'turkey')  btn.classList.add('a-tr');
+  else if (c === 'iran')    btn.classList.add('a-ir');
+  else if (c === 'israel')  btn.classList.add('a-il');
   filterBooks();
 }
 
 function setLang(l, btn) {
   curLang = l;
-  // Reset only lang buttons
-  const langBtns = [...document.querySelectorAll('.filter-row .fbtn')].filter(b =>
-    ['الكل','عربي','EN','FR'].includes(b.textContent.trim()) && b.id !== undefined
-  );
-  // Simple approach: reset all then set
   document.querySelectorAll('.filter-row .fbtn').forEach(b => {
-    if (['عربي','EN','FR'].includes(b.textContent.trim()) ||
-        (b.textContent.trim() === 'الكل' && b === document.getElementById('langAll'))) {
+    const txt = b.textContent.trim();
+    if (['الكل','عربي','EN','FR'].includes(txt) || b === document.getElementById('langAll')) {
       b.className = 'fbtn';
     }
   });
   if (l === 'all') btn.classList.add('active');
-  else btn.classList.add('a-'+l);
+  else btn.classList.add('a-' + l);
   filterBooks();
 }
 
 function filterBooks() {
   const search = document.getElementById('searchInput').value.toLowerCase().trim();
-  const topic = document.getElementById('topicSel').value;
-  const src = document.getElementById('srcSel').value;
-  const sort = document.getElementById('sortSel').value;
+  const topic  = document.getElementById('topicSel').value;
+  const src    = document.getElementById('srcSel').value;
+  const sort   = document.getElementById('sortSel').value;
 
   let list = ALL_BOOKS.filter(b => {
     if (curCountry !== 'all' && !b.countries.includes(curCountry)) return false;
@@ -879,78 +1477,96 @@ function filterBooks() {
     if (topic && !b.topics.some(t => t.toLowerCase().includes(topic.toLowerCase()))) return false;
     if (src && b.source !== src) return false;
     if (search) {
-      const hay = (b.title+' '+b.authors.join(' ')+' '+b.publisher+' '+(b.description||'')).toLowerCase();
+      const hay = (b.title + ' ' + b.authors.join(' ') + ' ' + b.publisher + ' ' + (b.description || '')).toLowerCase();
       if (!hay.includes(search)) return false;
     }
     return true;
   });
 
   switch(sort) {
-    case 'newest': list.sort((a,b) => new Date(b.publication_date) - new Date(a.publication_date)); break;
-    case 'oldest': list.sort((a,b) => new Date(a.publication_date) - new Date(b.publication_date)); break;
-    case 'expiring': list.sort((a,b) => daysRemaining(a.publication_date) - daysRemaining(b.publication_date)); break;
-    case 'title': list.sort((a,b) => a.title.localeCompare(b.title)); break;
+    case 'newest':   list.sort((a, b) => new Date(b.publication_date) - new Date(a.publication_date)); break;
+    case 'oldest':   list.sort((a, b) => new Date(a.publication_date) - new Date(b.publication_date)); break;
+    case 'expiring': list.sort((a, b) => daysRemaining(a.publication_date) - daysRemaining(b.publication_date)); break;
+    case 'title':    list.sort((a, b) => a.title.localeCompare(b.title, 'ar')); break;
   }
+
   renderBooks(list);
 }
 
 function renderBooks(books) {
   const grid = document.getElementById('grid');
+
   if (!books.length && !ALL_BOOKS.length) {
-    grid.innerHTML = '<div class="loader"><div class="spinner"></div><p>جار التحميل...</p></div>'; return;
+    grid.innerHTML = '<div class="loader"><div class="spinner"></div><p>جار التحميل...</p></div>';
+    return;
   }
+
   if (!books.length) {
-    grid.innerHTML = '<div class="no-res"><p style="font-size:3em">🔍</p><p>لا توجد كتب مطابقة</p></div>'; return;
+    grid.innerHTML = '<div class="no-res"><p style="font-size:3em">🔍</p><p>لا توجد كتب مطابقة</p></div>';
+    return;
   }
 
   grid.innerHTML = books.map(b => {
     const countries = b.countries || [];
     const mainC = countries[0] || 'multi';
-    const bc = countries.length > 1 ? 'b-multi' : 'b-'+mainC.substring(0,2);
-    const cbClass = countries.length > 1 ? 'cb-multi' : 'cb-'+mainC.substring(0,2);
-    const countryLabel = countries.length > 1 ?
-      countries.map(c => c === 'turkey' ? '🇹🇷' : c === 'iran' ? '🇮🇷' : '🇮🇱').join('') :
-      (mainC === 'turkey' ? '🇹🇷 تركيا' : mainC === 'iran' ? '🇮🇷 إيران' : '🇮🇱 إسرائيل');
+    const isMulti = countries.length > 1;
+
+    const bc = isMulti ? 'b-multi' : 'b-' + mainC.substring(0, 2);
+    const cbClass = isMulti ? 'cb-multi' : 'cb-' + mainC.substring(0, 2);
+
+    const countryLabel = isMulti
+      ? countries.map(c => c === 'turkey' ? '🇹🇷' : c === 'iran' ? '🇮🇷' : '🇮🇱').join('')
+      : (mainC === 'turkey' ? '🇹🇷 تركيا' : mainC === 'iran' ? '🇮🇷 إيران' : '🇮🇱 إسرائيل');
 
     const lc = 'lb-' + b.language;
     const ll = b.language === 'ar' ? 'عربي' : b.language === 'fr' ? 'FR' : 'EN';
     const date = fmtDate(b.publication_date);
     const dr = daysRemaining(b.publication_date);
     const drClass = dr > 180 ? 'days-ok' : dr > 60 ? 'days-warn' : 'days-danger';
-    const drText = dr + ' يوم متبقي';
-
+    const drText = dr + ' يوم متبقٍ';
     const ncClass = mainC === 'turkey' ? 'nc-tr' : mainC === 'iran' ? 'nc-ir' : 'nc-il';
     const ncEmoji = mainC === 'turkey' ? '🇹🇷' : mainC === 'iran' ? '🇮🇷' : '🇮🇱';
 
     const coverHTML = b.cover
-      ? '<img src="'+esc(b.cover)+'" alt="" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'"><div class="no-cover '+ncClass+'" style="display:none">'+ncEmoji+'</div>'
-      : '<div class="no-cover '+ncClass+'">'+ncEmoji+'</div>';
+      ? `<img src="${esc(b.cover)}" alt="${esc(b.title)}" loading="lazy"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+         <div class="no-cover ${ncClass}" style="display:none">${ncEmoji}</div>`
+      : `<div class="no-cover ${ncClass}">${ncEmoji}</div>`;
 
-    const tagClass = c => c === 'turkey' ? 'tag-tr' : c === 'iran' ? 'tag-ir' : c === 'israel' ? 'tag-il' : 'tag-n';
-    const tags = b.topics.slice(0,4).map(t => '<span class="tag tag-n">'+esc(t)+'</span>').join('');
+    const tags = b.topics.slice(0, 4).map(t =>
+      `<span class="tag tag-n">${esc(t)}</span>`
+    ).join('');
 
-    return '<div class="card '+bc+'">' +
-      '<div class="cover">' + coverHTML +
-      '<span class="lang-badge '+lc+'">'+ll+'</span>' +
-      '<span class="country-badge '+cbClass+'">'+countryLabel+'</span>' +
-      '<span class="src-badge">'+esc(b.source)+'</span>' +
-      '<span class="days-badge '+drClass+'">'+drText+'</span>' +
-      '</div>' +
-      '<div class="body">' +
-      '<div class="title">'+esc(b.title)+'</div>' +
-      '<div class="author">'+esc(b.authors.slice(0,3).join(', ')||'—')+'</div>' +
-      '<div class="pub">'+esc(b.publisher||'—')+'</div>' +
-      '<div class="meta">' +
-      (date ? '<span>📅 '+date+'</span>' : '') +
-      (b.pages ? '<span>📄 '+b.pages+'</span>' : '') +
-      (b.isbn ? '<span>📋 ISBN</span>' : '') +
-      '</div>' +
-      '<div class="topics">'+tags+'</div>' +
-      (b.description ? '<div class="desc">'+esc(b.description)+'</div>' : '') +
-      '<div class="actions">' +
-      (b.book_url ? '<a href="'+esc(b.book_url)+'" target="_blank" class="alink ap">🔗 الكتاب</a>' : '') +
-      (b.isbn ? '<a href="https://www.worldcat.org/isbn/'+esc(b.isbn)+'" target="_blank" class="alink as">📚 WorldCat</a>' : '') +
-      '</div></div></div>';
+    return `
+<div class="card ${bc}">
+  <div class="cover">
+    ${coverHTML}
+    <span class="lang-badge ${lc}">${ll}</span>
+    <span class="country-badge ${cbClass}">${countryLabel}</span>
+    <span class="src-badge">${esc(b.source)}</span>
+    <span class="days-badge ${drClass}">${drText}</span>
+  </div>
+  <div class="body">
+    <div class="title">${esc(b.title)}</div>
+    <div class="author">${esc(b.authors.slice(0, 3).join(', ') || '—')}</div>
+    <div class="pub">${esc(b.publisher || '—')}</div>
+    <div class="meta">
+      ${date ? `<span>📅 ${date}</span>` : ''}
+      ${b.pages ? `<span>📄 ${b.pages}</span>` : ''}
+      ${b.isbn ? `<span>🔖 ISBN</span>` : ''}
+    </div>
+    <div class="topics">${tags}</div>
+    ${b.description ? `<div class="desc">${esc(b.description)}</div>` : ''}
+    <div class="actions">
+      ${b.book_url
+        ? `<a href="${esc(b.book_url)}" target="_blank" rel="noopener" class="alink ap">🔗 الكتاب</a>`
+        : ''}
+      ${b.isbn
+        ? `<a href="https://www.worldcat.org/isbn/${esc(b.isbn)}" target="_blank" rel="noopener" class="alink as">🌐 WorldCat</a>`
+        : ''}
+    </div>
+  </div>
+</div>`;
   }).join('');
 }
 
@@ -961,20 +1577,23 @@ function manualRefresh() {
 }
 
 // ═══════════════════════════════════════════
-//  INIT + Daily auto-refresh + auto-purge
+// INIT
 // ═══════════════════════════════════════════
-(async function() {
+
+(async function init() {
   try {
     const raw = localStorage.getItem(CK);
     if (raw) {
       const cache = JSON.parse(raw);
       if (cache && cache.books && cache.books.length > 0) {
-        ALL_BOOKS = purgeExpired(cache.books); // ← حذف المنتهية عند التحميل
-        if (cache.sources) Object.entries(cache.sources).forEach(([k,v]) => activeSources.set(k,v));
+        ALL_BOOKS = purgeExpired(cache.books);
+        if (cache.sources) {
+          Object.entries(cache.sources).forEach(([k, v]) => activeSources.set(k, v));
+        }
         updateUI();
         const elapsed = Date.now() - (cache.ts || 0);
         if (elapsed < DAY) {
-          console.log('📦 Cache valid, next refresh in', Math.round((DAY-elapsed)/60000), 'min');
+          console.log('🟠 Cache valid, next refresh in', Math.round((DAY - elapsed) / 60000), 'min');
           setTimeout(() => fetchAll(), DAY - elapsed);
           return;
         }
@@ -994,11 +1613,17 @@ setInterval(() => {
   if (ALL_BOOKS.length < before) {
     const removed = before - ALL_BOOKS.length;
     console.log('🗑️ Auto-purged', removed, 'expired books');
-    try { localStorage.setItem(CK, JSON.stringify({ books: ALL_BOOKS.slice(0,600), ts: Date.now(), sources: Object.fromEntries(activeSources) })); } catch(e) {}
+    try {
+      localStorage.setItem(CK, JSON.stringify({
+        books: ALL_BOOKS.slice(0, 600),
+        ts: Date.now(),
+        sources: Object.fromEntries(activeSources)
+      }));
+    } catch(e) {}
     updateUI();
-    showNotif('🗑️ تم حذف '+removed+' كتاب تجاوز السنة');
+    showNotif('🗑️ تم حذف ' + removed + ' كتاب تجاوز السنة');
   }
-}, 6 * 60 * 60 * 1000);
+}, 1000 * 60 * 60 * 6);
 </script>
 </body>
 </html>
